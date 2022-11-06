@@ -1,0 +1,9 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <DebugType>embedded</DebugType>
+    <ImplicitUsings>true</ImplicitUsings>
+  </PropertyGroup>
+</Project>
