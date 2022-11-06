@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<coverage version="1.0" date="2022-11-07_00-37-22" tag="">
+  <assembly name="PrimeService">
+    <class name="PrimeService.PrimeService" coveredlines="12" coverablelines="12" totallines="21" coveredbranches="6" totalbranches="6" coveredcodeelements="1" totalcodeelements="1" />
+  </assembly>
+</coverage>

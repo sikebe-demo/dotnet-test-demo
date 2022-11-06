@@ -1,1 +1,1 @@
-# csharp-template
+# dotnet-test-demo
