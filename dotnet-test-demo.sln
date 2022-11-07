@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesProject", "src\Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesProject.IntegrationTests", "src\RazorPagesProject.IntegrationTests\RazorPagesProject.IntegrationTests.csproj", "{E16DA5CF-0679-4699-9854-508B2BD25CF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorPagesProject.E2ETests", "src\RazorPagesProject.E2ETests\RazorPagesProject.E2ETests.csproj", "{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,11 +40,16 @@ Global
 		{E16DA5CF-0679-4699-9854-508B2BD25CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E16DA5CF-0679-4699-9854-508B2BD25CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E16DA5CF-0679-4699-9854-508B2BD25CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{825AC341-A081-401D-8757-E1EB9F6F82B6} = {061BC096-7A4D-410E-85B4-12028374D092}
 		{64DDF4E4-C469-4F62-ABE6-511A61EAF6DB} = {061BC096-7A4D-410E-85B4-12028374D092}
 		{05861E54-7387-4F0B-927C-FB06DE3A8636} = {061BC096-7A4D-410E-85B4-12028374D092}
 		{E16DA5CF-0679-4699-9854-508B2BD25CF6} = {061BC096-7A4D-410E-85B4-12028374D092}
+		{4A3B4B3D-0E7F-4701-9DFD-2DD5D744F83A} = {061BC096-7A4D-410E-85B4-12028374D092}
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model IndexModel
 @{
     ViewData["Title"] = "Message System";
@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="form-group">
                 <label asp-for="Message.Text"></label>
-                <input asp-for="Message.Text" class="form-control" style="width:100%">
+                <input id="newMessage" asp-for="Message.Text" class="form-control" style="width:100%">
                 <span asp-validation-for="Message.Text" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +40,7 @@
                     {
                         <li style="line-height:2.5">
                             <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">Delete</button>
-                            @message.Text
+							<span class="message-list">@message.Text</span>
                         </li>
                     }
                 }
