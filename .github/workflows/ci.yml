@@ -31,10 +31,7 @@ jobs:
       run: dotnet test
 
     - name: Run web app
-      working-directory: ./src/RazorPagesProject
-      run: |
-        Invoke-Command -ScriptBlock { dotnet run --no-build } -AsJob
-        Start-Sleep -s 5
+      run: dotnet cake ./build.cake
 
     - name: Run E2E tests
       working-directory: ./src/RazorPagesProject.E2ETests
