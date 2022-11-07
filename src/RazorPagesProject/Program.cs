@@ -53,7 +53,8 @@ app.Run();
 static void SeedDatabase(WebApplication app)
 {
     using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var container = scope.ServiceProvider;
+    var db = container.GetRequiredService<ApplicationDbContext>();
     db.Database.EnsureCreated();
 
     if (!db.Messages.Any())
@@ -64,8 +65,10 @@ static void SeedDatabase(WebApplication app)
         }
         catch (Exception ex)
         {
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            var logger = container.GetRequiredService<ILogger<Program>>();
             logger.LogError(ex, "An error occurred seeding the database. Error: {Message}", ex.Message);
         }
     }
 }
+
+public partial class Program { }

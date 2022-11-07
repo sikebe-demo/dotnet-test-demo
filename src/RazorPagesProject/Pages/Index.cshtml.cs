@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
@@ -7,13 +7,11 @@ namespace RazorPagesProject.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
     private readonly ApplicationDbContext _db;
     private readonly IQuoteService _quoteService;
 
-    public IndexModel(ApplicationDbContext db, IQuoteService quoteService, ILogger<IndexModel> logger)
+    public IndexModel(ApplicationDbContext db, IQuoteService quoteService)
     {
-        _logger = logger;
         _db = db;
         _quoteService = quoteService;
     }

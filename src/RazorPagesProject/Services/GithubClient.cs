@@ -14,7 +14,6 @@ public class GithubClient : IGithubClient
         var response = await Client.GetAsync($"/users/{Uri.EscapeDataString(userName)}");
         response.EnsureSuccessStatusCode();
 
-        //return await response.Content.ReadAsAsync<GithubUser>();
         var user = await response.Content.ReadFromJsonAsync<GithubUser>();
         return user!;
     }
