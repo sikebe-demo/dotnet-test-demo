@@ -7,7 +7,7 @@ public class PrimeServiceTest
     private readonly PrimeService _primeService = new();
 
     [Theory]
-    [InlineData(-1)]
+    [InlineData(-2)]
     [InlineData(0)]
     [InlineData(1)]
     public void IsPrime_ValuesLessThan2_ReturnFalse(int value)
