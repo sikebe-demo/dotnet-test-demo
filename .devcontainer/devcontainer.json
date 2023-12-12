@@ -1,0 +1,20 @@
+{
+	"name": "C# (.NET)",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0",
+	"forwardPorts": [
+		5016,
+		7072
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"EditorConfig.EditorConfig",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"github.vscode-github-actions",
+				"ms-dotnettools.csdevkit",
+				"ms-dotnettools.csharp"
+			]
+		}
+	}
+}
