@@ -1,13 +1,8 @@
 namespace RazorPagesProject.Services;
 
-public class GithubClient : IGithubClient
+public class GithubClient(HttpClient client) : IGithubClient
 {
-    public GithubClient(HttpClient client)
-    {
-        Client = client;
-    }
-
-    public HttpClient Client { get; }
+    public HttpClient Client { get; } = client;
 
     public async Task<GithubUser> GetUserAsync(string userName)
     {
