@@ -9,3 +9,4 @@ coverage/report
 app.db
 app.db-shm
 app.db-wal
+.mono
