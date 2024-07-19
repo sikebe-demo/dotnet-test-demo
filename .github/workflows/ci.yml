@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  ci:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
@@ -19,20 +19,22 @@ jobs:
     - name: Build
       run: dotnet build
 
-    - name: Restore .NET tools
-      run: dotnet tool restore
-
     - name: Run unit tests and generate coverage report
       working-directory: ./src/PrimeService.Tests
-      run: dotnet test --collect:"XPlat Code Coverage"
+      run: dotnet test --collect:"XPlat Code Coverage" --no-build
 
     - name: Run integrations tests
       working-directory: ./src/RazorPagesProject.IntegrationTests
-      run: dotnet test
+      run: dotnet test --no-build
 
-    - name: Run web app
-      run: dotnet cake ./build.cake
+    - name: Run web app and E2E tests
+      run: |
+        dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
+        dotnet test ./src/RazorPagesProject.E2ETests
 
-    - name: Run E2E tests
-      working-directory: ./src/RazorPagesProject.E2ETests
-      run: dotnet test
+    - name: Upload logs
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: logs
+        path: src/RazorPagesProject.E2ETests/bin/Debug/net8.0/logs
