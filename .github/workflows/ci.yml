@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  ci:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
@@ -27,15 +27,11 @@ jobs:
       working-directory: ./src/RazorPagesProject.IntegrationTests
       run: dotnet test --no-build
 
-    - name: Run web app
-      working-directory: ./src/RazorPagesProject
+    - name: Run web app and E2E tests
       run: |
-        dotnet run --no-build &
+        dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
         sleep 10
-
-    - name: Run E2E tests
-      working-directory: ./src/RazorPagesProject.E2ETests
-      run: dotnet test
+        dotnet test ./src/RazorPagesProject.E2ETests
 
     - name: Upload logs
       uses: actions/upload-artifact@v4
