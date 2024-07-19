@@ -30,7 +30,6 @@ jobs:
     - name: Run web app and E2E tests
       run: |
         dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
-        sleep 10
         dotnet test ./src/RazorPagesProject.E2ETests
 
     - name: Upload logs
