@@ -19,19 +19,17 @@ jobs:
     - name: Build
       run: dotnet build
 
-    - name: Restore .NET tools
-      run: dotnet tool restore
-
     - name: Run unit tests and generate coverage report
       working-directory: ./src/PrimeService.Tests
-      run: dotnet test --collect:"XPlat Code Coverage"
+      run: dotnet test --collect:"XPlat Code Coverage" --no-build
 
     - name: Run integrations tests
       working-directory: ./src/RazorPagesProject.IntegrationTests
-      run: dotnet test
+      run: dotnet test --no-build
 
     - name: Run web app
-      run: dotnet cake ./build.cake
+      working-directory: ./src/RazorPagesProject
+      run: dotnet run --no-build &
 
     - name: Run E2E tests
       working-directory: ./src/RazorPagesProject.E2ETests

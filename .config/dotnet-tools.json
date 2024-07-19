@@ -14,12 +14,6 @@
         "dotnet-ef"
       ]
     },
-    "cake.tool": {
-      "version": "4.0.0",
-      "commands": [
-        "dotnet-cake"
-      ]
-    },
     "dotnet-outdated-tool": {
       "version": "4.6.4",
       "commands": [
