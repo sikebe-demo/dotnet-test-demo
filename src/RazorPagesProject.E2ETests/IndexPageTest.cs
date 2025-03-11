@@ -20,7 +20,7 @@ public class IndexPageTest : IClassFixture<EdgeFixture>
     }
 
     [Fact]
-    public void Should_Add_New_Message()
+    public async Task Should_Add_New_Message()
     {
         // Arrange
         var newMessage = Guid.NewGuid().ToString();
@@ -29,6 +29,8 @@ public class IndexPageTest : IClassFixture<EdgeFixture>
         _topPage.NewMessage.Clear();
         _topPage.NewMessage.SendKeys(newMessage);
         _topPage.ClickAddMessageButton();
+
+        await Task.Delay(300);
 
         // Assert
         var message = _topPage.Messages.SingleOrDefault(m => m.Text == newMessage);
