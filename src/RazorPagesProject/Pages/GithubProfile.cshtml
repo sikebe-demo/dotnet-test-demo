@@ -4,33 +4,99 @@
     ViewData["Title"] = "GitHub Profile";
 }
 
-<h1>GithubProfile</h1>
+<h1 class="page-title">
+    <i class="fab fa-github me-2"></i>GitHub Profile Explorer
+</h1>
 
-<form id="user-profile" method="post">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">Introduce a Github user name</h3>
-        </div>
-        <div class="card-body">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.UserName"></label>
-                <input asp-for="Input.UserName" class="form-control" />
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="profile-card">
+            <div class="github-header">
+                <h3><i class="fas fa-search me-2"></i>検索</h3>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary mt-3">Show user profile!</button>
+            <div class="profile-info">
+                <form id="user-profile" method="post">
+                    <div asp-validation-summary="None" class="text-danger"></div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Input.UserName" class="profile-label mb-1">GitHubユーザー名</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fab fa-github"></i></span>
+                            <input asp-for="Input.UserName" class="form-control" placeholder="例: octocat" />
+                        </div>
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-primary search-btn mt-3">
+                            <i class="fas fa-search me-2"></i>プロフィールを表示
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
 
-@if (Model.GithubUser != null)
-{
-    <label for="user-login" style="font-weight:bold">Login</label>
-    <p id="user-login">@Model.GithubUser.Login</p>
-    <label for="name" style="font-weight:bold">Name</label>
-    <p id="name">@Model.GithubUser.Name</p>
-    <label for="company" style="font-weight:bold">Company</label>
-    <p id="company">@Model.GithubUser.Company</p>
+    @if (Model.GithubUser != null)
+    {
+        <div class="col-md-6">
+            <div class="profile-card profile-display">
+                <div class="github-header">
+                    <h3><i class="fas fa-user me-2"></i>プロフィール</h3>
+                </div>
+                <div class="avatar-container">
+                    @if (!string.IsNullOrEmpty(Model.GithubUser.AvatarUrl))
+                    {
+                        <img src="@Model.GithubUser.AvatarUrl" alt="@Model.GithubUser.Login" class="avatar" />
+                    }
+                    else
+                    {
+                        <div class="avatar d-flex align-items-center justify-content-center bg-light">
+                            <i class="fas fa-user fa-3x text-secondary"></i>
+                        </div>
+                    }
+                </div>
+                <div class="profile-info">
+                    <div class="profile-item">
+                        <i class="fas fa-at"></i>
+                        <div>
+                            <div class="profile-label">ログイン名</div>
+                            <div id="user-login" class="profile-value">@Model.GithubUser.Login</div>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <i class="fas fa-id-card"></i>
+                        <div>
+                            <div class="profile-label">名前</div>
+                            <div id="name" class="profile-value">@(string.IsNullOrEmpty(Model.GithubUser.Name) ? "未設定" : Model.GithubUser.Name)</div>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <i class="fas fa-building"></i>
+                        <div>
+                            <div class="profile-label">会社</div>
+                            <div id="company" class="profile-value">@(string.IsNullOrEmpty(Model.GithubUser.Company) ? "未設定" : Model.GithubUser.Company)</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <a href="https://github.com/@Model.GithubUser.Login" target="_blank" class="btn btn-outline-dark">
+                            <i class="fab fa-github me-2"></i>GitHubで表示
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // フォーム送信時のロード表示やアニメーションなどの追加機能
+        document.getElementById('user-profile').addEventListener('submit', function() {
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>読み込み中...';
+            btn.disabled = true;
+
+            // フォーム送信は通常通り行われる
+        });
+    </script>
 }
