@@ -3,16 +3,10 @@ using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests.PageObjects;
 
-public class PageObjectBase
+public class PageObjectBase(IWebDriver driver, ITestOutputHelper? helper = default)
 {
-    public PageObjectBase(IWebDriver driver, ITestOutputHelper? helper = default)
-    {
-        Helper = helper;
-        Driver = driver;
-    }
-
-    public IWebDriver Driver { get; }
-    public ITestOutputHelper? Helper { get; set; }
+    public IWebDriver Driver { get; } = driver;
+    public ITestOutputHelper? Helper { get; set; } = helper;
 
     public GitHubProfilePage ClickGitHubProfileLink()
     {

@@ -23,7 +23,7 @@ public class GithubProfileModel : PageModel
 
     public IGithubClient Client { get; }
 
-    public GithubUser? GithubUser { get; private set; }
+    public GitHubUser? GithubUser { get; private set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {

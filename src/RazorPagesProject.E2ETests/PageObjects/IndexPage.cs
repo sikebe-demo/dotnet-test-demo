@@ -3,12 +3,8 @@ using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests.PageObjects;
 
-public class IndexPage : PageObjectBase
+public class IndexPage(IWebDriver driver, ITestOutputHelper? helper) : PageObjectBase(driver, helper)
 {
-    public IndexPage(IWebDriver driver, ITestOutputHelper? helper) : base(driver, helper)
-    {
-    }
-
     public IWebElement NewMessage => Driver.FindElement(By.Name("Message.Text"));
 
     public IList<IWebElement> Messages => Driver.FindElements(By.ClassName("message-list"));
