@@ -1,0 +1,110 @@
+.profile-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.github-header {
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.avatar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.form-control {
+    border-radius: 30px;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(78, 67, 118, 0.25);
+    border-color: #4e4376;
+}
+
+.search-btn {
+    border-radius: 30px;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: linear-gradient(135deg, #4e4376 0%, #2b5876 100%);
+}
+
+.profile-info {
+    padding: 2rem;
+}
+
+.profile-item {
+    display: flex;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+
+.profile-item i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    color: #4e4376;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(78, 67, 118, 0.1);
+    border-radius: 50%;
+}
+
+.profile-label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+    color: #555;
+}
+
+.profile-value {
+    font-size: 1.1rem;
+}
+
+.page-title {
+    background: -webkit-linear-gradient(45deg, #2b5876, #4e4376);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.profile-display {
+    animation: fadeIn 0.7s ease forwards;
+}

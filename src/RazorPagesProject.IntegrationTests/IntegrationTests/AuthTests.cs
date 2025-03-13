@@ -52,12 +52,12 @@ public class AuthTests :
 
     public class TestGithubClient : IGithubClient
     {
-        public Task<GithubUser> GetUserAsync(string userName)
+        public Task<GitHubUser> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
                 return Task.FromResult(
-                    new GithubUser
+                    new GitHubUser
                     {
                         Login = "user",
                         Company = "Contoso Blockchain",
@@ -67,7 +67,7 @@ public class AuthTests :
             else
             {
                 return Task.FromResult(
-                    new GithubUser
+                    new GitHubUser
                     {
                         Login = "",
                         Company = "",
