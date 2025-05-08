@@ -50,7 +50,7 @@ public class PrimeServiceTest
 
 public class MathService
 {
-    public int Multiply(int a, int b) => a * b;
+    public int Multiply(int a, int b) => a * a;
 }
 
 public class MathServiceTest
