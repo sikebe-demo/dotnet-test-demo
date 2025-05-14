@@ -19,7 +19,10 @@ public class EdgeFixture : BrowserFixture
         opts.AddArguments("-inprivate");
 
         // Workaround for https://github.com/SeleniumHQ/selenium/issues/15340
-        opts.AddArgument("--edge-skip-compat-layer-relaunch");
+        if (Environment.GetEnvironmentVariable("CI") != "true")
+        {
+            opts.AddArgument("--edge-skip-compat-layer-relaunch");
+        }
 
         // Comment this out if you want to watch or interact with the browser (e.g. for debugging)
         if (!Debugger.IsAttached)
