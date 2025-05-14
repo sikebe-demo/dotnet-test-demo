@@ -28,8 +28,9 @@ jobs:
       run: dotnet test --no-build
 
     - name: Run web app and E2E tests
+      env:
+        CI: true
       run: |
-        $env:CI="true"
         dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
         dotnet test ./src/RazorPagesProject.E2ETests
 
