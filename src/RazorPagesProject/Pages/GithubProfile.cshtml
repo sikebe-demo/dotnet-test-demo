@@ -7,7 +7,13 @@
 <h1 class="page-title">
     <i class="fab fa-github me-2"></i>GitHub Profile Explorer
 </h1>
-
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div id="error-banner" class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        @Model.ErrorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 <div class="row">
     <div class="col-md-6 mb-4">
         <div class="profile-card">
@@ -95,8 +101,7 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>読み込み中...';
             btn.disabled = true;
-
-            // フォーム送信は通常通り行われる
         });
+        // Bootstrapのalert-dismissibleは自動で閉じるので追加JSは不要
     </script>
 }
