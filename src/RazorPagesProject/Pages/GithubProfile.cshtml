@@ -1,4 +1,4 @@
-@page "{userName?}"
+@page
 @model GithubProfileModel
 @{
     ViewData["Title"] = "GitHub Profile";
@@ -7,6 +7,14 @@
 <h1 class="page-title">
     <i class="fab fa-github me-2"></i>GitHub Profile Explorer
 </h1>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mb-3 alert-dismissible fade show" role="alert" id="error-banner">
+        @Model.ErrorMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
 <div class="row">
     <div class="col-md-6 mb-4">
@@ -95,8 +103,11 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>読み込み中...';
             btn.disabled = true;
-
-            // フォーム送信は通常通り行われる
         });
+        // Bootstrapのalert-dismissible用（Bootstrap 5以降）
+        // 追加のJSは不要ですが、jQueryやBootstrap JSが読み込まれていない場合は下記で手動対応も可
+        // document.getElementById('error-banner')?.querySelector('.btn-close')?.addEventListener('click', function() {
+        //     document.getElementById('error-banner').style.display = 'none';
+        // });
     </script>
 }

@@ -25,13 +25,27 @@ public class GithubProfileModel : PageModel
 
     public GitHubUser? GithubUser { get; private set; }
 
-    public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
-    {
-        if (userName != null)
-        {
-            GithubUser = await Client.GetUserAsync(userName);
-        }
+    public string? ErrorMessage { get; private set; }
 
+    public async Task<IActionResult> OnGetAsync([FromQuery] string userName)
+    {
+        if (!string.IsNullOrEmpty(userName))
+        {
+            try
+            {
+                GithubUser = await Client.GetUserAsync(userName);
+                // 検索後もフォームにユーザー名を保持
+                Input = new InputModel { UserName = userName };
+            }
+            catch (HttpRequestException)
+            {
+                // 404やAPIエラー時はnullを返し、エラーメッセージをErrorMessageに格納
+                GithubUser = null;
+                ErrorMessage = $"ユーザー '{userName}' は見つかりませんでした。";
+                // エラー時もフォームにユーザー名を保持
+                Input = new InputModel { UserName = userName };
+            }
+        }
         return Page();
     }
 
@@ -42,6 +56,7 @@ public class GithubProfileModel : PageModel
             return Page();
         }
 
-        return RedirectToPage(new { Input.UserName });
+        // クエリパラメータとしてuserNameを渡す
+        return RedirectToPage("/GithubProfile", new { userName = Input.UserName });
     }
 }

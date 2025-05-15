@@ -35,4 +35,20 @@ public class GithubProfilePageTest : IClassFixture<EdgeFixture>
         Assert.Equal("Microsoft GitHub User", _githubProfilePage.Name.Text);
         Assert.Equal("Microsoft", _githubProfilePage.Company.Text);
     }
+
+    [Fact]
+    public void Should_Show_Error_When_User_Not_Found()
+    {
+        // Arrange
+        var userName = "thisuserdoesnotexist1234567890";
+
+        // Act
+        _githubProfilePage.UserName.Clear();
+        _githubProfilePage.UserName.SendKeys(userName);
+        _githubProfilePage.ClickShowUserProfileButton();
+
+        // Assert
+        Assert.NotNull(_githubProfilePage.ErrorBanner);
+        Assert.Contains($"ユーザー '{userName}' は見つかりませんでした。", _githubProfilePage.ErrorBanner.Text);
+    }
 }

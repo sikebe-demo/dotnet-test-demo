@@ -9,6 +9,7 @@ public class GitHubProfilePage(IWebDriver driver, ITestOutputHelper? helper) : P
     public IWebElement Login => Driver.FindElement(By.Id("user-login"));
     public IWebElement Name => Driver.FindElement(By.Id("name"));
     public IWebElement Company => Driver.FindElement(By.Id("company"));
+    public IWebElement? ErrorBanner => Driver.FindElements(By.Id("error-banner")).FirstOrDefault();
 
     public GitHubProfilePage ClickShowUserProfileButton()
     {
