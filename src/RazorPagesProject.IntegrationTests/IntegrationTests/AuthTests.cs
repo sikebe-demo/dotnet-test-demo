@@ -51,7 +51,7 @@ public class AuthTests :
     }
 
     [Fact]
-    public async Task Get_GithubProfilePageHandlesNonExistentUserGracefully()
+    public async Task Get_GitHubProfilePageHandlesNonExistentUserGracefully()
     {
         // Arrange
         static void ConfigureTestServices(IServiceCollection services) =>
