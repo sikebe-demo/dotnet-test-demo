@@ -50,13 +50,43 @@ public class AuthTests :
         Assert.Equal("user", userLogin?.TextContent);
     }
 
+    [Fact]
+    public async Task Get_GithubProfilePageHandlesNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGithubClient>(new TestGithubClient());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act
+        var profile = await client.GetAsync("/GithubProfile");
+        Assert.Equal(HttpStatusCode.OK, profile.StatusCode);
+        var profileHtml = await HtmlHelpers.GetDocumentAsync(profile);
+
+        var profileWithUserName = await client.SendAsync(
+            (IHtmlFormElement)profileHtml!.QuerySelector("#user-profile")!,
+            new Dictionary<string, string> { ["Input_UserName"] = "nonexistentuser" });
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, profileWithUserName.StatusCode);
+        var profileWithUserHtml = await HtmlHelpers.GetDocumentAsync(profileWithUserName);
+        
+        // Verify that no profile section is displayed for non-existent user
+        var profileSection = profileWithUserHtml.QuerySelector(".profile-display");
+        Assert.Null(profileSection);
+    }
+
     public class TestGithubClient : IGithubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,13 +96,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult<GitHubUser?>(null);
             }
         }
     }
