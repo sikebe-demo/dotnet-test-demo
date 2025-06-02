@@ -82,8 +82,7 @@ public class AuthTests :
         // Error message should be displayed for non-existent users
         var errorMessage = profileWithNonExistentUserHtml.QuerySelector(".alert-danger");
         Assert.NotNull(errorMessage);
-        Assert.Contains("nonexistentuser", errorMessage.TextContent);
-        Assert.Contains("見つかりませんでした", errorMessage.TextContent);
+        Assert.Contains("そんなユーザーいないよ。もう一回入力してね。", errorMessage.TextContent);
         
         // The search form should still be visible
         var searchForm = profileWithNonExistentUserHtml.QuerySelector("#user-profile");

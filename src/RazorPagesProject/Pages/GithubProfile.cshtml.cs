@@ -34,7 +34,7 @@ public class GithubProfileModel : PageModel
             GithubUser = await Client.GetUserAsync(userName);
             if (GithubUser == null)
             {
-                ErrorMessage = $"ユーザー '{userName}' が見つかりませんでした。";
+                ErrorMessage = "そんなユーザーいないよ。もう一回入力してね。";
             }
         }
 
