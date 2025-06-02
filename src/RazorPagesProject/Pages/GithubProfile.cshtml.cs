@@ -24,12 +24,18 @@ public class GithubProfileModel : PageModel
     public IGithubClient Client { get; }
 
     public GitHubUser? GithubUser { get; private set; }
+    
+    public string? ErrorMessage { get; private set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
             GithubUser = await Client.GetUserAsync(userName);
+            if (GithubUser == null)
+            {
+                ErrorMessage = "そんなユーザーいないよ。もう一回入力してね。";
+            }
         }
 
         return Page();
