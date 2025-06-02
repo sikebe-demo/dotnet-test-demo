@@ -52,11 +52,11 @@ public class AuthTests :
 
     public class TestGithubClient : IGithubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,7 +66,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "",
@@ -75,6 +75,63 @@ public class AuthTests :
                     });
             }
         }
+    }
+
+    public class TestGithubClientWith404 : IGithubClient
+    {
+        public Task<GitHubUser?> GetUserAsync(string userName)
+        {
+            if (userName == "user")
+            {
+                return Task.FromResult<GitHubUser?>(
+                    new GitHubUser
+                    {
+                        Login = "user",
+                        Company = "Contoso Blockchain",
+                        Name = "John Doe"
+                    });
+            }
+            else
+            {
+                // Return null for non-existent users (this is what we want after the fix)
+                return Task.FromResult<GitHubUser?>(null);
+            }
+        }
+    }
+
+    [Fact]
+    public async Task Get_GithubProfilePageHandlesNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGithubClient>(new TestGithubClientWith404());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act
+        var profile = await client.GetAsync("/GithubProfile");
+        Assert.Equal(HttpStatusCode.OK, profile.StatusCode);
+        var profileHtml = await HtmlHelpers.GetDocumentAsync(profile);
+
+        var profileWithUserName = await client.SendAsync(
+            (IHtmlFormElement)profileHtml!.QuerySelector("#user-profile")!,
+            new Dictionary<string, string> { ["Input_UserName"] = "nonexistentuser123456789" });
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, profileWithUserName.StatusCode);
+        var profileWithUserHtml = await HtmlHelpers.GetDocumentAsync(profileWithUserName);
+        
+        // Should not show user profile section since user doesn't exist
+        var userLogin = profileWithUserHtml.QuerySelector("#user-login");
+        Assert.Null(userLogin);
+        
+        // Should show error message
+        var errorMessage = profileWithUserHtml.QuerySelector("#error-message");
+        Assert.NotNull(errorMessage);
+        Assert.Contains("見つかりませんでした", errorMessage.TextContent);
     }
 
     [Fact]
