@@ -25,11 +25,17 @@ public class GithubProfileModel : PageModel
 
     public GitHubUser? GithubUser { get; private set; }
 
+    public string? ErrorMessage { get; private set; }
+
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
             GithubUser = await Client.GetUserAsync(userName);
+            if (GithubUser == null)
+            {
+                ErrorMessage = "指定されたユーザーが見つかりませんでした。";
+            }
         }
 
         return Page();
