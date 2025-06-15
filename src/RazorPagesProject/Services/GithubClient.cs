@@ -6,9 +6,15 @@ public class GithubClient(HttpClient client) : IGithubClient
 {
     public HttpClient Client { get; } = client;
 
-    public async Task<GitHubUser> GetUserAsync(string userName)
+    public async Task<GitHubUser?> GetUserAsync(string userName)
     {
         var response = await Client.GetAsync($"/users/{Uri.EscapeDataString(userName)}");
+        
+        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+        
         response.EnsureSuccessStatusCode();
 
         var user = await response.Content.ReadFromJsonAsync<GitHubUser>();
@@ -18,7 +24,7 @@ public class GithubClient(HttpClient client) : IGithubClient
 
 public interface IGithubClient
 {
-    Task<GitHubUser> GetUserAsync(string userName);
+    Task<GitHubUser?> GetUserAsync(string userName);
 }
 
 public class GitHubUser

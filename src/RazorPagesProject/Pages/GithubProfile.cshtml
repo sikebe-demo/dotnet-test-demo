@@ -35,6 +35,15 @@
         </div>
     </div>
 
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="col-12 mb-4">
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>@Model.ErrorMessage
+            </div>
+        </div>
+    }
+
     @if (Model.GithubUser != null)
     {
         <div class="col-md-6">

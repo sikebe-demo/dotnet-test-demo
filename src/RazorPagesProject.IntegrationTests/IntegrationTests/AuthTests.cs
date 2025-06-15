@@ -52,11 +52,11 @@ public class AuthTests :
 
     public class TestGithubClient : IGithubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,13 +66,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult<GitHubUser?>(null);
             }
         }
     }
@@ -122,6 +116,29 @@ public class AuthTests :
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Get_GithubProfilePageShowsErrorForNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGithubClient>(new TestGithubClient());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act
+        var response = await client.GetAsync("/GithubProfile/nonexistentuser");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        // Check for the error message (HTML encoded)
+        Assert.Contains("&#x30E6;&#x30FC;&#x30B6;&#x30FC; &#x27;nonexistentuser&#x27; &#x304C;&#x898B;&#x3064;&#x304B;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;", content);
     }
 }
 
