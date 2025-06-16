@@ -29,7 +29,18 @@ public class GithubProfileModel : PageModel
     {
         if (userName != null)
         {
-            GithubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GithubUser = await Client.GetUserAsync(userName);
+                if (GithubUser == null)
+                {
+                    ModelState.AddModelError("", $"ユーザー '{userName}' が見つかりませんでした。");
+                }
+            }
+            catch (HttpRequestException)
+            {
+                ModelState.AddModelError("", "GitHub APIへのアクセス中にエラーが発生しました。");
+            }
         }
 
         return Page();

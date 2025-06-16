@@ -50,13 +50,48 @@ public class AuthTests :
         Assert.Equal("user", userLogin?.TextContent);
     }
 
+    [Fact]
+    public async Task Get_GithubProfilePageShowsErrorForNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGithubClient>(new TestGithubClient());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act
+        var profile = await client.GetAsync("/GithubProfile");
+        Assert.Equal(HttpStatusCode.OK, profile.StatusCode);
+        var profileHtml = await HtmlHelpers.GetDocumentAsync(profile);
+
+        var profileWithUserName = await client.SendAsync(
+            (IHtmlFormElement)profileHtml!.QuerySelector("#user-profile")!,
+            new Dictionary<string, string> { ["Input_UserName"] = "nonexistent-user-12345" });
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, profileWithUserName.StatusCode);
+        var profileWithUserHtml = await HtmlHelpers.GetDocumentAsync(profileWithUserName);
+        
+        // Check that error message is displayed
+        var validationSummary = profileWithUserHtml.QuerySelector(".validation-summary-errors,.text-danger");
+        Assert.NotNull(validationSummary);
+        Assert.Contains("が見つかりませんでした", validationSummary.TextContent);
+        
+        // Check that no user profile is displayed
+        var userLogin = profileWithUserHtml.QuerySelector("#user-login");
+        Assert.Null(userLogin);
+    }
+
     public class TestGithubClient : IGithubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,13 +101,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult<GitHubUser?>(null);
             }
         }
     }
