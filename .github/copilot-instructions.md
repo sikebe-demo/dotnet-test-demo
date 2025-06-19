@@ -26,7 +26,7 @@
 - **テスト命名**: `MethodName_Scenario_ExpectedBehavior` 形式
 - **AAA パターン**: Arrange, Act, Assert の構造を明確に分離
 - **Theory と InlineData**: パラメータ化テストを積極的に活用
-- **カバレッジ**: 主要なビジネスロジックは100%を目指す
+- **カバレッジ**: 主要なビジネスロジックは現実的な目標として80～90%を目指し、リソースとバランスを考慮する
 
 ### 4. ASP.NET Core / Razor Pages 固有
 - **依存性注入**: コンストラクタインジェクションを基本とする
