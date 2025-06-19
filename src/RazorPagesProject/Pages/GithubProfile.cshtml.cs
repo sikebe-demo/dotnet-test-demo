@@ -6,15 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RazorPagesProject.Pages;
 
-public class GithubProfileModel : PageModel
+public class GithubProfileModel(IGithubClient client, IStringLocalizer<GithubProfileModel> localizer) : PageModel
 {
-    private readonly IStringLocalizer<GithubProfileModel> _localizer;
-
-    public GithubProfileModel(IGithubClient client, IStringLocalizer<GithubProfileModel> localizer)
-    {
-        Client = client;
-        _localizer = localizer;
-    }
+    private readonly IStringLocalizer<GithubProfileModel> _localizer = localizer;
 
     public class InputModel
     {
@@ -25,7 +19,7 @@ public class GithubProfileModel : PageModel
     [BindProperty]
     public required InputModel Input { get; set; }
 
-    public IGithubClient Client { get; }
+    public IGithubClient Client { get; } = client;
 
     public IStringLocalizer<GithubProfileModel> Localizer => _localizer;
 
