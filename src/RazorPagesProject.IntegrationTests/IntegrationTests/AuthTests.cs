@@ -77,6 +77,27 @@ public class AuthTests :
         }
     }
 
+    public class TestGithubClientWithExceptions : IGithubClient
+    {
+        public Task<GitHubUser> GetUserAsync(string userName)
+        {
+            if (userName == "user")
+            {
+                return Task.FromResult(
+                    new GitHubUser
+                    {
+                        Login = "user",
+                        Company = "Contoso Blockchain",
+                        Name = "John Doe"
+                    });
+            }
+            else
+            {
+                throw new HttpRequestException("Response status code does not indicate success: 404 (Not Found).");
+            }
+        }
+    }
+
     [Fact]
     public async Task Get_SecurePageRedirectsAnUnauthenticatedUser()
     {
@@ -122,6 +143,35 @@ public class AuthTests :
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Get_GithubProfilePageShowsErrorMessageForNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGithubClient>(new TestGithubClientWithExceptions());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act - Navigate to GitHub profile page with non-existent user
+        var profileResponse = await client.GetAsync("/GithubProfile/nonexistentuser");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, profileResponse.StatusCode);
+        var profileHtml = await HtmlHelpers.GetDocumentAsync(profileResponse);
+        
+        // Check that error message is displayed
+        var errorAlert = profileHtml.QuerySelector(".alert-warning");
+        Assert.NotNull(errorAlert);
+        Assert.Contains("指定されたユーザーは存在しません", errorAlert.TextContent);
+        
+        // Check that profile information is not displayed
+        var userLogin = profileHtml.QuerySelector("#user-login");
+        Assert.Null(userLogin);
     }
 }
 

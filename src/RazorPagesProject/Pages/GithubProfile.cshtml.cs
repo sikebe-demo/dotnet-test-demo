@@ -25,11 +25,27 @@ public class GithubProfileModel : PageModel
 
     public GitHubUser? GithubUser { get; private set; }
 
+    public string? ErrorMessage { get; private set; }
+
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
-            GithubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GithubUser = await Client.GetUserAsync(userName);
+                ErrorMessage = null; // Clear any previous error
+            }
+            catch (HttpRequestException ex) when (ex.Message.Contains("404"))
+            {
+                ErrorMessage = "指定されたユーザーは存在しません";
+                GithubUser = null;
+            }
+            catch (HttpRequestException)
+            {
+                ErrorMessage = "GitHub APIへの接続中にエラーが発生しました";
+                GithubUser = null;
+            }
         }
 
         return Page();
