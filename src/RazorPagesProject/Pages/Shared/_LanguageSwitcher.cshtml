@@ -1,0 +1,61 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<div class="language-switcher">
+    <div class="dropdown">
+        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-globe me-1"></i>
+            @if (System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ja"))
+            {
+                <span>日本語</span>
+            }
+            else
+            {
+                <span>English</span>
+            }
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+            <li>
+                <form method="post" asp-page="/SetLanguage" class="d-inline">
+                    <input type="hidden" name="culture" value="en" />
+                    <input type="hidden" name="returnUrl" value="@(ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString)" />
+                    <button type="submit" class="dropdown-item @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("en") ? "active" : "")">
+                        <i class="fas fa-flag-usa me-2"></i>English
+                    </button>
+                </form>
+            </li>
+            <li>
+                <form method="post" asp-page="/SetLanguage" class="d-inline">
+                    <input type="hidden" name="culture" value="ja" />
+                    <input type="hidden" name="returnUrl" value="@(ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString)" />
+                    <button type="submit" class="dropdown-item @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ja") ? "active" : "")">
+                        <i class="fas fa-flag me-2"></i>日本語
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    .language-switcher .dropdown-item {
+        border: none;
+        background: none;
+        text-align: left;
+        width: 100%;
+    }
+
+    .language-switcher .dropdown-item:hover {
+        background-color: var(--bs-dropdown-link-hover-bg);
+    }
+
+    .language-switcher .dropdown-item.active {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+
+    .language-switcher .dropdown-item.active:hover {
+        background-color: var(--bs-primary);
+        color: white;
+    }
+</style>

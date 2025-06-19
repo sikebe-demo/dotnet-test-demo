@@ -26,8 +26,8 @@ public class GithubProfilePageTest : IClassFixture<EdgeFixture>
         var userName = "msftgits";
 
         // Act
-        _githubProfilePage.UserName.Clear();
-        _githubProfilePage.UserName.SendKeys(userName);
+        _githubProfilePage.UserNameInput.Clear();
+        _githubProfilePage.UserNameInput.SendKeys(userName);
         _githubProfilePage.ClickShowUserProfileButton();
 
         // Assert
