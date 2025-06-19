@@ -1,8 +1,6 @@
 using RazorPagesProject.E2ETests.Fixtures;
 using RazorPagesProject.E2ETests.PageObjects;
 using Xunit.Abstractions;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace RazorPagesProject.E2ETests;
 
@@ -24,18 +22,14 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
     [InlineData("ja", "GitHub プロフィール エクスプローラー")]
     public void Should_Display_Correct_Page_Title_Based_On_Language(string culture, string expectedTitle)
     {
-        // Arrange
-        var url = $"{Constants.BaseUrl}/GithubProfile?culture={culture}";
-
-        // Act
-        _browser.Driver.Navigate().GoToUrl(url);
+        // Arrange, Act
+        _githubProfilePage.NavigateWithCulture(culture);
 
         // Assert
-        var pageSource = _browser.Driver.PageSource;
-        Assert.Contains(expectedTitle, pageSource);
+        Assert.True(_githubProfilePage.HasPageTitle(expectedTitle),
+            $"Expected page title '{expectedTitle}' not found for culture '{culture}'");
 
         _helper.WriteLine($"Language: {culture}, Expected: {expectedTitle}");
-        _helper.WriteLine($"Page title found in source: {pageSource.Contains(expectedTitle)}");
     }
 
     [Theory]
@@ -43,48 +37,31 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
     [InlineData("ja", "検索", "GitHubユーザー名", "プロフィールを表示")]
     public void Should_Display_Correct_Labels_Based_On_Language(string culture, string expectedSearchHeader, string expectedUserNameLabel, string expectedSubmitButton)
     {
-        // Arrange
-        var url = $"{Constants.BaseUrl}/GithubProfile?culture={culture}";
-
-        // Act
-        _browser.Driver.Navigate().GoToUrl(url);
+        // Arrange, Act
+        _githubProfilePage.NavigateWithCulture(culture);
 
         // Assert
-        var pageSource = _browser.Driver.PageSource;
+        Assert.True(_githubProfilePage.HasLabels(expectedSearchHeader, expectedUserNameLabel, expectedSubmitButton),
+            $"Not all expected labels found for culture '{culture}'");
 
-        Assert.Contains(expectedSearchHeader, pageSource);
-        Assert.Contains(expectedUserNameLabel, pageSource);
-        Assert.Contains(expectedSubmitButton, pageSource);
-
-        _helper.WriteLine($"Language: {culture}");
-        _helper.WriteLine($"Search header found: {pageSource.Contains(expectedSearchHeader)}");
-        _helper.WriteLine($"Username label found: {pageSource.Contains(expectedUserNameLabel)}");
-        _helper.WriteLine($"Submit button found: {pageSource.Contains(expectedSubmitButton)}");
+        _helper.WriteLine($"Language: {culture} - All labels found successfully");
     }
 
     [Fact]
-    public void Should_Switch_Language_When_Language_Button_Clicked()
+    public async Task Should_Switch_Language_When_Language_Button_Clicked()
     {
         // Arrange
-        _browser.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}/GithubProfile");
+        _githubProfilePage.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}/GithubProfile");
 
-        // Act - Switch to Japanese
-        var japaneseButton = _browser.Driver.FindElement(By.CssSelector("button[data-culture='ja']"));
-        japaneseButton.Click();
+        // Act & Assert - Switch to Japanese
+        await _githubProfilePage.SwitchToJapaneseAsync();
+        Assert.True(_githubProfilePage.HasLabels("GitHub プロフィール エクスプローラー", "検索"),
+            "Japanese content not found after switching to Japanese");
 
-        // Assert - Check if Japanese content is displayed
-        var pageSource = _browser.Driver.PageSource;
-        Assert.Contains("GitHub プロフィール エクスプローラー", pageSource);
-        Assert.Contains("検索", pageSource);
-
-        // Act - Switch back to English
-        var englishButton = _browser.Driver.FindElement(By.CssSelector("button[value='en']"));
-        englishButton.Click();
-
-        // Assert - Check if English content is displayed
-        pageSource = _browser.Driver.PageSource;
-        Assert.Contains("GitHub Profile Explorer", pageSource);
-        Assert.Contains("Search", pageSource);
+        // Act & Assert - Switch back to English
+        await _githubProfilePage.SwitchToEnglishAsync();
+        Assert.True(_githubProfilePage.HasLabels("GitHub Profile Explorer", "Search"),
+            "English content not found after switching to English");
 
         _helper.WriteLine("Language switching test completed successfully");
     }
@@ -92,50 +69,21 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
     [Theory]
     [InlineData("en", "Not set")]
     [InlineData("ja", "未設定")]
-    public void Should_Display_Profile_With_Correct_Language_After_Search(string culture, string expectedNotSetText)
+    public async Task Should_Display_Profile_With_Correct_Language_After_Search(string culture, string expectedNotSetText)
     {
         // Arrange
-        var url = $"{Constants.BaseUrl}/GithubProfile?culture={culture}";
-        _browser.Driver.Navigate().GoToUrl(url);
+        _githubProfilePage.NavigateWithCulture(culture);
 
-        // Act - Search for a GitHub user
-        var userNameInput = _browser.Driver.FindElement(By.Id("Input_UserName"));
-        var submitButton = _browser.Driver.FindElement(By.CssSelector("button[type='submit']"));
-
-        userNameInput.Clear();
-        userNameInput.SendKeys("octocat");
-        submitButton.Click();
-
-        // Wait for the profile to load using explicit wait
-        var wait = new WebDriverWait(_browser.Driver, TimeSpan.FromSeconds(10));
-        wait.Until(driver =>
-        {
-            var pageSource = driver.PageSource;
-            return culture == "en"
-                ? pageSource.Contains("Profile") || pageSource.Contains("Login")
-                : pageSource.Contains("プロフィール") || pageSource.Contains("ログイン名");
-        });
+        // Act
+        await _githubProfilePage.SearchUserAsync("octocat");
 
         // Assert
-        var pageSource = _browser.Driver.PageSource;
+        Assert.True(_githubProfilePage.HasProfileContent("octocat"),
+            "Username 'octocat' not found in search results");
 
-        // Check if the profile labels appear in the correct language
-        if (culture == "en")
-        {
-            Assert.Contains("Profile", pageSource);
-            Assert.Contains("Login", pageSource);
-            Assert.Contains("Name", pageSource);
-            Assert.Contains("Company", pageSource);
-        }
-        else
-        {
-            Assert.Contains("プロフィール", pageSource);
-            Assert.Contains("ログイン名", pageSource);
-            Assert.Contains("名前", pageSource);
-            Assert.Contains("会社", pageSource);
-        }
+        Assert.True(_githubProfilePage.HasLocalizedContent(culture),
+            $"Localized content not found for culture '{culture}'");
 
-        // Note: expectedNotSetText parameter is available for future use when testing empty fields
         _helper.WriteLine($"Profile search test completed for language: {culture}");
         _helper.WriteLine($"Expected 'Not set' text would be: {expectedNotSetText}");
     }

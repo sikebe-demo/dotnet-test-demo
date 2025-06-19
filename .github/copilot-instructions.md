@@ -31,6 +31,20 @@
   * ✅ 推奨: `await Task.Delay()`, `TaskCompletionSource`, `CancellationToken`による待機
   * ❌ 非推奨: `Thread.Sleep()`による固定時間待機
 
+#### E2E テスト固有のガイドライン
+* **セレクター戦略**: 安定性と保守性を重視したセレクター選択
+  * ✅ **最優先**: `By.Id()` - HTMLのID属性（最も安定）
+  * ✅ **次点**: `By.CssSelector("form#formId button[type='submit']")` - ID + 要素タイプの組み合わせ
+  * ✅ **許可**: `By.XPath("//button[@type='submit' and contains(., 'テキスト')]")` - 属性 + テキスト内容
+  * ❌ **非推奨**: 複雑なCSSセレクター、クラス名のみに依存、XPathでの階層指定
+* **Page Object パターン**: 
+  * 明示的な待機を使用した要素プロパティ: `CreateWait().Until(driver => driver.FindElement(By.Id("elementId")))`
+  * 複雑なフォールバック機構は避け、シンプルで直接的なセレクターを使用
+  * DOM要素の存在確認による待機条件（ページソースの文字列検索より安定）
+* **要素操作**: 
+  * クリックイベント: `((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].click();", element)` で相互作用の問題を回避
+  * 要素の存在確認: `driver.FindElements(By.Id("elementId")).Any()` パターンを使用
+
 ### 4. ASP.NET Core / Razor Pages 固有
 * **依存性注入**: コンストラクタインジェクションを基本とする
 * **設定管理**: appsettings.json とオプションパターンを使用
@@ -88,9 +102,13 @@
 * SEO対応（適切なメタタグ、構造化データ）
 
 ### テストプロジェクト
-* Unit Tests: ビジネスロジックの詳細テスト
-* Integration Tests: API エンドポイントのテスト
-* E2E Tests: ユーザーシナリオのテスト
+* **Unit Tests**: ビジネスロジックの詳細テスト
+* **Integration Tests**: API エンドポイントのテスト
+* **E2E Tests**: ユーザーシナリオのテスト
+  * IDベースのセレクターを最優先で使用
+  * Page Object パターンでの明示的な待機実装
+  * DOM要素の存在確認による安定した待機条件
+  * JavaScriptベースの要素操作で相互作用の問題を回避
 
 ## 推奨ツールとライブラリ
 * **フォーマッター**: EditorConfig の設定に従う
@@ -104,6 +122,11 @@
 * パスワードやシークレットのハードコード
 * 自明な内容の不要なコメント（メソッド名や型名を繰り返すだけのコメント）
 * テストでの`Thread.Sleep()`の使用（明示的な待機機構を使用すること）
+* **E2E テストでの非推奨パターン**:
+  * 複雑なフォールバック機構を持つセレクター（try-catch の多重ネスト）
+  * ページソースの文字列検索による待機条件
+  * クラス名のみに依存したセレクター
+  * 階層的なXPathセレクター（DOM構造に依存）
 
 ## レビューガイドライン
 * レビューコメントは必ず日本語と英語を併記すること
