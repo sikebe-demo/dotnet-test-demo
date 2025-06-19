@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using RazorPagesProject.Services;
 using System.ComponentModel.DataAnnotations;
