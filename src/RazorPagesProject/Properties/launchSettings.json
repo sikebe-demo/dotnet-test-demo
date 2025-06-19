@@ -13,7 +13,7 @@
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7072;http://localhost:5016",
-      "launchUrl": "GithubProfile",
+      "launchUrl": "GitHubProfile",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

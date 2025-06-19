@@ -4,19 +4,19 @@ using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests;
 
-public class GithubProfilePageTest : IClassFixture<EdgeFixture>
+public class GitHubProfilePageTest : IClassFixture<EdgeFixture>
 {
     private readonly BrowserFixture _browser;
     private readonly ITestOutputHelper _helper;
-    private readonly GitHubProfilePage _githubProfilePage;
+    private readonly GitHubProfilePage _gitHubProfilePage;
 
-    public GithubProfilePageTest(EdgeFixture edgeFixture, ITestOutputHelper helper)
+    public GitHubProfilePageTest(EdgeFixture edgeFixture, ITestOutputHelper helper)
     {
         _browser = edgeFixture;
         _helper = helper;
 
-        _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GithubProfile");
-        _githubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
+        _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GitHubProfile");
+        _gitHubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
     }
 
     [Fact]
@@ -26,13 +26,13 @@ public class GithubProfilePageTest : IClassFixture<EdgeFixture>
         var userName = "msftgits";
 
         // Act
-        _githubProfilePage.UserNameInput.Clear();
-        _githubProfilePage.UserNameInput.SendKeys(userName);
-        _githubProfilePage.ClickShowUserProfileButton();
+        _gitHubProfilePage.UserNameInput.Clear();
+        _gitHubProfilePage.UserNameInput.SendKeys(userName);
+        _gitHubProfilePage.ClickShowUserProfileButton();
 
         // Assert
-        Assert.Equal(userName, _githubProfilePage.Login.Text);
-        Assert.Equal("Microsoft GitHub User", _githubProfilePage.Name.Text);
-        Assert.Equal("Microsoft", _githubProfilePage.Company.Text);
+        Assert.Equal(userName, _gitHubProfilePage.Login.Text);
+        Assert.Equal("Microsoft GitHub User", _gitHubProfilePage.Name.Text);
+        Assert.Equal("Microsoft", _gitHubProfilePage.Company.Text);
     }
 }

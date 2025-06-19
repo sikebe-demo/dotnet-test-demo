@@ -91,7 +91,7 @@
   <data name="NotSet" xml:space="preserve">
     <value>未設定</value>
   </data>
-  <data name="ViewOnGithub" xml:space="preserve">
+  <data name="ViewOnGitHub" xml:space="preserve">
     <value>GitHubで表示</value>
   </data>
   <data name="LoadingText" xml:space="preserve">

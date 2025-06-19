@@ -51,7 +51,7 @@ public class GitHubProfilePage(IWebDriver driver, ITestOutputHelper? helper) : P
 
     public void NavigateWithCulture(string culture)
     {
-        var url = $"{Constants.BaseUrl}/GithubProfile?culture={culture}";
+        var url = $"{Constants.BaseUrl}/GitHubProfile?culture={culture}";
         Driver.Navigate().GoToUrl(url);
     }
 

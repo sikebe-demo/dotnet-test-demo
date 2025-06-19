@@ -43,7 +43,7 @@ public class IndexPageTest : IClassFixture<EdgeFixture>
 
         // Wait for page to load and then check URL contains GitHubProfile
         var wait = new WebDriverWait(githubProfilePage.Driver, TimeSpan.FromSeconds(10));
-        wait.Until(driver => driver.Url.Contains("GithubProfile"));
+        wait.Until(driver => driver.Url.Contains("GitHubProfile"));
 
         // Assert - Check that we're on the GitHub Profile page (more flexible)
         var title = githubProfilePage.Driver.Title;

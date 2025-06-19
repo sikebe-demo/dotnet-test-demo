@@ -23,11 +23,11 @@ public class AuthTests :
     }
 
     [Fact]
-    public async Task Get_GithubProfilePageCanGetAGithubUser()
+    public async Task Get_GitHubProfilePageCanGetAGitHubUser()
     {
         // Arrange
         static void ConfigureTestServices(IServiceCollection services) =>
-            services.AddSingleton<IGithubClient>(new TestGithubClient());
+            services.AddSingleton<IGitHubClient>(new TestGitHubClient());
 
         var client = _factory
             .WithWebHostBuilder(builder =>
@@ -35,7 +35,7 @@ public class AuthTests :
             .CreateClient();
 
         // Act
-        var profile = await client.GetAsync("/GithubProfile");
+        var profile = await client.GetAsync("/GitHubProfile");
         Assert.Equal(HttpStatusCode.OK, profile.StatusCode);
         var profileHtml = await HtmlHelpers.GetDocumentAsync(profile);
 
@@ -50,7 +50,7 @@ public class AuthTests :
         Assert.Equal("user", userLogin?.TextContent);
     }
 
-    public class TestGithubClient : IGithubClient
+    public class TestGitHubClient : IGitHubClient
     {
         public Task<GitHubUser> GetUserAsync(string userName)
         {
