@@ -2,6 +2,7 @@ using RazorPagesProject.E2ETests.Fixtures;
 using RazorPagesProject.E2ETests.PageObjects;
 using Xunit.Abstractions;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 
 namespace RazorPagesProject.E2ETests;
 
@@ -86,7 +87,9 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         Assert.Contains("Search", pageSource);
 
         _helper.WriteLine("Language switching test completed successfully");
-    }    [Theory]
+    }
+
+    [Theory]
     [InlineData("en", "Not set")]
     [InlineData("ja", "未設定")]
     public void Should_Display_Profile_With_Correct_Language_After_Search(string culture, string expectedNotSetText)
@@ -103,8 +106,15 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         userNameInput.SendKeys("octocat");
         submitButton.Click();
 
-        // Wait for the profile to load
-        Thread.Sleep(2000);
+        // Wait for the profile to load using explicit wait
+        var wait = new WebDriverWait(_browser.Driver, TimeSpan.FromSeconds(10));
+        wait.Until(driver =>
+        {
+            var pageSource = driver.PageSource;
+            return culture == "en"
+                ? pageSource.Contains("Profile") || pageSource.Contains("Login")
+                : pageSource.Contains("プロフィール") || pageSource.Contains("ログイン名");
+        });
 
         // Assert
         var pageSource = _browser.Driver.PageSource;

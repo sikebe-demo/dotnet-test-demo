@@ -25,8 +25,11 @@
 * **テストフレームワーク**: xUnit を使用
 * **テスト命名**: `MethodName_Scenario_ExpectedBehavior` 形式
 * **AAA パターン**: Arrange, Act, Assert の構造を明確に分離
-* **Theory と InlineData**: パラメータ化テストを積極的に活用--
+* **Theory と InlineData**: パラメータ化テストを積極的に活用
 * **カバレッジ**: 主要なビジネスロジックは現実的な目標として80～90%を目指し、リソースとバランスを考慮する
+* **待機機構**: Thread.Sleepの代わりに明示的な待機機構（Explicit Wait）を使用してテストの安定性を向上させる
+  * ✅ 推奨: `await Task.Delay()`, `TaskCompletionSource`, `CancellationToken`による待機
+  * ❌ 非推奨: `Thread.Sleep()`による固定時間待機
 
 ### 4. ASP.NET Core / Razor Pages 固有
 * **依存性注入**: コンストラクタインジェクションを基本とする
@@ -100,7 +103,8 @@
 * 未処理の例外の放置
 * パスワードやシークレットのハードコード
 * 自明な内容の不要なコメント（メソッド名や型名を繰り返すだけのコメント）
+* テストでの`Thread.Sleep()`の使用（明示的な待機機構を使用すること）
 
 ## レビューガイドライン
-* Pull Request Overview およびレビューコメントは必ず日本語と英語を併記すること
+* レビューコメントは必ず日本語と英語を併記すること
     * 例: `このコードは可読性が低いです。` / `This code is hard to read.`
