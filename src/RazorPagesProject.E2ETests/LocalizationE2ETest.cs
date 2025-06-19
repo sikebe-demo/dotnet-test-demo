@@ -69,7 +69,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _browser.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}/GithubProfile");
 
         // Act - Switch to Japanese
-        var japaneseButton = _browser.Driver.FindElement(By.CssSelector("button[value='ja']"));
+        var japaneseButton = _browser.Driver.FindElement(By.CssSelector("button[data-culture='ja']"));
         japaneseButton.Click();
 
         // Assert - Check if Japanese content is displayed
