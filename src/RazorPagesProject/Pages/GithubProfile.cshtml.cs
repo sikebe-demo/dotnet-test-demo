@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 using RazorPagesProject.Services;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,9 +9,12 @@ namespace RazorPagesProject.Pages;
 
 public class GithubProfileModel : PageModel
 {
-    public GithubProfileModel(IGithubClient client)
+    private readonly IStringLocalizer<GithubProfileModel> _localizer;
+
+    public GithubProfileModel(IGithubClient client, IStringLocalizer<GithubProfileModel> localizer)
     {
         Client = client;
+        _localizer = localizer;
     }
 
     public class InputModel
@@ -22,6 +27,8 @@ public class GithubProfileModel : PageModel
     public required InputModel Input { get; set; }
 
     public IGithubClient Client { get; }
+
+    public IStringLocalizer<GithubProfileModel> Localizer => _localizer;
 
     public GitHubUser? GithubUser { get; private set; }
 

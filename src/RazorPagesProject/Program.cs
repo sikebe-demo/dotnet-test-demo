@@ -1,8 +1,10 @@
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,25 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizePage("/SecurePage");
+})
+.AddViewLocalization()
+.AddDataAnnotationsLocalization();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo("en"),
+        new CultureInfo("ja")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture("en");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+
+    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+    options.RequestCultureProviders.Insert(1, new CookieRequestCultureProvider());
 });
 
 builder.Services.AddHttpClient<IGithubClient, GithubClient>(client =>
@@ -45,6 +66,9 @@ else
 }
 
 app.UseStaticFiles();
+
+app.UseRequestLocalization();
+
 app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
