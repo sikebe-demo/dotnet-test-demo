@@ -106,4 +106,10 @@
   <data name="Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>ユーザー "{0}" が見つかりません。</value>
+  </data>
+  <data name="ErrorFetchingUser" xml:space="preserve">
+    <value>ユーザー情報の取得中にエラーが発生しました。</value>
+  </data>
 </root>

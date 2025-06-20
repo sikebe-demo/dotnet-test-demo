@@ -27,9 +27,20 @@ public class GithubProfileModel(IGithubClient client, IStringLocalizer<GithubPro
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
-        if (userName != null)
+        if (!string.IsNullOrEmpty(userName))
         {
-            GithubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GithubUser = await Client.GetUserAsync(userName);
+                if (GithubUser == null)
+                {
+                    ModelState.AddModelError(string.Empty, Localizer["UserNotFound", userName]);
+                }
+            }
+            catch (HttpRequestException)
+            {
+                ModelState.AddModelError(string.Empty, Localizer["ErrorFetchingUser"]);
+            }
         }
 
         return Page();
