@@ -54,7 +54,7 @@ public class PageObjectBase(IWebDriver driver, ITestOutputHelper? helper = defau
             {
                 // Fall back to XPath that matches the asp-page attribute
                 githubProfileLink = wait.Until(driver =>
-                    driver.FindElement(By.XPath("//a[@asp-page='/GithubProfile' or contains(@href, '/GithubProfile')]")));
+                    driver.FindElement(By.XPath("//a[@asp-page='/GitHubProfile' or contains(@href, '/GitHubProfile')]")));
             }
         }
 

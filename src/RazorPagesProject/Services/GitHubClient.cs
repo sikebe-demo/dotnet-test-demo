@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace RazorPagesProject.Services;
 
-public class GithubClient(HttpClient client) : IGithubClient
+public class GitHubClient(HttpClient client) : IGitHubClient
 {
     public HttpClient Client { get; } = client;
 
@@ -16,7 +16,7 @@ public class GithubClient(HttpClient client) : IGithubClient
     }
 }
 
-public interface IGithubClient
+public interface IGitHubClient
 {
     Task<GitHubUser> GetUserAsync(string userName);
 }

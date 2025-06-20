@@ -51,7 +51,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
     public async Task Should_Switch_Language_When_Language_Button_Clicked()
     {
         // Arrange
-        _githubProfilePage.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}/GithubProfile");
+        _githubProfilePage.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}/GitHubProfile");
 
         // Act & Assert - Switch to Japanese
         await _githubProfilePage.SwitchToJapaneseAsync();
