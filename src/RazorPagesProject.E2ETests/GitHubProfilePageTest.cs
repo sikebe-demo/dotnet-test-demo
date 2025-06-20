@@ -4,18 +4,18 @@ using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests;
 
-public class GithubProfilePageTest : IClassFixture<EdgeFixture>
+public class GitHubProfilePageTest : IClassFixture<EdgeFixture>
 {
     private readonly BrowserFixture _browser;
     private readonly ITestOutputHelper _helper;
     private readonly GitHubProfilePage _githubProfilePage;
 
-    public GithubProfilePageTest(EdgeFixture edgeFixture, ITestOutputHelper helper)
+    public GitHubProfilePageTest(EdgeFixture edgeFixture, ITestOutputHelper helper)
     {
         _browser = edgeFixture;
         _helper = helper;
 
-        _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GithubProfile");
+        _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GitHubProfile");
         _githubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
     }
 

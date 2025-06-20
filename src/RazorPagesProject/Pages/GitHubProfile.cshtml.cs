@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RazorPagesProject.Pages;
 
-public class GithubProfileModel(IGithubClient client, IStringLocalizer<GithubProfileModel> localizer) : PageModel
+public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubProfileModel> localizer) : PageModel
 {
-    private readonly IStringLocalizer<GithubProfileModel> _localizer = localizer;
+    private readonly IStringLocalizer<GitHubProfileModel> _localizer = localizer;
 
     public class InputModel
     {
@@ -19,17 +19,17 @@ public class GithubProfileModel(IGithubClient client, IStringLocalizer<GithubPro
     [BindProperty]
     public required InputModel Input { get; set; }
 
-    public IGithubClient Client { get; } = client;
+    public IGitHubClient Client { get; } = client;
 
-    public IStringLocalizer<GithubProfileModel> Localizer => _localizer;
+    public IStringLocalizer<GitHubProfileModel> Localizer => _localizer;
 
-    public GitHubUser? GithubUser { get; private set; }
+    public GitHubUser? GitHubUser { get; private set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
-            GithubUser = await Client.GetUserAsync(userName);
+            GitHubUser = await Client.GetUserAsync(userName);
         }
 
         return Page();

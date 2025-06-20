@@ -40,7 +40,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Insert(1, new CookieRequestCultureProvider());
 });
 
-builder.Services.AddHttpClient<IGithubClient, GithubClient>(client =>
+builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 {
     client.BaseAddress = new Uri("https://api.github.com");
     client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Yolo", "0.1.0"));

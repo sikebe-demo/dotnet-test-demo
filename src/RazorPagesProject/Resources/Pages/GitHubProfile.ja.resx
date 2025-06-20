@@ -59,51 +59,51 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="PageTitle" xml:space="preserve">
-    <value>GitHub Profile</value>
+    <value>GitHub プロフィール</value>
   </data>
   <data name="PageHeader" xml:space="preserve">
-    <value>GitHub Profile Explorer</value>
+    <value>GitHub プロフィール エクスプローラー</value>
   </data>
   <data name="SearchHeader" xml:space="preserve">
-    <value>Search</value>
+    <value>検索</value>
   </data>
   <data name="UserNameLabel" xml:space="preserve">
-    <value>GitHub Username</value>
+    <value>GitHubユーザー名</value>
   </data>
   <data name="UserNamePlaceholder" xml:space="preserve">
-    <value>e.g., octocat</value>
+    <value>例: octocat</value>
   </data>
   <data name="SearchButton" xml:space="preserve">
-    <value>Show Profile</value>
+    <value>プロフィールを表示</value>
   </data>
   <data name="ProfileHeader" xml:space="preserve">
-    <value>Profile</value>
+    <value>プロフィール</value>
   </data>
   <data name="LoginLabel" xml:space="preserve">
-    <value>Login</value>
+    <value>ログイン名</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="CompanyLabel" xml:space="preserve">
-    <value>Company</value>
+    <value>会社</value>
   </data>
   <data name="NotSet" xml:space="preserve">
-    <value>Not set</value>
+    <value>未設定</value>
   </data>
-  <data name="ViewOnGithub" xml:space="preserve">
-    <value>View on GitHub</value>
+  <data name="ViewOnGitHub" xml:space="preserve">
+    <value>GitHubで表示</value>
   </data>
   <data name="LoadingText" xml:space="preserve">
-    <value>Loading...</value>
+    <value>読み込み中...</value>
   </data>
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="Japanese" xml:space="preserve">
-    <value>Japanese</value>
+    <value>日本語</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>言語</value>
   </data>
 </root>
