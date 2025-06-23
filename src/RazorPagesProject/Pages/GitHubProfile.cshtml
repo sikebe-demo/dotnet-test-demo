@@ -37,7 +37,17 @@
         </div>
     </div>
 
-    @if (Model.GitHubUser != null)
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="col-md-6">
+            <div class="profile-card">
+                <div class="alert alert-warning" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@Model.ErrorMessage
+                </div>
+            </div>
+        </div>
+    }
+    else if (Model.GitHubUser != null)
     {
         <div class="col-md-6">
             <div class="profile-card profile-display">
