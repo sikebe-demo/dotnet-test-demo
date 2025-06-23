@@ -106,4 +106,7 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>GitHub user '{0}' not found. Please check the username and try again.</value>
+  </data>
 </root>

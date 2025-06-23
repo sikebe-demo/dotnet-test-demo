@@ -52,11 +52,11 @@ public class AuthTests :
 
     public class TestGitHubClient : IGitHubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,13 +66,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult<GitHubUser?>(null);
             }
         }
     }
