@@ -34,7 +34,7 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
             GitHubUser = await Client.GetUserAsync(userName);
             if (GitHubUser == null)
             {
-                ErrorMessage = Localizer["UserNotFound", userName];
+                ErrorMessage = string.Format(Localizer["UserNotFound"], userName);
             }
         }
 
