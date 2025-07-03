@@ -106,4 +106,13 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>GitHub user '{0}' not found. Please check the username and try again.</value>
+  </data>
+  <data name="GeneralError" xml:space="preserve">
+    <value>An error occurred while searching for the GitHub user. Please try again later.</value>
+  </data>
+  <data name="ErrorSuggestion" xml:space="preserve">
+    <value>Please check the username spelling or try a different GitHub username.</value>
+  </data>
 </root>

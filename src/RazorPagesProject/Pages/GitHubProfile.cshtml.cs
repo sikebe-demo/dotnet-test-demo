@@ -24,12 +24,25 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
     public IStringLocalizer<GitHubProfileModel> Localizer => _localizer;
 
     public GitHubUser? GitHubUser { get; private set; }
+    public string? ErrorMessage { get; private set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
-            GitHubUser = await Client.GetUserAsync(userName);
+            var result = await Client.GetUserAsync(userName);
+            if (result.IsSuccess)
+            {
+                GitHubUser = result.User;
+            }
+            else if (result.IsUserNotFound)
+            {
+                ErrorMessage = $"GitHub user '{result.RequestedUserName ?? string.Empty}' not found. Please check the username and try again.";
+            }
+            else
+            {
+                ErrorMessage = _localizer["GeneralError"];
+            }
         }
 
         return Page();
