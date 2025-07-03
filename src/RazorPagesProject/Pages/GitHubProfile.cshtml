@@ -19,6 +19,12 @@
             <div class="profile-info">
                 <form id="user-profile" method="post">
                     <div asp-validation-summary="None" class="text-danger"></div>
+                    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            <i class="fas fa-exclamation-triangle me-2"></i>@Model.ErrorMessage
+                        </div>
+                    }
                     <div class="form-group mb-3">
                         <label asp-for="Input.UserName" class="profile-label mb-1">@Localizer["UserNameLabel"]</label>
                         <div class="input-group">

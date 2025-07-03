@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text.Json.Serialization;
 
 namespace RazorPagesProject.Services;
@@ -6,9 +7,17 @@ public class GitHubClient(HttpClient client) : IGitHubClient
 {
     public HttpClient Client { get; } = client;
 
-    public async Task<GitHubUser> GetUserAsync(string userName)
+    public async Task<GitHubUser?> GetUserAsync(string userName)
     {
         var response = await Client.GetAsync($"/users/{Uri.EscapeDataString(userName)}");
+        
+        // Handle user not found (404) gracefully
+        if (response.StatusCode == HttpStatusCode.NotFound)
+        {
+            return null;
+        }
+        
+        // For other errors, still throw exception as they are unexpected
         response.EnsureSuccessStatusCode();
 
         var user = await response.Content.ReadFromJsonAsync<GitHubUser>();
@@ -18,7 +27,7 @@ public class GitHubClient(HttpClient client) : IGitHubClient
 
 public interface IGitHubClient
 {
-    Task<GitHubUser> GetUserAsync(string userName);
+    Task<GitHubUser?> GetUserAsync(string userName);
 }
 
 public class GitHubUser
