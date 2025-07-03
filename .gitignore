@@ -10,4 +10,4 @@ app.db
 app.db-shm
 app.db-wal
 .mono
-screenshots/
+# screenshots/ - temporarily allow specific error handling screenshots
