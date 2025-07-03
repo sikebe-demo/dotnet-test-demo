@@ -52,11 +52,11 @@ public class AuthTests :
 
     public class TestGitHubClient : IGitHubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUser?> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
+                return Task.FromResult<GitHubUser?>(
                     new GitHubUser
                     {
                         Login = "user",
@@ -66,13 +66,7 @@ public class AuthTests :
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult<GitHubUser?>(null);
             }
         }
     }
@@ -122,6 +116,34 @@ public class AuthTests :
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Get_GitHubProfilePageShowsErrorForNonExistentUser()
+    {
+        // Arrange
+        static void ConfigureTestServices(IServiceCollection services) =>
+            services.AddSingleton<IGitHubClient>(new TestGitHubClient());
+
+        var client = _factory
+            .WithWebHostBuilder(builder =>
+                builder.ConfigureTestServices(ConfigureTestServices))
+            .CreateClient();
+
+        // Act
+        var response = await client.GetAsync("/GitHubProfile/nonexistentuser");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var html = await HtmlHelpers.GetDocumentAsync(response);
+        
+        // Check that error message is displayed
+        var errorAlert = html.QuerySelector(".alert-warning");
+        Assert.NotNull(errorAlert);
+        
+        // Check that user profile is not displayed
+        var userLogin = html.QuerySelector("#user-login");
+        Assert.Null(userLogin);
     }
 }
 
