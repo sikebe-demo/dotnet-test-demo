@@ -101,6 +101,23 @@
 * アクセシビリティの考慮
 * SEO対応（適切なメタタグ、構造化データ）
 
+#### 起動とテスト方法
+**起動コマンド:**
+```powershell
+cd .\src\RazorPagesProject\
+dotnet run
+```
+
+**テスト用URL:**
+* メインページ: http://localhost:5016/
+* GitHubプロフィールページ: http://localhost:5016/GitHubProfile
+* HTTPS版: https://localhost:7072/
+
+**注意事項:**
+* 開発者証明書が信頼されていない場合は、HTTPSの警告が表示される場合があります
+* アプリケーションの停止は `Ctrl+C` で行います
+* SQLiteデータベースが自動的に初期化されます
+
 ### テストプロジェクト
 * **Unit Tests**: ビジネスロジックの詳細テスト
 * **Integration Tests**: API エンドポイントのテスト
