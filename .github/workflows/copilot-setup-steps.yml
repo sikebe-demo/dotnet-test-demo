@@ -13,6 +13,22 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Setup Japanese Font Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+          fonts-noto-cjk \
+          fonts-noto-cjk-extra \
+          fonts-liberation \
+          fonts-dejavu-core \
+          fontconfig
+        
+        # フォントキャッシュを更新
+        sudo fc-cache -fv
+        
+        # 利用可能な日本語フォントを確認
+        fc-list :lang=ja | head -10
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
@@ -21,5 +37,10 @@ jobs:
     - name: Build
       run: dotnet build
 
-    - name: Install Japanese fonts
-      run: sudo apt install fonts-noto-cjk
+    - name: Setup Browser Environment for E2E Tests
+      run: |
+        npx playwright install --with-deps chromium
+        
+        # ブラウザー環境の日本語フォント設定
+        export LANG=ja_JP.UTF-8
+        export LC_ALL=ja_JP.UTF-8
