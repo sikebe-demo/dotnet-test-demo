@@ -106,9 +106,6 @@
 ```powershell
 cd .\src\RazorPagesProject\
 dotnet run
-
-# Coding agent は、以下のコマンドを使用してプロジェクトを起動してください。
-dotnet run --urls "http://localhost:5016;https://localhost:7072"
 ```
 
 **テスト用URL:**
