@@ -36,11 +36,3 @@ jobs:
 
     - name: Build
       run: dotnet build
-
-    - name: Setup Browser Environment for E2E Tests
-      run: |
-        npx playwright install --with-deps chromium
-        
-        # ブラウザー環境の日本語フォント設定
-        export LANG=ja_JP.UTF-8
-        export LC_ALL=ja_JP.UTF-8
