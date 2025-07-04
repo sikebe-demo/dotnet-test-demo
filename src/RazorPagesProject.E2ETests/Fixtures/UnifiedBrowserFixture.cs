@@ -19,7 +19,10 @@ public class UnifiedBrowserFixture : IDisposable
         _factory = new BrowserDriverFactory(_configuration);
     }
 
-    public UnifiedBrowserFixture(E2ETestConfiguration configuration)
+    /// <summary>
+    /// Internal constructor for creating fixtures with specific configuration
+    /// </summary>
+    internal UnifiedBrowserFixture(E2ETestConfiguration configuration)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _factory = new BrowserDriverFactory(_configuration);
@@ -51,6 +54,14 @@ public class UnifiedBrowserFixture : IDisposable
     /// Get the configuration
     /// </summary>
     public E2ETestConfiguration Configuration => _configuration;
+
+    /// <summary>
+    /// Create a fixture with specific configuration (for advanced scenarios)
+    /// </summary>
+    public static UnifiedBrowserFixture CreateWithConfiguration(E2ETestConfiguration configuration)
+    {
+        return new UnifiedBrowserFixture(configuration);
+    }
 
     public void Dispose()
     {

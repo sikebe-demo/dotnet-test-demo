@@ -17,17 +17,13 @@ public class SeleniumSpecificTest : IDisposable
     {
         _helper = helper;
         
-        // Force Selenium configuration
-        var config = new E2ETestConfiguration
-        {
-            Framework = TestFramework.Selenium,
-            Browser = BrowserType.Edge,
-            Headless = true,
-            Timeout = TimeSpan.FromSeconds(10),
-            BaseUrl = "https://localhost:7072"
-        };
+        // Override environment variables to force Selenium
+        Environment.SetEnvironmentVariable("E2E_FRAMEWORK", "Selenium");
+        Environment.SetEnvironmentVariable("E2E_BROWSER", "Edge");
+        Environment.SetEnvironmentVariable("E2E_HEADLESS", "true");
+        Environment.SetEnvironmentVariable("E2E_BASE_URL", "https://localhost:7072");
         
-        _browserFixture = new UnifiedBrowserFixture(config);
+        _browserFixture = new UnifiedBrowserFixture();
     }
 
     [Fact]
@@ -56,6 +52,12 @@ public class SeleniumSpecificTest : IDisposable
 
     public void Dispose()
     {
+        // Clean up environment variables
+        Environment.SetEnvironmentVariable("E2E_FRAMEWORK", null);
+        Environment.SetEnvironmentVariable("E2E_BROWSER", null);
+        Environment.SetEnvironmentVariable("E2E_HEADLESS", null);
+        Environment.SetEnvironmentVariable("E2E_BASE_URL", null);
+        
         _browserFixture?.Dispose();
     }
 }
