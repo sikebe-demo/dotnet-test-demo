@@ -37,6 +37,16 @@
         </div>
     </div>
 
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading"><i class="fas fa-exclamation-triangle me-2"></i>User Not Found</h4>
+                <p class="mb-0">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    }
+
     @if (Model.GitHubUser != null)
     {
         <div class="col-md-6">
