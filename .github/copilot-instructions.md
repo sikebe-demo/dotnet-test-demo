@@ -149,6 +149,10 @@ dotnet run
 * レビューコメントは必ず日本語と英語を併記すること
     * 例: `このコードは可読性が低いです。` / `This code is hard to read.`
 
+## Development Guidelines
+
+**Always search Microsoft documentation (MS Learn) when working with .NET, Windows, or Microsoft features, or APIs.** Use the `microsoft_docs_search` tool to find the most current information about capabilities, best practices, and implementation patterns before making changes.
+
 ## Coding Agent 固有のガイドライン
 ### ⚠️ 必須: UI変更タスクのスクリーンショット取得プロセス
 
