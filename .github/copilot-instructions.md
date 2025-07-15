@@ -149,6 +149,103 @@ dotnet run
 * レビューコメントは必ず日本語と英語を併記すること
     * 例: `このコードは可読性が低いです。` / `This code is hard to read.`
 
+## Microsoft Learn Docs MCP Server ガイドライン
+
+### 📚 概要と目的
+Microsoft Learn Docs MCP Server は、Model Context Protocol (MCP) を使用してGitHub Copilotを拡張し、Microsoft公式ドキュメントへの直接アクセスを可能にするツールです。.NET開発者にとって特に有用な機能を提供します。
+
+**主要機能:**
+* Microsoft Learn、Microsoft Docsからの最新かつ正確な情報検索
+* 自然言語による質問に対する信頼性の高い回答
+* GitHub Copilot Agent Modeとのシームレスな統合
+* .NET、Azure、Visual Studioに関する包括的なドキュメント支援
+
+### ⚙️ セットアップと設定
+
+#### 前提条件
+* Visual Studio Code
+* GitHub Copilot拡張機能（最新版）
+* .NET 8.0 SDK以降
+
+#### 設定手順
+1. **MCP設定ファイルの作成**: プロジェクトルートに `.vscode/mcp.json` ファイルを作成
+```json
+{
+  "inputs": [],
+  "servers": {
+    "microsoft-docs": {
+      "type": "http",
+      "url": "https://mcp.microsoft.com/docs",
+      "capabilities": ["search", "retrieve"]
+    }
+  }
+}
+```
+
+2. **Visual Studio Code設定**: `.vscode/settings.json` に以下を追加
+```json
+{
+  "chat.tools.autoApprove": false,
+  "copilot.chat.agent.mcp.enabled": true
+}
+```
+
+### 🎯 効果的な使用パターン
+
+#### .NET開発での推奨クエリ例
+* **API リファレンス**: "Show me the latest Entity Framework Core migration patterns"
+* **ベストプラクティス**: "What are the current ASP.NET Core security best practices?"
+* **トラブルシューティング**: "How to resolve dependency injection issues in .NET 9?"
+* **新機能**: "What's new in C# 13 and .NET 9?"
+
+#### 効果的な質問の仕方
+* ✅ **具体的**: "How to implement JWT authentication in ASP.NET Core 9.0"
+* ✅ **バージョン指定**: "Entity Framework Core 9.0 best practices for performance"
+* ✅ **コンテキスト提供**: "Blazor Server vs Blazor WebAssembly performance comparison in .NET 9"
+* ❌ **曖昧**: "How to use .NET"
+* ❌ **古いバージョン**: ".NET Framework 4.8の使い方" (代わりに.NET 8/9を使用)
+
+### 🔧 GitHub Copilot統合のベストプラクティス
+
+#### Agent Mode での活用方法
+1. **ドキュメント検索優先**: コーディング前にMCP Serverで最新情報を確認
+2. **段階的な学習**: 基本概念 → 実装方法 → ベストプラクティスの順序で質問
+3. **コード例の要求**: "Show me a complete example with error handling"
+4. **複数ソースの比較**: GitHub Copilot + MCP Server の回答を組み合わせて総合判断
+
+#### セキュリティと権限管理
+* **自動承認の制限**: `chat.tools.autoApprove: false` で手動承認を維持
+* **スコープ設定**: 必要な権限のみを付与（Current workspace推奨）
+* **定期的な見直し**: 接続しているMCPサーバーの定期的な監査
+
+### 📋 プロジェクト固有の活用例
+
+#### PrimeService 開発時
+```
+"Show me the most efficient prime number algorithms in .NET 9 with performance benchmarks"
+```
+
+#### RazorPagesProject 開発時
+```
+"What are the latest ASP.NET Core Razor Pages security features and anti-forgery token best practices?"
+```
+
+#### テストプロジェクト改善時
+```
+"Show me xUnit best practices for integration testing with Entity Framework Core 9.0"
+```
+
+### 🚫 使用時の注意事項
+* **情報の鮮度確認**: 取得した情報が最新バージョンに対応しているか確認
+* **複数ソース検証**: 重要な実装決定では複数の情報源で確認
+* **ローカルテスト**: 提案されたコードは必ずローカル環境でテスト
+* **パフォーマンス考慮**: 過度な検索クエリはCopilotのレスポンス速度に影響する可能性
+
+### 📈 効果測定とフィードバック
+* **開発効率**: ドキュメント検索時間の短縮を測定
+* **コード品質**: MCP Server提案の採用率と品質向上を評価
+* **学習効果**: 新しいAPIや機能の習得速度を記録
+
 ## Coding Agent 固有のガイドライン
 ### ⚠️ 必須: UI変更タスクのスクリーンショット取得プロセス
 
