@@ -1,0 +1,32 @@
+{
+  "name": "razorpagesproject",
+  "version": "1.0.0",
+  "description": "ASP.NET Core Razor Pages project with client-side dependencies managed by npm",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run copy-libs",
+    "copy-libs": "npm run copy-bootstrap && npm run copy-jquery && npm run copy-jquery-validation && npm run copy-jquery-validation-unobtrusive",
+    "copy-bootstrap": "cpx \"node_modules/bootstrap/dist/**\" \"wwwroot/lib/bootstrap/dist/\"",
+    "copy-jquery": "cpx \"node_modules/jquery/dist/**\" \"wwwroot/lib/jquery/dist/\"",
+    "copy-jquery-validation": "cpx \"node_modules/jquery-validation/dist/**\" \"wwwroot/lib/jquery-validation/dist/\"",
+    "copy-jquery-validation-unobtrusive": "cpx \"node_modules/jquery-validation-unobtrusive/dist/**\" \"wwwroot/lib/jquery-validation-unobtrusive/\" && cpx \"node_modules/jquery-validation-unobtrusive/LICENSE.txt\" \"wwwroot/lib/jquery-validation-unobtrusive/\"",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "asp.net-core",
+    "razor-pages",
+    "bootstrap",
+    "jquery"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "jquery": "^3.7.1",
+    "jquery-validation": "^1.21.0",
+    "jquery-validation-unobtrusive": "^4.0.0"
+  },
+  "devDependencies": {
+    "cpx": "^1.5.0"
+  }
+}

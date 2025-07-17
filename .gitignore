@@ -10,3 +10,12 @@ app.db
 app.db-shm
 app.db-wal
 .mono
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# npm generated files (keep the lib directory structure but exclude from source control in future)
+# For now, keeping lib files to maintain compatibility
