@@ -1,0 +1,56 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "css/bootstrap.min.css",
+        "css/bootstrap.css",
+        "css/bootstrap-grid.min.css",
+        "css/bootstrap-grid.css",
+        "css/bootstrap-utilities.min.css",
+        "css/bootstrap-utilities.css",
+        "css/bootstrap.rtl.min.css",
+        "css/bootstrap.rtl.css",
+        "css/bootstrap-grid.rtl.min.css",
+        "css/bootstrap-grid.rtl.css",
+        "css/bootstrap-utilities.rtl.min.css",
+        "css/bootstrap-utilities.rtl.css",
+        "js/bootstrap.min.js",
+        "js/bootstrap.js",
+        "js/bootstrap.bundle.min.js",
+        "js/bootstrap.bundle.js",
+        "js/bootstrap.esm.min.js",
+        "js/bootstrap.esm.js"
+      ]
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js"
+      ]
+    },
+    {
+      "library": "jquery-validate@1.21.0",
+      "destination": "wwwroot/lib/jquery-validation/",
+      "files": [
+        "jquery.validate.min.js",
+        "jquery.validate.js",
+        "additional-methods.min.js",
+        "additional-methods.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@4.0.0",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [
+        "jquery.validate.unobtrusive.min.js",
+        "jquery.validate.unobtrusive.js"
+      ]
+    }
+  ]
+}
