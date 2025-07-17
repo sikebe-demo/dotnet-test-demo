@@ -6,10 +6,10 @@
   "scripts": {
     "build": "npm run copy-libs",
     "copy-libs": "npm run copy-bootstrap && npm run copy-jquery && npm run copy-jquery-validation && npm run copy-jquery-validation-unobtrusive",
-    "copy-bootstrap": "cpx \"node_modules/bootstrap/dist/**\" \"wwwroot/lib/bootstrap/dist/\"",
-    "copy-jquery": "cpx \"node_modules/jquery/dist/**\" \"wwwroot/lib/jquery/dist/\"",
-    "copy-jquery-validation": "cpx \"node_modules/jquery-validation/dist/**\" \"wwwroot/lib/jquery-validation/dist/\"",
-    "copy-jquery-validation-unobtrusive": "cpx \"node_modules/jquery-validation-unobtrusive/dist/**\" \"wwwroot/lib/jquery-validation-unobtrusive/\" && cpx \"node_modules/jquery-validation-unobtrusive/LICENSE.txt\" \"wwwroot/lib/jquery-validation-unobtrusive/\"",
+    "copy-bootstrap": "cpx \"node_modules/bootstrap/dist/css/bootstrap.min.css\" \"wwwroot/lib/bootstrap/dist/css/\" && cpx \"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js\" \"wwwroot/lib/bootstrap/dist/js/\"",
+    "copy-jquery": "cpx \"node_modules/jquery/dist/jquery.min.js\" \"wwwroot/lib/jquery/dist/\"",
+    "copy-jquery-validation": "cpx \"node_modules/jquery-validation/dist/jquery.validate.min.js\" \"wwwroot/lib/jquery-validation/dist/\"",
+    "copy-jquery-validation-unobtrusive": "cpx \"node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js\" \"wwwroot/lib/jquery-validation-unobtrusive/\"",
     "postinstall": "npm run build"
   },
   "keywords": [
