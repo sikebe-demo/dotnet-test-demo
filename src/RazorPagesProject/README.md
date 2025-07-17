@@ -44,12 +44,12 @@ ASP.NET Core Razor Pages application demonstrating modern web development practi
 
 This project uses npm to manage client-side packages:
 
-- Bootstrap 5.3.7
-- jQuery 3.7.1  
-- jQuery Validation 1.21.0
-- jQuery Validation Unobtrusive 4.0.0
+- Bootstrap
+- jQuery
+- jQuery Validation
+- jQuery Validation Unobtrusive
 
-For detailed npm setup documentation, see [README-NPM.md](README-NPM.md).
+For detailed npm setup documentation, see the dependencies section in this README.
 
 ## Development
 

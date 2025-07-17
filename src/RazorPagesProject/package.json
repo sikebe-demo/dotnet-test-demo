@@ -2,7 +2,7 @@
   "name": "razorpagesproject",
   "version": "1.0.0",
   "description": "ASP.NET Core Razor Pages project with client-side dependencies managed by npm",
-  "main": "index.js",
+  "private": true,
   "scripts": {
     "build": "npm run copy-libs",
     "copy-libs": "npm run copy-bootstrap && npm run copy-jquery && npm run copy-jquery-validation && npm run copy-jquery-validation-unobtrusive",
@@ -19,7 +19,7 @@
     "jquery"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bootstrap": "^5.3.7",
     "jquery": "^3.7.1",

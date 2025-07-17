@@ -2,5 +2,8 @@
   "sdk": {
     "version": "9.0.302",
     "rollForward": "latestFeature"
+  },
+  "nodejs": {
+    "version": "22"
   }
 }
