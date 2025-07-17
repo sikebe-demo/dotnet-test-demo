@@ -17,5 +17,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# npm generated files (keep the lib directory structure but exclude from source control in future)
-# For now, keeping lib files to maintain compatibility
+# npm generated files - these should be built from npm packages
+src/RazorPagesProject/wwwroot/lib/bootstrap/
+src/RazorPagesProject/wwwroot/lib/jquery/
+src/RazorPagesProject/wwwroot/lib/jquery-validation/
+src/RazorPagesProject/wwwroot/lib/jquery-validation-unobtrusive/
