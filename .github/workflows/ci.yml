@@ -19,6 +19,15 @@ jobs:
       with:
         global-json-file: global.json
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install npm dependencies for client-side libraries
+      working-directory: ./src/RazorPagesProject
+      run: npm install
+
     - name: Build
       run: dotnet build
 
