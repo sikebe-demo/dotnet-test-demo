@@ -30,5 +30,5 @@
       "version": "latest"
     }
   },
-  "postCreateCommand": "chmod +x .devcontainer/setup.sh && .devcontainer/setup.sh"
+  "postCreateCommand": ".devcontainer/setup.sh"
 }
