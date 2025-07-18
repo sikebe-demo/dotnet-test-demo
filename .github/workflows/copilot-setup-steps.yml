@@ -27,5 +27,9 @@ jobs:
       with:
         global-json-file: global.json
 
+    - name: Setup Japanese fonts environment
+      run: |
+        sudo apt-get install -y \
+
     - name: Build
       run: dotnet build
