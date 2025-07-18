@@ -4,7 +4,7 @@
   "description": "ASP.NET Core Razor Pages project with client-side dependencies managed by npm",
   "private": true,
   "scripts": {
-    "build": "./scripts/build-libs.sh",
+    "build": "node scripts/build-libs.js",
     "postinstall": "npm run build"
   },
   "keywords": [

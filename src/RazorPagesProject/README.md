@@ -42,12 +42,16 @@ ASP.NET Core Razor Pages application demonstrating modern web development practi
 
 ## Client-Side Dependencies
 
-This project uses npm to manage client-side packages:
+This project uses npm to manage client-side packages with cross-platform build support:
 
 - Bootstrap
 - jQuery
 - jQuery Validation
 - jQuery Validation Unobtrusive
+
+### Cross-Platform Build
+
+The project uses a Node.js-based build script (`build-libs.js`) that works on all platforms (Windows, Linux, macOS). The build process runs automatically during `npm install`.
 
 For detailed npm setup documentation, see the dependencies section in this README.
 
@@ -67,7 +71,9 @@ dotnet test
 
 ### Client-side assets
 
-Client-side packages are automatically copied to `wwwroot/lib` during npm install. To rebuild manually:
+Client-side packages are automatically copied to `wwwroot/lib` during `npm install` via the `postinstall` script.
+
+To rebuild client-side assets manually:
 
 ```bash
 npm run build
