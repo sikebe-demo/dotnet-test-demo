@@ -90,15 +90,56 @@
 </div>
 
 @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
     <script>
-        // フォーム送信時のロード表示やアニメーションなどの追加機能
-        document.getElementById('user-profile').addEventListener('submit', function() {
-            const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>@Localizer["LoadingText"]';
-            btn.disabled = true;
+        (function() {
+            const form = document.getElementById('user-profile');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalBtnText = '<i class="fas fa-search me-2"></i>@Localizer["SearchButton"]';
+            const loadingBtnText = '<i class="fas fa-spinner fa-spin me-2"></i>@Localizer["LoadingText"]';
 
-            // フォーム送信は通常通り行われる
-        });
+            // ボタンを元の状態にリセットする関数
+            function resetButton() {
+                submitBtn.innerHTML = originalBtnText;
+                submitBtn.disabled = false;
+            }
+
+            // フォーム送信時の処理
+            form.addEventListener('submit', function() {
+                // バリデーションチェック（jQuery Validation優先、フォールバックでHTML5）
+                const isValid = (typeof $ !== 'undefined' && $.fn.valid)
+                    ? $(form).valid()
+                    : form.checkValidity();
+
+                if (!isValid) {
+                    return false; // バリデーションエラー時は送信中止
+                }
+
+                // バリデーション成功時はLoading状態に変更
+                submitBtn.innerHTML = loadingBtnText;
+                submitBtn.disabled = true;
+
+                // タイムアウト対策（5秒後にリセット）
+                setTimeout(resetButton, 5000);
+                return true;
+            });
+
+            // ページロード時とバリデーションエラー時のボタンリセット
+            document.addEventListener('DOMContentLoaded', function() {
+                resetButton();
+
+                // jQuery Validationエラー時のリセット
+                if (typeof $ !== 'undefined') {
+                    $(form).on('invalid-form.validate', resetButton);
+                }
+            });
+
+            // ページが再表示された時のリセット
+            document.addEventListener('visibilitychange', function() {
+                if (!document.hidden && submitBtn.disabled) {
+                    resetButton();
+                }
+            });
+        })();
     </script>
 }
