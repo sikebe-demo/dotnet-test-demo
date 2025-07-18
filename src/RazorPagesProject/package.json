@@ -1,0 +1,26 @@
+{
+  "name": "razorpagesproject",
+  "version": "1.0.0",
+  "description": "ASP.NET Core Razor Pages project with client-side dependencies managed by npm",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-libs.js",
+    "postinstall": "npm run build"
+  },
+  "keywords": [
+    "asp.net-core",
+    "razor-pages",
+    "bootstrap",
+    "jquery"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "jquery": "^3.7.1",
+    "jquery-validation": "^1.21.0",
+    "jquery-validation-unobtrusive": "^4.0.0"
+  },
+  "devDependencies": {
+  }
+}

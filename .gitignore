@@ -10,3 +10,15 @@ app.db
 app.db-shm
 app.db-wal
 .mono
+
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# npm generated files - these should be built from npm packages
+src/RazorPagesProject/wwwroot/lib/bootstrap/
+src/RazorPagesProject/wwwroot/lib/jquery/
+src/RazorPagesProject/wwwroot/lib/jquery-validation/
+src/RazorPagesProject/wwwroot/lib/jquery-validation-unobtrusive/

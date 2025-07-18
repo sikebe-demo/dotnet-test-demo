@@ -37,8 +37,14 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
 
     public IActionResult OnPost()
     {
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
         if (string.IsNullOrEmpty(Input.UserName))
         {
+            ModelState.AddModelError(nameof(Input.UserName), "Username is required.");
             return Page();
         }
 
