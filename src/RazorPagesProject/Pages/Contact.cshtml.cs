@@ -8,6 +8,6 @@ public class ContactModel : PageModel
 
     public void OnGet()
     {
-        Message = "Your contact page.";
+        Message = "Get in touch with the development team.";
     }
 }

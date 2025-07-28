@@ -2,19 +2,97 @@
 @model ContactModel
 @{
     ViewData["Title"] = "Contact";
+    ViewData["Description"] = "Contact information for the RazorPagesProject development team. Find GitHub repository, documentation, and support resources.";
 }
 
 <h1>@ViewData["Title"]</h1>
 <h2>@Model.Message</h2>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <h3>Project Information</h3>
+            <p>
+                RazorPagesProject is an open-source demonstration project showcasing modern .NET development practices. 
+                This project is maintained as part of the .NET Test Demo repository for educational and reference purposes.
+            </p>
+        </section>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+        <section class="mt-4">
+            <h3>Repository & Documentation</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-github"></i> GitHub Repository
+                    </h5>
+                    <p class="card-text">
+                        Access the complete source code, documentation, and contribute to the project.
+                    </p>
+                    <a href="https://github.com/sikebe-demo/dotnet-test-demo" class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="bi bi-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-4">
+            <h3>Support & Feedback</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <i class="bi bi-bug"></i> Issues & Feature Requests
+                    </h5>
+                    <p class="card-text">
+                        Found a bug or have a feature suggestion? Please create an issue on GitHub.
+                    </p>
+                    <a href="https://github.com/sikebe-demo/dotnet-test-demo/issues" class="btn btn-outline-primary" target="_blank" rel="noopener">
+                        <i class="bi bi-plus-circle"></i> Create Issue
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="col-md-4">
+        <section>
+            <h3>Quick Links</h3>
+            <div class="list-group">
+                <a href="https://github.com/sikebe-demo/dotnet-test-demo#readme" class="list-group-item list-group-item-action" target="_blank" rel="noopener">
+                    <i class="bi bi-book"></i> Documentation
+                </a>
+                <a href="https://github.com/sikebe-demo/dotnet-test-demo/wiki" class="list-group-item list-group-item-action" target="_blank" rel="noopener">
+                    <i class="bi bi-journal-text"></i> Wiki
+                </a>
+                <a href="https://github.com/sikebe-demo/dotnet-test-demo/releases" class="list-group-item list-group-item-action" target="_blank" rel="noopener">
+                    <i class="bi bi-tag"></i> Releases
+                </a>
+                <a href="https://github.com/sikebe-demo/dotnet-test-demo/blob/main/LICENSE" class="list-group-item list-group-item-action" target="_blank" rel="noopener">
+                    <i class="bi bi-file-text"></i> License (MIT)
+                </a>
+            </div>
+        </section>
+
+        <section class="mt-4">
+            <h3>Development Info</h3>
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 small">Framework:</dt>
+                        <dd class="col-sm-8 small">.NET 9</dd>
+                        
+                        <dt class="col-sm-4 small">Platform:</dt>
+                        <dd class="col-sm-8 small">ASP.NET Core</dd>
+                        
+                        <dt class="col-sm-4 small">License:</dt>
+                        <dd class="col-sm-8 small">MIT</dd>
+                        
+                        <dt class="col-sm-4 small">Status:</dt>
+                        <dd class="col-sm-8 small">
+                            <span class="badge bg-success">Active</span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

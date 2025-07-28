@@ -2,9 +2,78 @@
 @model AboutModel
 @{
     ViewData["Title"] = "About";
+    ViewData["Description"] = "Learn about RazorPagesProject - a comprehensive .NET demonstration showcasing modern development practices, testing strategies, and ASP.NET Core implementation.";
 }
 
 <h1>@ViewData["Title"]</h1>
 <h2>@Model.Message</h2>
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <div class="col-md-8">
+        <section>
+            <h3>Project Overview</h3>
+            <p>
+                RazorPagesProject is a comprehensive demonstration of modern .NET development practices, 
+                showcasing the power and flexibility of ASP.NET Core Razor Pages. This project serves 
+                as both a learning resource and a practical example of implementing best practices in 
+                .NET application development.
+            </p>
+        </section>
+
+        <section class="mt-4">
+            <h3>Key Features</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item border-0 px-0">
+                    <strong>PrimeService Library:</strong> Mathematical library demonstrating efficient prime number validation algorithms
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <strong>ASP.NET Core Identity:</strong> Complete authentication and authorization system implementation
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <strong>GitHub Integration:</strong> Dynamic GitHub profile display functionality
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <strong>Internationalization:</strong> Multi-language support with resource localization
+                </li>
+                <li class="list-group-item border-0 px-0">
+                    <strong>Responsive Design:</strong> Mobile-friendly user interface built with Bootstrap
+                </li>
+            </ul>
+        </section>
+    </div>
+    
+    <div class="col-md-4">
+        <section>
+            <h3>Technology Stack</h3>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="bi bi-check-circle text-success"></i> .NET 9</li>
+                        <li><i class="bi bi-check-circle text-success"></i> ASP.NET Core</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Razor Pages</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Entity Framework Core</li>
+                        <li><i class="bi bi-check-circle text-success"></i> SQLite Database</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Bootstrap CSS</li>
+                        <li><i class="bi bi-check-circle text-success"></i> xUnit Testing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-4">
+            <h3>Testing Strategy</h3>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text small">
+                        This project demonstrates comprehensive testing coverage following the testing pyramid approach:
+                    </p>
+                    <ul class="list-unstyled small mb-0">
+                        <li><strong>Unit Tests:</strong> Component isolation testing</li>
+                        <li><strong>Integration Tests:</strong> API endpoint validation</li>
+                        <li><strong>E2E Tests:</strong> Complete user scenario testing</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
