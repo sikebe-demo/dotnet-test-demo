@@ -25,11 +25,34 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
 
     public GitHubUser? GitHubUser { get; private set; }
 
-    public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
+    public string? ErrorMessage { get; private set; }
+
+    public async Task<IActionResult> OnGetAsync([FromRoute] string? userName)
     {
-        if (userName != null)
+        if (!string.IsNullOrEmpty(userName))
         {
-            GitHubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GitHubUser = await Client.GetUserAsync(userName);
+                if (GitHubUser == null)
+                {
+                    ErrorMessage = _localizer["UserNotFound"];
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                ErrorMessage = ex.Message.Contains("403") 
+                    ? _localizer["ApiLimitExceeded"] 
+                    : _localizer["NetworkError"];
+            }
+            catch (TaskCanceledException)
+            {
+                ErrorMessage = _localizer["RequestTimeout"];
+            }
+            catch (Exception)
+            {
+                ErrorMessage = _localizer["UnexpectedError"];
+            }
         }
 
         return Page();
@@ -42,12 +65,33 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
             return Page();
         }
 
-        if (string.IsNullOrEmpty(Input.UserName))
+        if (string.IsNullOrWhiteSpace(Input.UserName))
         {
-            ModelState.AddModelError(nameof(Input.UserName), "Username is required.");
+            ModelState.AddModelError(nameof(Input.UserName), _localizer["UsernameRequired"]);
             return Page();
         }
 
-        return RedirectToPage(new { Input.UserName });
+        // Basic validation for GitHub username format
+        if (!IsValidGitHubUsername(Input.UserName))
+        {
+            ModelState.AddModelError(nameof(Input.UserName), _localizer["InvalidUsernameFormat"]);
+            return Page();
+        }
+
+        return RedirectToPage(new { userName = Input.UserName });
+    }
+
+    private static bool IsValidGitHubUsername(string username)
+    {
+        // GitHub usernames can only contain alphanumeric characters and hyphens
+        // They cannot start or end with a hyphen
+        // Maximum length is 39 characters
+        if (string.IsNullOrWhiteSpace(username) || username.Length > 39)
+            return false;
+
+        if (username.StartsWith('-') || username.EndsWith('-'))
+            return false;
+
+        return username.All(c => char.IsLetterOrDigit(c) || c == '-');
     }
 }

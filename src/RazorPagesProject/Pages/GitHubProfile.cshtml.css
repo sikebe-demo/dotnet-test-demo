@@ -149,3 +149,61 @@
     border-bottom-left-radius: 0;
     margin-left: 0;
 }
+
+/* Error card styling */
+.error-card .github-header {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+}
+
+.error-card .alert {
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+}
+
+/* Profile stats styling */
+.profile-stats {
+    border-top: 2px solid #f8f9fa;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4e4376;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Enhanced profile item for bio */
+.profile-item:has(.profile-label:contains("Bio")) {
+    align-items: flex-start;
+}
+
+.profile-item:has(.profile-label:contains("Bio")) .profile-value {
+    font-style: italic;
+    line-height: 1.4;
+}
+
+/* Animation for stats */
+@keyframes countUp {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.stat-number {
+    animation: countUp 0.6s ease forwards;
+}
