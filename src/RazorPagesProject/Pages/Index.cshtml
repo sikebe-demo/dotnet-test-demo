@@ -67,4 +67,28 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.getElementById('newMessage');
+            const addButton = document.getElementById('addMessageBtn');
+            
+            function updateButtonState() {
+                const isEmpty = !messageInput.value.trim();
+                addButton.disabled = isEmpty;
+                addButton.classList.toggle('btn-secondary', isEmpty);
+                addButton.classList.toggle('btn-primary', !isEmpty);
+            }
+            
+            // Initial state check
+            updateButtonState();
+            
+            // Listen for input changes
+            messageInput.addEventListener('input', updateButtonState);
+            messageInput.addEventListener('keyup', updateButtonState);
+            messageInput.addEventListener('paste', function() {
+                // Use setTimeout to ensure paste content is processed
+                setTimeout(updateButtonState, 10);
+            });
+        });
+    </script>
 }

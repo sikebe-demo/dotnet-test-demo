@@ -20,3 +20,57 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Message display improvements */
+.message-list {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+/* Responsive card layout */
+.card {
+  margin-bottom: 1rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+/* Form improvements */
+.form-control {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Button state styling */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Mobile responsive improvements */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  .btn {
+    margin-bottom: 0.5rem;
+    width: auto;
+  }
+  
+  .message-list {
+    margin-left: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}
