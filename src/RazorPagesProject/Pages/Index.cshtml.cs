@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Localization;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
 
@@ -9,11 +10,13 @@ public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _db;
     private readonly IQuoteService _quoteService;
+    private readonly IStringLocalizer<IndexModel> _localizer;
 
-    public IndexModel(ApplicationDbContext db, IQuoteService quoteService)
+    public IndexModel(ApplicationDbContext db, IQuoteService quoteService, IStringLocalizer<IndexModel> localizer)
     {
         _db = db;
         _quoteService = quoteService;
+        _localizer = localizer;
     }
 
     [BindProperty]
@@ -23,6 +26,9 @@ public class IndexModel : PageModel
 
     [TempData]
     public string? MessageAnalysisResult { get; set; }
+
+    [TempData]
+    public string? SuccessMessage { get; set; }
 
     public string? Quote { get; private set; }
 
@@ -46,7 +52,10 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostDeleteAllMessagesAsync()
     {
+        var messagesCount = await _db.GetMessagesCountAsync();
         await _db.DeleteAllMessagesAsync();
+        
+        SuccessMessage = string.Format(_localizer["MessageDeleted"], messagesCount);
         return RedirectToPage();
     }
 

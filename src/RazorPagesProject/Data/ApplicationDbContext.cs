@@ -20,6 +20,11 @@ public class ApplicationDbContext : IdentityDbContext
             .ToListAsync();
     }
 
+    public async virtual Task<int> GetMessagesCountAsync()
+    {
+        return await Messages.CountAsync();
+    }
+
     public async virtual Task AddMessageAsync(Message message)
     {
         await Messages.AddAsync(message);

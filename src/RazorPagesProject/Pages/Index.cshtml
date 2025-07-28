@@ -1,7 +1,9 @@
 @page
 @model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Message System";
+    ViewData["Title"] = Localizer["PageTitle"];
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -11,16 +13,16 @@
 <form id="addMessage" method="post">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add a message</h3>
+            <h3 class="card-title">@Localizer["AddMessageTitle"]</h3>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <label asp-for="Message.Text"></label>
+                <label asp-for="Message.Text">@Localizer["TextLabel"]</label>
                 <input id="newMessage" asp-for="Message.Text" class="form-control" style="width:100%">
                 <span asp-validation-for="Message.Text" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button id="addMessageBtn" type="submit" asp-page-handler="AddMessage" class="btn btn-primary mt-3">Add Message</button>
+                <button id="addMessageBtn" type="submit" asp-page-handler="AddMessage" class="btn btn-primary mt-3">@Localizer["AddMessageButton"]</button>
             </div>
         </div>
     </div>
@@ -29,17 +31,24 @@
 <form id="messages" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger">Clear All</button>
-            <h3 class="card-title" style="line-height:2.1">Messages</h3>
+            <button id="deleteAllBtn" type="button" onclick="confirmClearAll()" class="pull-right btn btn-danger">@Localizer["ClearAllButton"]</button>
+            <h3 class="card-title" style="line-height:2.1">@Localizer["MessagesTitle"]</h3>
         </div>
         <div class="card-body">
+            @if (!string.IsNullOrEmpty(Model.SuccessMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @Model.SuccessMessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
             <ul>
                 @if (Model.Messages is not null)
                 {
                     @foreach (var message in Model.Messages)
                     {
                         <li style="line-height:2.5">
-                            <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">Delete</button>
+                            <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">@Localizer["DeleteButton"]</button>
 							<span class="message-list">@message.Text</span>
                         </li>
                     }
@@ -49,14 +58,19 @@
     </div>
 </form>
 
+<!-- Hidden form for Clear All -->
+<form id="clearAllForm" method="post" style="display: none;">
+    <button type="submit" asp-page-handler="DeleteAllMessages"></button>
+</form>
+
 <form id="analyze" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="card-title">Analyze Messages</h3>
+            <h3 class="card-title">@Localizer["AnalyzeMessagesTitle"]</h3>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">Analyze</button>
+                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">@Localizer["AnalyzeButton"]</button>
             </div>
             <div class="form-group">
                 @Model.MessageAnalysisResult
@@ -67,4 +81,12 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function confirmClearAll() {
+            const confirmMessage = '@Html.Raw(Localizer["ConfirmClearAll"].Value.Replace("'", "\\'"))';
+            if (confirm(confirmMessage)) {
+                document.querySelector('#clearAllForm button').click();
+            }
+        }
+    </script>
 }
