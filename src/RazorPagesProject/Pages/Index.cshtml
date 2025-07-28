@@ -2,25 +2,46 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Message System";
+    ViewData["Description"] = "Interactive message system where you can add, delete, and analyze messages with full accessibility support.";
+    ViewData["Type"] = "webapp";
+}
+
+@section MetaTags {
+    <meta name="keywords" content="message system, interactive, add message, delete message, analyze messages" />
 }
 
 <h1>@ViewData["Title"]</h1>
 
 <input id="quote" type="hidden" value="@Model.Quote">
 
-<form id="addMessage" method="post">
+<form id="addMessage" method="post" novalidate>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add a message</h3>
+            <h2 class="card-title">Add a message</h2>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <label asp-for="Message.Text"></label>
-                <input id="newMessage" asp-for="Message.Text" class="form-control" style="width:100%">
-                <span asp-validation-for="Message.Text" class="text-danger"></span>
+                <label asp-for="Message.Text" class="form-label">Message text</label>
+                <input id="newMessage" 
+                       asp-for="Message.Text" 
+                       class="form-control" 
+                       style="width:100%"
+                       aria-describedby="newMessage-help newMessage-validation"
+                       aria-required="true"
+                       maxlength="500"
+                       placeholder="Enter your message here...">
+                <div id="newMessage-help" class="form-text">Enter a message up to 500 characters. This will be added to your message list.</div>
+                <span id="newMessage-validation" asp-validation-for="Message.Text" class="text-danger" role="alert" aria-live="polite"></span>
             </div>
             <div class="form-group">
-                <button id="addMessageBtn" type="submit" asp-page-handler="AddMessage" class="btn btn-primary mt-3">Add Message</button>
+                <button id="addMessageBtn" 
+                        type="submit" 
+                        asp-page-handler="AddMessage" 
+                        class="btn btn-primary mt-3"
+                        aria-describedby="addMessage-help">
+                    <i class="fas fa-plus me-2" aria-hidden="true"></i>Add Message
+                </button>
+                <div id="addMessage-help" class="form-text">Click to add your message to the list below</div>
             </div>
         </div>
     </div>
@@ -29,22 +50,41 @@
 <form id="messages" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger">Clear All</button>
-            <h3 class="card-title" style="line-height:2.1">Messages</h3>
+            <button id="deleteAllBtn" 
+                    type="submit" 
+                    asp-page-handler="DeleteAllMessages" 
+                    class="pull-right btn btn-danger"
+                    aria-describedby="deleteAll-help">
+                <i class="fas fa-trash me-2" aria-hidden="true"></i>Clear All
+            </button>
+            <h2 class="card-title" style="line-height:2.1">Messages</h2>
+            <div id="deleteAll-help" class="form-text">Remove all messages from the list</div>
         </div>
         <div class="card-body">
-            <ul>
-                @if (Model.Messages is not null)
-                {
+            @if (Model.Messages?.Any() == true)
+            {
+                <ul role="list" aria-label="Messages list" aria-live="polite" aria-atomic="false">
                     @foreach (var message in Model.Messages)
                     {
-                        <li style="line-height:2.5">
-                            <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">Delete</button>
-							<span class="message-list">@message.Text</span>
+                        <li style="line-height:2.5" role="listitem" aria-describedby="message-@message.Id-text">
+                            <button id="deleteBtn@(message.Id)" 
+                                    type="submit" 
+                                    class="btn btn-danger" 
+                                    style="margin-bottom:2px" 
+                                    asp-page-handler="DeleteMessage" 
+                                    asp-route-id="@message.Id"
+                                    aria-label="Delete message: @message.Text">
+                                <i class="fas fa-trash me-1" aria-hidden="true"></i>Delete
+                            </button>
+                            <span id="message-@message.Id-text" class="message-list" role="text">@message.Text</span>
                         </li>
                     }
-                }
-            </ul>
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted" role="status">No messages available. Add a message above to get started.</p>
+            }
         </div>
     </div>
 </form>
@@ -52,19 +92,63 @@
 <form id="analyze" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="card-title">Analyze Messages</h3>
+            <h2 class="card-title">Analyze Messages</h2>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">Analyze</button>
+                <button id="analyzeBtn" 
+                        type="submit" 
+                        asp-page-handler="AnalyzeMessages" 
+                        class="btn btn-primary"
+                        aria-describedby="analyze-help">
+                    <i class="fas fa-chart-bar me-2" aria-hidden="true"></i>Analyze
+                </button>
+                <div id="analyze-help" class="form-text">Get insights about your messages</div>
             </div>
-            <div class="form-group">
-                @Model.MessageAnalysisResult
-            </div>
+            @if (!string.IsNullOrEmpty(Model.MessageAnalysisResult))
+            {
+                <div class="form-group mt-3">
+                    <h3 class="h5">Analysis Results</h3>
+                    <div role="status" aria-live="polite" class="analysis-result">
+                        @Model.MessageAnalysisResult
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Accessibility enhancement: Announce form submission results
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusMessages = document.getElementById('status-messages');
+            
+            // Function to announce status messages
+            function announceStatus(message) {
+                if (statusMessages) {
+                    statusMessages.textContent = message;
+                    setTimeout(() => {
+                        statusMessages.textContent = '';
+                    }, 3000);
+                }
+            }
+            
+            // Announce when messages are added/deleted
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function() {
+                    const action = this.id;
+                    if (action === 'addMessage') {
+                        announceStatus('Adding message...');
+                    } else if (action === 'messages') {
+                        announceStatus('Deleting messages...');
+                    } else if (action === 'analyze') {
+                        announceStatus('Analyzing messages...');
+                    }
+                });
+            });
+        });
+    </script>
 }

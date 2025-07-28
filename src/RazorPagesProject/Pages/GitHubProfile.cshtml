@@ -4,33 +4,48 @@
 @inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = Localizer["PageTitle"];
+    ViewData["Description"] = "Search and explore GitHub user profiles with detailed information including avatar, name, company, and links to their GitHub page.";
+    ViewData["Type"] = "webapp";
+}
+
+@section MetaTags {
+    <meta name="keywords" content="GitHub profile, user search, GitHub explorer, developer profiles" />
 }
 
 <h1 class="page-title">
-    <i class="fab fa-github me-2"></i>@Localizer["PageHeader"]
+    <i class="fab fa-github me-2" aria-hidden="true"></i>@Localizer["PageHeader"]
 </h1>
 
 <div class="row">
     <div class="col-md-6 mb-4">
         <div class="profile-card">
             <div class="github-header">
-                <h3><i class="fas fa-search me-2"></i>@Localizer["SearchHeader"]</h3>
+                <h2><i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchHeader"]</h2>
             </div>
             <div class="profile-info">
-                <form id="user-profile" method="post">
-                    <div asp-validation-summary="None" class="text-danger"></div>
+                <form id="user-profile" method="post" novalidate role="search" aria-label="GitHub user search">
+                    <div asp-validation-summary="None" class="text-danger" role="alert" aria-live="polite"></div>
                     <div class="form-group mb-3">
-                        <label asp-for="Input.UserName" class="profile-label mb-1">@Localizer["UserNameLabel"]</label>
+                        <label asp-for="Input.UserName" class="profile-label mb-1 form-label">@Localizer["UserNameLabel"]</label>
                         <div class="input-group">
-                            <span class="input-group-text"><i class="fab fa-github"></i></span>
-                            <input asp-for="Input.UserName" class="form-control" placeholder="@Localizer["UserNamePlaceholder"]" />
+                            <span class="input-group-text" aria-hidden="true"><i class="fab fa-github"></i></span>
+                            <input asp-for="Input.UserName" 
+                                   class="form-control" 
+                                   placeholder="@Localizer["UserNamePlaceholder"]"
+                                   aria-describedby="username-help username-validation"
+                                   aria-required="true"
+                                   autocomplete="username" />
                         </div>
-                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                        <div id="username-help" class="form-text">Enter a GitHub username to view their profile information</div>
+                        <span id="username-validation" asp-validation-for="Input.UserName" class="text-danger" role="alert" aria-live="polite"></span>
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary search-btn mt-3">
-                            <i class="fas fa-search me-2"></i>@Localizer["SearchButton"]
+                        <button type="submit" 
+                                class="btn btn-primary search-btn mt-3"
+                                aria-describedby="search-help">
+                            <i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchButton"]
                         </button>
+                        <div id="search-help" class="form-text">Search for GitHub user profile</div>
                     </div>
                 </form>
             </div>
@@ -42,51 +57,59 @@
         <div class="col-md-6">
             <div class="profile-card profile-display">
                 <div class="github-header">
-                    <h3><i class="fas fa-user me-2"></i>@Localizer["ProfileHeader"]</h3>
+                    <h2><i class="fas fa-user me-2" aria-hidden="true"></i>@Localizer["ProfileHeader"]</h2>
                 </div>
                 <div class="avatar-container">
                     @if (!string.IsNullOrEmpty(Model.GitHubUser.AvatarUrl))
                     {
-                        <img src="@Model.GitHubUser.AvatarUrl" alt="@Model.GitHubUser.Login" class="avatar" />
+                        <img src="@Model.GitHubUser.AvatarUrl" 
+                             alt="@Model.GitHubUser.Login's profile picture" 
+                             class="avatar" 
+                             role="img" />
                     }
                     else
                     {
-                        <div class="avatar d-flex align-items-center justify-content-center bg-light">
-                            <i class="fas fa-user fa-3x text-secondary"></i>
+                        <div class="avatar d-flex align-items-center justify-content-center bg-light" role="img" aria-label="Default profile picture">
+                            <i class="fas fa-user fa-3x text-secondary" aria-hidden="true"></i>
                         </div>
                     }
                 </div>
-                <div class="profile-info">
+                <div class="profile-info" role="region" aria-label="User profile information">
                     <div class="profile-item">
-                        <i class="fas fa-at"></i>
+                        <i class="fas fa-at" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["LoginLabel"]</div>
                             <div id="user-login" class="profile-value">@Model.GitHubUser.Login</div>
                         </div>
                     </div>
                     <div class="profile-item">
-                        <i class="fas fa-id-card"></i>
+                        <i class="fas fa-id-card" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["NameLabel"]</div>
                             <div id="name" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Name) ? Localizer["NotSet"] : Model.GitHubUser.Name)</div>
                         </div>
                     </div>
                     <div class="profile-item">
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-building" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["CompanyLabel"]</div>
                             <div id="company" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Company) ? Localizer["NotSet"] : Model.GitHubUser.Company)</div>
                         </div>
                     </div>
                     <div class="text-center mt-4">
-                        <a href="https://github.com/@Model.GitHubUser.Login" target="_blank" class="btn btn-outline-dark">
-                            <i class="fab fa-github me-2"></i>@Localizer["ViewOnGitHub"]
+                        <a href="https://github.com/@Model.GitHubUser.Login" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="btn btn-outline-dark"
+                           aria-label="View @Model.GitHubUser.Login's profile on GitHub (opens in new tab)">
+                            <i class="fab fa-github me-2" aria-hidden="true"></i>@Localizer["ViewOnGitHub"]
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     }
+</div>
 </div>
 
 @section Scripts {

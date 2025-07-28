@@ -1,0 +1,37 @@
+@using Microsoft.AspNetCore.Http.Extensions
+@model dynamic
+@{
+    var pageTitle = ViewData["Title"]?.ToString() ?? "RazorPagesProject";
+    var pageDescription = ViewData["Description"]?.ToString() ?? "ASP.NET Core Razor Pages application with message system and GitHub profile explorer featuring accessibility enhancements and SEO optimization.";
+    var pageUrl = Context.Request.GetDisplayUrl();
+    var siteName = "RazorPagesProject";
+    var pageImage = ViewData["Image"]?.ToString() ?? "/images/og-default.png";
+    var pageType = ViewData["Type"]?.ToString() ?? "website";
+}
+
+@* SEO Meta Tags *@
+<meta name="description" content="@pageDescription" />
+<meta name="keywords" content="ASP.NET Core, Razor Pages, Message System, GitHub Profile, .NET 9, Accessibility" />
+<meta name="author" content="RazorPagesProject Team" />
+
+@* Open Graph Meta Tags for Social Media *@
+<meta property="og:title" content="@pageTitle - @siteName" />
+<meta property="og:description" content="@pageDescription" />
+<meta property="og:type" content="@pageType" />
+<meta property="og:url" content="@pageUrl" />
+<meta property="og:site_name" content="@siteName" />
+<meta property="og:image" content="@Context.Request.Scheme://@Context.Request.Host@pageImage" />
+<meta property="og:image:alt" content="@pageTitle screenshot" />
+<meta property="og:locale" content="@System.Globalization.CultureInfo.CurrentUICulture.Name" />
+
+@* Twitter Card Meta Tags *@
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="@pageTitle - @siteName" />
+<meta name="twitter:description" content="@pageDescription" />
+<meta name="twitter:image" content="@Context.Request.Scheme://@Context.Request.Host@pageImage" />
+<meta name="twitter:image:alt" content="@pageTitle screenshot" />
+
+@* Additional SEO Meta Tags *@
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+<link rel="canonical" href="@pageUrl" />

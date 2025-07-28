@@ -8,8 +8,83 @@ html {
   }
 }
 
+/* Enhanced focus indicators for better accessibility */
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  outline: 2px solid transparent;
+}
+
+/* High contrast focus for navigation links */
+.nav-link:focus {
+  outline: 2px solid #258cfb;
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Ensure sufficient color contrast for text */
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Better visual hierarchy for headings */
+h1, h2, h3, h4, h5, h6 {
+  color: #212529;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 9999;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Improve button accessibility */
+button:disabled, .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Better form field spacing and accessibility */
+.form-text {
+  font-size: 0.875em;
+  color: #6c757d;
+  margin-top: 0.25rem;
+}
+
+/* Improved error message visibility */
+.text-danger[role="alert"] {
+  font-weight: 500;
+}
+
+/* Status messages for screen readers */
+#status-messages {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 html {

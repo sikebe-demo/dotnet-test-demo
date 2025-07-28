@@ -1,0 +1,92 @@
+@using Microsoft.AspNetCore.Http.Extensions
+@model dynamic
+@{
+    var siteName = "RazorPagesProject";
+    var siteUrl = $"{Context.Request.Scheme}://{Context.Request.Host}";
+    var currentUrl = Context.Request.GetDisplayUrl();
+    var pageTitle = ViewData["Title"]?.ToString() ?? siteName;
+    var pageDescription = ViewData["Description"]?.ToString() ?? "ASP.NET Core Razor Pages application";
+}
+
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "WebApplication",
+  "name": "@siteName",
+  "url": "@siteUrl",
+  "description": "ASP.NET Core Razor Pages application with message system and GitHub profile explorer",
+  "applicationCategory": "WebApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@@type": "Organization",
+    "name": "@siteName Team"
+  },
+  "mainEntity": {
+    "@@type": "WebPage",
+    "@@id": "@currentUrl",
+    "name": "@pageTitle",
+    "description": "@pageDescription",
+    "url": "@currentUrl",
+    "isPartOf": {
+      "@@type": "WebSite",
+      "name": "@siteName",
+      "url": "@siteUrl"
+    }
+  }
+}
+</script>
+
+@if (ViewData["Type"]?.ToString() == "webapp" && ViewContext.RouteData.Values["page"]?.ToString() == "/Index")
+{
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
+  "name": "Message System",
+  "description": "Interactive message management system allowing users to add, delete, and analyze text messages",
+  "applicationCategory": "Productivity",
+  "operatingSystem": "Web Browser",
+  "url": "@currentUrl",
+  "featureList": [
+    "Add messages",
+    "Delete individual messages", 
+    "Clear all messages",
+    "Analyze message content"
+  ],
+  "isPartOf": {
+    "@@type": "WebApplication",
+    "name": "@siteName"
+  }
+}
+</script>
+}
+
+@if (ViewData["Type"]?.ToString() == "webapp" && ViewContext.RouteData.Values["page"]?.ToString() == "/GitHubProfile")
+{
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "SoftwareApplication",
+  "name": "GitHub Profile Explorer",
+  "description": "Search and explore GitHub user profiles with detailed information",
+  "applicationCategory": "Developer Tools",
+  "operatingSystem": "Web Browser",
+  "url": "@currentUrl",
+  "featureList": [
+    "Search GitHub users",
+    "View profile information",
+    "Display user avatars",
+    "Show user company and name"
+  ],
+  "isPartOf": {
+    "@@type": "WebApplication",
+    "name": "@siteName"
+  }
+}
+</script>
+}

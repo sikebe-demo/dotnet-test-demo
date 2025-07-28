@@ -2,6 +2,12 @@
 @model AboutModel
 @{
     ViewData["Title"] = "About";
+    ViewData["Description"] = "Learn about RazorPagesProject - an ASP.NET Core Razor Pages application demonstrating modern web development with accessibility features and SEO optimization.";
+    ViewData["Type"] = "website";
+}
+
+@section MetaTags {
+    <meta name="keywords" content="about, ASP.NET Core, Razor Pages, web development, accessibility, SEO" />
 }
 
 <h1>@ViewData["Title"]</h1>

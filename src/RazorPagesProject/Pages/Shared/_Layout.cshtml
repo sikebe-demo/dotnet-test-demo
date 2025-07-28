@@ -6,39 +6,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - RazorPagesProject</title>
+    
+    @* Include SEO and Open Graph meta tags *@
+    <partial name="_SeoMetaTags" />
+    
+    @* Include structured data for SEO *@
+    <partial name="_StructuredData" />
+    
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/RazorPagesProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    @* Additional accessibility and SEO metadata *@
+    <meta name="theme-color" content="#0d6efd" />
+    <meta name="application-name" content="RazorPagesProject" />
+    
+    @await RenderSectionAsync("MetaTags", required: false)
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" role="navigation" aria-label="Main navigation">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">RazorPagesProject</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index" aria-label="@Localizer["Home"] - RazorPagesProject home page">RazorPagesProject</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                        aria-expanded="false" aria-label="Toggle navigation menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" id="navbarSupportedContent">
+                    <ul class="navbar-nav flex-grow-1" role="list">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@Localizer["Home"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "page" : null)">@Localizer["Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">@Localizer["GitHubProfile"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/GitHubProfile" ? "page" : null)">@Localizer["GitHubProfile"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">@Localizer["About"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/About" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/About" ? "page" : null)">@Localizer["About"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@Localizer["Privacy"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Privacy" ? "page" : null)">@Localizer["Privacy"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">@Localizer["SecurePage"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/SecurePage" ? "page" : null)">@Localizer["SecurePage"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">@Localizer["Contact"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact" aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Contact" ? "page" : null)">@Localizer["Contact"]</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
@@ -50,14 +64,16 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main id="main-content" role="main" class="pb-3" aria-label="Main content">
+            @* Status messages area for accessibility *@
+            <div id="status-messages" aria-live="polite" aria-atomic="true" class="sr-only"></div>
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" role="contentinfo" aria-label="Site footer">
         <div class="container">
-            &copy; 2022 - RazorPagesProject - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2022 - RazorPagesProject - <a asp-area="" asp-page="/Privacy" aria-label="Privacy policy">Privacy</a>
         </div>
     </footer>
 

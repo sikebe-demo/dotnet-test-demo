@@ -2,19 +2,27 @@
 @model ContactModel
 @{
     ViewData["Title"] = "Contact";
+    ViewData["Description"] = "Get in touch with the RazorPagesProject team. Find our contact information including support and marketing email addresses.";
+    ViewData["Type"] = "website";
+}
+
+@section MetaTags {
+    <meta name="keywords" content="contact, support, marketing, email, Microsoft" />
 }
 
 <h1>@ViewData["Title"]</h1>
 <h2>@Model.Message</h2>
 
-<address>
+<address role="group" aria-labelledby="office-address">
+    <h3 id="office-address" class="h5">Office Address</h3>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
     <abbr title="Phone">P:</abbr>
-    425.555.0100
+    <a href="tel:+14255550100" aria-label="Call office phone number">425.555.0100</a>
 </address>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+<address role="group" aria-labelledby="email-contacts">
+    <h3 id="email-contacts" class="h5">Email Contacts</h3>
+    <strong>Support:</strong> <a href="mailto:Support@example.com" aria-label="Send email to support team">Support@example.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com" aria-label="Send email to marketing team">Marketing@example.com</a>
 </address>
