@@ -31,7 +31,7 @@
 <form id="messages" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="button" onclick="confirmClearAll()" class="pull-right btn btn-danger">@Localizer["ClearAllButton"]</button>
+            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger" onclick="return confirmClearAll()">@Localizer["ClearAllButton"]</button>
             <h3 class="card-title" style="line-height:2.1">@Localizer["MessagesTitle"]</h3>
         </div>
         <div class="card-body">
@@ -58,11 +58,6 @@
     </div>
 </form>
 
-<!-- Hidden form for Clear All -->
-<form id="clearAllForm" method="post" style="display: none;">
-    <button type="submit" asp-page-handler="DeleteAllMessages"></button>
-</form>
-
 <form id="analyze" method="post">
     <div class="card mt-3">
         <div class="card-header">
@@ -84,9 +79,7 @@
     <script>
         function confirmClearAll() {
             const confirmMessage = '@Html.Raw(Localizer["ConfirmClearAll"].Value.Replace("'", "\\'"))';
-            if (confirm(confirmMessage)) {
-                document.querySelector('#clearAllForm button').click();
-            }
+            return confirm(confirmMessage);
         }
     </script>
 }
