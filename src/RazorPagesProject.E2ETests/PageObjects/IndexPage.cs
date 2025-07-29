@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using System.Collections.Generic;
 using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests.PageObjects;
@@ -70,5 +71,59 @@ public class IndexPage(IWebDriver driver, ITestOutputHelper? helper) : PageObjec
     {
         Driver.FindElement(By.Id("addMessageBtn")).Click();
         return new IndexPage(Driver, Helper);
+    }
+
+    public bool ClickClearAllButtonAndCancel()
+    {
+        // Use JavaScript to intercept the confirm dialog and return false (cancel)
+        var script = @"
+            var originalConfirm = window.confirm;
+            var dialogShown = false;
+            var dialogMessage = '';
+            window.confirm = function(message) {
+                dialogShown = true;
+                dialogMessage = message;
+                window.confirm = originalConfirm;
+                return false; // Cancel the operation
+            };
+            document.getElementById('deleteAllBtn').click();
+            return { shown: dialogShown, message: dialogMessage };
+        ";
+        
+        var result = ((IJavaScriptExecutor)Driver).ExecuteScript(script) as Dictionary<string, object>;
+        return (bool)(result?["shown"] ?? false);
+    }
+
+    public bool ClickClearAllButtonAndAccept()
+    {
+        // Use JavaScript to intercept the confirm dialog and return true (accept)
+        var script = @"
+            var originalConfirm = window.confirm;
+            var dialogShown = false;
+            var dialogMessage = '';
+            window.confirm = function(message) {
+                dialogShown = true;
+                dialogMessage = message;
+                window.confirm = originalConfirm;
+                return true; // Accept the operation
+            };
+            document.getElementById('deleteAllBtn').click();
+            return { shown: dialogShown, message: dialogMessage };
+        ";
+        
+        var result = ((IJavaScriptExecutor)Driver).ExecuteScript(script) as Dictionary<string, object>;
+        return (bool)(result?["shown"] ?? false);
+    }
+
+    public int GetMessageCount()
+    {
+        try
+        {
+            return Driver.FindElements(By.ClassName("message-list")).Count;
+        }
+        catch (Exception)
+        {
+            return 0;
+        }
     }
 }
