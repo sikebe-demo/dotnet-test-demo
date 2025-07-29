@@ -4,9 +4,14 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using RazorPagesProject.Configuration;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Features options
+builder.Services.Configure<FeaturesOptions>(
+    builder.Configuration.GetSection(FeaturesOptions.SectionName));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -16,29 +21,41 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddRazorPages(options =>
+var featuresOptions = builder.Configuration.GetSection(FeaturesOptions.SectionName).Get<FeaturesOptions>() ?? new FeaturesOptions();
+
+var razorPagesBuilder = builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizePage("/SecurePage");
-})
-.AddViewLocalization()
-.AddDataAnnotationsLocalization();
-
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    var supportedCultures = new[]
-    {
-        new CultureInfo("en"),
-        new CultureInfo("ja")
-    };
-
-    options.DefaultRequestCulture = new RequestCulture("en");
-    options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
-
-    options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
-    options.RequestCultureProviders.Insert(1, new CookieRequestCultureProvider());
 });
+
+// Conditionally add localization support
+if (featuresOptions.EnableMultiLanguageSupport)
+{
+    razorPagesBuilder.AddViewLocalization().AddDataAnnotationsLocalization();
+    
+    builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        var supportedCultures = new[]
+        {
+            new CultureInfo("en"),
+            new CultureInfo("ja")
+        };
+
+        options.DefaultRequestCulture = new RequestCulture("en");
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+
+        options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
+        options.RequestCultureProviders.Insert(1, new CookieRequestCultureProvider());
+    });
+}
+else
+{
+    // Add dummy IViewLocalizer and IStringLocalizer services when localization is disabled
+    builder.Services.AddSingleton<Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer, EmptyViewLocalizer>();
+    builder.Services.AddSingleton(typeof(Microsoft.Extensions.Localization.IStringLocalizer<>), typeof(EmptyStringLocalizer<>));
+}
 
 builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 {
@@ -67,7 +84,12 @@ else
 
 app.UseStaticFiles();
 
-app.UseRequestLocalization();
+// Conditionally use request localization
+var appFeaturesOptions = app.Configuration.GetSection(FeaturesOptions.SectionName).Get<FeaturesOptions>() ?? new FeaturesOptions();
+if (appFeaturesOptions.EnableMultiLanguageSupport)
+{
+    app.UseRequestLocalization();
+}
 
 app.UseRouting();
 app.UseAuthorization();

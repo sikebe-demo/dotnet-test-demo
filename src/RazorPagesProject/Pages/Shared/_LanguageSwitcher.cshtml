@@ -1,6 +1,11 @@
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using RazorPagesProject.Configuration
 @inject IViewLocalizer Localizer
+@inject IOptions<FeaturesOptions> FeaturesOptions
 
+@if (FeaturesOptions.Value.EnableMultiLanguageSupport)
+{
 <div class="language-switcher">
     <div class="dropdown">
         <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,3 +64,4 @@
         color: white;
     }
 </style>
+}

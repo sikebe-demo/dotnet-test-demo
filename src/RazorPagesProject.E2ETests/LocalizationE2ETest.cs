@@ -17,7 +17,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _githubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
     }
 
-    [Theory]
+    [Theory(Skip = "Localization feature is currently disabled via configuration (EnableMultiLanguageSupport = false)")]
     [InlineData("en", "GitHub Profile Explorer")]
     [InlineData("ja", "GitHub プロフィール エクスプローラー")]
     public void Should_Display_Correct_Page_Title_Based_On_Language(string culture, string expectedTitle)
@@ -32,7 +32,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine($"Language: {culture}, Expected: {expectedTitle}");
     }
 
-    [Theory]
+    [Theory(Skip = "Localization feature is currently disabled via configuration (EnableMultiLanguageSupport = false)")]
     [InlineData("en", "Search", "GitHub Username", "Show Profile")]
     [InlineData("ja", "検索", "GitHubユーザー名", "プロフィールを表示")]
     public void Should_Display_Correct_Labels_Based_On_Language(string culture, string expectedSearchHeader, string expectedUserNameLabel, string expectedSubmitButton)
@@ -47,7 +47,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine($"Language: {culture} - All labels found successfully");
     }
 
-    [Fact]
+    [Fact(Skip = "Localization feature is currently disabled via configuration (EnableMultiLanguageSupport = false)")]
     public async Task Should_Switch_Language_When_Language_Button_Clicked()
     {
         // Arrange
@@ -66,7 +66,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine("Language switching test completed successfully");
     }
 
-    [Theory]
+    [Theory(Skip = "Localization feature is currently disabled via configuration (EnableMultiLanguageSupport = false)")]
     [InlineData("en", "Not set")]
     [InlineData("ja", "未設定")]
     public async Task Should_Display_Profile_With_Correct_Language_After_Search(string culture, string expectedNotSetText)

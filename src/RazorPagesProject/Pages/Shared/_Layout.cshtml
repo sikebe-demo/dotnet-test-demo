@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using RazorPagesProject.Configuration
 @inject IViewLocalizer Localizer
+@inject IOptions<FeaturesOptions> FeaturesOptions
 <!DOCTYPE html>
 <html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
 <head>
@@ -23,22 +26,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@Localizer["Home"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["Home"] : "Home")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">@Localizer["GitHubProfile"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["GitHubProfile"] : "GitHub Profile")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">@Localizer["About"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/About">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["About"] : "About")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@Localizer["Privacy"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["Privacy"] : "Privacy")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">@Localizer["SecurePage"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["SecurePage"] : "Secure Page")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">@Localizer["Contact"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">@(FeaturesOptions.Value.EnableMultiLanguageSupport ? Localizer["Contact"] : "Contact")</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
