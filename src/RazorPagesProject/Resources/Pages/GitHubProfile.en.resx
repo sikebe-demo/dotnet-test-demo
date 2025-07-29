@@ -106,4 +106,31 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="ErrorHeader" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found. Please check the username and try again.</value>
+  </data>
+  <data name="UserNotFoundHint" xml:space="preserve">
+    <value>Make sure the username is spelled correctly and that the user exists on GitHub.</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>An unknown error occurred. Please try again later.</value>
+  </data>
+  <data name="BioLabel" xml:space="preserve">
+    <value>Bio</value>
+  </data>
+  <data name="RepositoriesLabel" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="FollowersLabel" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="FollowingLabel" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="JoinedLabel" xml:space="preserve">
+    <value>Joined</value>
+  </data>
 </root>

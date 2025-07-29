@@ -52,27 +52,26 @@ public class AuthTests :
 
     public class TestGitHubClient : IGitHubClient
     {
-        public Task<GitHubUser> GetUserAsync(string userName)
+        public Task<GitHubUserResult> GetUserAsync(string userName)
         {
             if (userName == "user")
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "user",
-                        Company = "Contoso Blockchain",
-                        Name = "John Doe"
-                    });
+                var user = new GitHubUser
+                {
+                    Login = "user",
+                    Company = "Contoso Blockchain",
+                    Name = "John Doe",
+                    PublicRepos = 10,
+                    Followers = 5,
+                    Following = 3,
+                    CreatedAt = DateTime.UtcNow.AddYears(-2),
+                    HtmlUrl = "https://github.com/user"
+                };
+                return Task.FromResult(GitHubUserResult.Success(user));
             }
             else
             {
-                return Task.FromResult(
-                    new GitHubUser
-                    {
-                        Login = "",
-                        Company = "",
-                        Name = ""
-                    });
+                return Task.FromResult(GitHubUserResult.NotFound());
             }
         }
     }

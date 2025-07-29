@@ -106,4 +106,31 @@
   <data name="Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="ErrorHeader" xml:space="preserve">
+    <value>エラー</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>ユーザーが見つかりません。ユーザー名を確認して再試行してください。</value>
+  </data>
+  <data name="UserNotFoundHint" xml:space="preserve">
+    <value>ユーザー名のスペルが正しく、そのユーザーがGitHubに存在することを確認してください。</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>不明なエラーが発生しました。後でもう一度お試しください。</value>
+  </data>
+  <data name="BioLabel" xml:space="preserve">
+    <value>自己紹介</value>
+  </data>
+  <data name="RepositoriesLabel" xml:space="preserve">
+    <value>リポジトリ</value>
+  </data>
+  <data name="FollowersLabel" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="FollowingLabel" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
+  <data name="JoinedLabel" xml:space="preserve">
+    <value>参加日</value>
+  </data>
 </root>

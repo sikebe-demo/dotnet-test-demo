@@ -37,7 +37,23 @@
         </div>
     </div>
 
-    @if (Model.GitHubUser != null)
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">
+                    <i class="fas fa-exclamation-triangle me-2"></i>@Localizer["ErrorHeader"]
+                </h4>
+                <p class="mb-0">@Model.ErrorMessage</p>
+                @if (Model.IsNotFound)
+                {
+                    <hr>
+                    <p class="mb-0">@Localizer["UserNotFoundHint"]</p>
+                }
+            </div>
+        </div>
+    }
+    else if (Model.GitHubUser != null)
     {
         <div class="col-md-6">
             <div class="profile-card profile-display">
@@ -71,6 +87,16 @@
                             <div id="name" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Name) ? Localizer["NotSet"] : Model.GitHubUser.Name)</div>
                         </div>
                     </div>
+                    @if (!string.IsNullOrEmpty(Model.GitHubUser.Bio))
+                    {
+                        <div class="profile-item">
+                            <i class="fas fa-quote-left"></i>
+                            <div>
+                                <div class="profile-label">@Localizer["BioLabel"]</div>
+                                <div id="bio" class="profile-value">@Model.GitHubUser.Bio</div>
+                            </div>
+                        </div>
+                    }
                     <div class="profile-item">
                         <i class="fas fa-building"></i>
                         <div>
@@ -78,8 +104,31 @@
                             <div id="company" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Company) ? Localizer["NotSet"] : Model.GitHubUser.Company)</div>
                         </div>
                     </div>
+                    <div class="profile-stats">
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="stat-number">@Model.GitHubUser.PublicRepos</div>
+                                <div class="stat-label">@Localizer["RepositoriesLabel"]</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number">@Model.GitHubUser.Followers</div>
+                                <div class="stat-label">@Localizer["FollowersLabel"]</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-number">@Model.GitHubUser.Following</div>
+                                <div class="stat-label">@Localizer["FollowingLabel"]</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div>
+                            <div class="profile-label">@Localizer["JoinedLabel"]</div>
+                            <div id="joined" class="profile-value">@Model.GitHubUser.CreatedAt.ToString("MMMM yyyy")</div>
+                        </div>
+                    </div>
                     <div class="text-center mt-4">
-                        <a href="https://github.com/@Model.GitHubUser.Login" target="_blank" class="btn btn-outline-dark">
+                        <a href="@(Model.GitHubUser.HtmlUrl ?? $"https://github.com/{Model.GitHubUser.Login}")" target="_blank" class="btn btn-outline-dark">
                             <i class="fab fa-github me-2"></i>@Localizer["ViewOnGitHub"]
                         </a>
                     </div>
