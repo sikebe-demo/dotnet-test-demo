@@ -4,14 +4,18 @@
     ViewData["Title"] = "Message System";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1 class="page-title">
+    <i class="fas fa-comments me-2"></i>@ViewData["Title"]
+</h1>
 
 <input id="quote" type="hidden" value="@Model.Quote">
 
 <form id="addMessage" method="post">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Add a message</h3>
+            <h3 class="card-title">
+                <i class="fas fa-plus me-2"></i>Add a message
+            </h3>
         </div>
         <div class="card-body">
             <div class="form-group">
@@ -20,7 +24,9 @@
                 <span asp-validation-for="Message.Text" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <button id="addMessageBtn" type="submit" asp-page-handler="AddMessage" class="btn btn-primary mt-3">Add Message</button>
+                <button id="addMessageBtn" type="submit" asp-page-handler="AddMessage" class="btn btn-primary mt-3">
+                    <i class="fas fa-plus me-2"></i>Add Message
+                </button>
             </div>
         </div>
     </div>
@@ -29,8 +35,12 @@
 <form id="messages" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger">Clear All</button>
-            <h3 class="card-title" style="line-height:2.1">Messages</h3>
+            <h3 class="card-title" style="line-height:2.1">
+                <i class="fas fa-list me-2"></i>Messages
+            </h3>
+            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="btn btn-danger" style="position: absolute; right: 2rem; top: 50%; transform: translateY(-50%);">
+                <i class="fas fa-trash me-2"></i>Clear All
+            </button>
         </div>
         <div class="card-body">
             <ul>
@@ -39,7 +49,9 @@
                     @foreach (var message in Model.Messages)
                     {
                         <li style="line-height:2.5">
-                            <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">Delete</button>
+                            <button id="deleteBtn@(message.Id)" type="submit" class="btn btn-danger btn-sm" style="margin-bottom:2px" asp-page-handler="DeleteMessage" asp-route-id="@message.Id">
+                                <i class="fas fa-trash"></i>
+                            </button>
 							<span class="message-list">@message.Text</span>
                         </li>
                     }
@@ -52,11 +64,15 @@
 <form id="analyze" method="post">
     <div class="card mt-3">
         <div class="card-header">
-            <h3 class="card-title">Analyze Messages</h3>
+            <h3 class="card-title">
+                <i class="fas fa-chart-line me-2"></i>Analyze Messages
+            </h3>
         </div>
         <div class="card-body">
             <div class="form-group">
-                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">Analyze</button>
+                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">
+                    <i class="fas fa-search me-2"></i>Analyze
+                </button>
             </div>
             <div class="form-group">
                 @Model.MessageAnalysisResult

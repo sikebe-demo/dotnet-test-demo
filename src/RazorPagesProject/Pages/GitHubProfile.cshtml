@@ -12,15 +12,15 @@
 
 <div class="row">
     <div class="col-md-6 mb-4">
-        <div class="profile-card">
-            <div class="github-header">
+        <div class="card">
+            <div class="card-header">
                 <h3><i class="fas fa-search me-2"></i>@Localizer["SearchHeader"]</h3>
             </div>
-            <div class="profile-info">
+            <div class="card-body">
                 <form id="user-profile" method="post">
                     <div asp-validation-summary="None" class="text-danger"></div>
                     <div class="form-group mb-3">
-                        <label asp-for="Input.UserName" class="profile-label mb-1">@Localizer["UserNameLabel"]</label>
+                        <label asp-for="Input.UserName" class="form-label mb-1">@Localizer["UserNameLabel"]</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="fab fa-github"></i></span>
                             <input asp-for="Input.UserName" class="form-control" placeholder="@Localizer["UserNamePlaceholder"]" />
@@ -28,7 +28,7 @@
                         <span asp-validation-for="Input.UserName" class="text-danger"></span>
                     </div>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-primary search-btn mt-3">
+                        <button type="submit" class="btn btn-primary mt-3">
                             <i class="fas fa-search me-2"></i>@Localizer["SearchButton"]
                         </button>
                     </div>
@@ -40,8 +40,8 @@
     @if (Model.GitHubUser != null)
     {
         <div class="col-md-6">
-            <div class="profile-card profile-display">
-                <div class="github-header">
+            <div class="card profile-display">
+                <div class="card-header">
                     <h3><i class="fas fa-user me-2"></i>@Localizer["ProfileHeader"]</h3>
                 </div>
                 <div class="avatar-container">
@@ -56,7 +56,7 @@
                         </div>
                     }
                 </div>
-                <div class="profile-info">
+                <div class="card-body">
                     <div class="profile-item">
                         <i class="fas fa-at"></i>
                         <div>
