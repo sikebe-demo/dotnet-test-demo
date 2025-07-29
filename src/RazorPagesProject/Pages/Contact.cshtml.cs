@@ -8,6 +8,6 @@ public class ContactModel : PageModel
 
     public void OnGet()
     {
-        Message = "Demo Project - Learning & Collaboration";
+        Message = "デモプロジェクト - 学習とコラボレーション";
     }
 }
