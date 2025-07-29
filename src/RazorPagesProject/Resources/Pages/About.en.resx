@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="PageDescription" xml:space="preserve">
+    <value>Learn about this .NET 9 demonstration application and its features</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>.NET 9 Test Demo Application</value>
+  </data>
+  <data name="IntroductionText" xml:space="preserve">
+    <value>This is a comprehensive demonstration project showcasing modern .NET development practices, testing strategies, and ASP.NET Core Razor Pages implementation.</value>
+  </data>
+  <data name="PurposeHeader" xml:space="preserve">
+    <value>🎯 Purpose</value>
+  </data>
+  <data name="PurposeText" xml:space="preserve">
+    <value>This application serves as a learning and demonstration platform for .NET 9 and ASP.NET Core technologies, featuring multiple layers of testing and modern development practices.</value>
+  </data>
+  <data name="FeaturesHeader" xml:space="preserve">
+    <value>✨ Key Features</value>
+  </data>
+  <data name="MessageSystemFeature" xml:space="preserve">
+    <value>Message Posting System - Add, view, and manage messages with real-time functionality</value>
+  </data>
+  <data name="GitHubProfileFeature" xml:space="preserve">
+    <value>GitHub Profile Explorer - Search and display GitHub user profiles</value>
+  </data>
+  <data name="AuthenticationFeature" xml:space="preserve">
+    <value>User Authentication &amp; Authorization - Secure user management with ASP.NET Core Identity</value>
+  </data>
+  <data name="MultilingualFeature" xml:space="preserve">
+    <value>Multilingual Support - Available in English and Japanese</value>
+  </data>
+  <data name="TechStackHeader" xml:space="preserve">
+    <value>🛠️ Technology Stack</value>
+  </data>
+  <data name="FrameworkTech" xml:space="preserve">
+    <value>.NET 9 - Latest .NET framework with cutting-edge features</value>
+  </data>
+  <data name="WebTech" xml:space="preserve">
+    <value>ASP.NET Core Razor Pages - Modern web UI framework</value>
+  </data>
+  <data name="DatabaseTech" xml:space="preserve">
+    <value>Entity Framework Core with SQLite - Object-relational mapping and database</value>
+  </data>
+  <data name="IdentityTech" xml:space="preserve">
+    <value>ASP.NET Core Identity - Authentication and authorization framework</value>
+  </data>
+  <data name="TestingHeader" xml:space="preserve">
+    <value>🧪 Testing Infrastructure</value>
+  </data>
+  <data name="UnitTestsInfo" xml:space="preserve">
+    <value>Unit Tests - Testing individual components in isolation using xUnit</value>
+  </data>
+  <data name="IntegrationTestsInfo" xml:space="preserve">
+    <value>Integration Tests - Testing web application with in-memory database</value>
+  </data>
+  <data name="E2ETestsInfo" xml:space="preserve">
+    <value>End-to-End Tests - Complete user scenario testing with Selenium WebDriver</value>
+  </data>
+  <data name="SecurityHeader" xml:space="preserve">
+    <value>🔒 Security &amp; Best Practices</value>
+  </data>
+  <data name="SecurityInfo" xml:space="preserve">
+    <value>HTTPS enforcement, CSRF protection, XSS prevention, and secure authentication patterns following industry best practices.</value>
+  </data>
+</root>

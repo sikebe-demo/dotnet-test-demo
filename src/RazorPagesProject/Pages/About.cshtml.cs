@@ -4,10 +4,9 @@ namespace RazorPagesProject.Pages;
 
 public class AboutModel : PageModel
 {
-    public string? Message { get; set; }
-
     public void OnGet()
     {
-        Message = "Your application description page.";
+        // Content is now handled through localization resources
+        // No need for a Message property with hardcoded text
     }
 }
