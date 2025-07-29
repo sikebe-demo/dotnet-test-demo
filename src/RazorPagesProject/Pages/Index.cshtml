@@ -67,4 +67,29 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function() {
+            var $messageInput = $('#newMessage');
+            var $addButton = $('#addMessageBtn');
+            
+            function validateMessageInput() {
+                var text = $messageInput.val().trim();
+                var isValid = text.length > 0;
+                
+                $addButton.prop('disabled', !isValid);
+                
+                if (isValid) {
+                    $addButton.removeClass('btn-secondary').addClass('btn-primary');
+                } else {
+                    $addButton.removeClass('btn-primary').addClass('btn-secondary');
+                }
+            }
+            
+            // Validate on page load
+            validateMessageInput();
+            
+            // Validate on input change
+            $messageInput.on('input paste keyup', validateMessageInput);
+        });
+    </script>
 }
