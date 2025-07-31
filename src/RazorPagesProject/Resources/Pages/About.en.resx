@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>About This Application</value>
+  </data>
+  <data name="WelcomeHeader" xml:space="preserve">
+    <value>About This Demo Application</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Welcome to our ASP.NET Core Razor Pages demonstration application. This project showcases modern web development practices using the latest .NET technologies.</value>
+  </data>
+  <data name="FeaturesHeader" xml:space="preserve">
+    <value>Key Features</value>
+  </data>
+  <data name="MessageSystemFeature" xml:space="preserve">
+    <value>Interactive Message System - Add, manage, and analyze messages with real-time functionality</value>
+  </data>
+  <data name="GitHubProfileFeature" xml:space="preserve">
+    <value>GitHub Profile Explorer - Search and view GitHub user profiles and information</value>
+  </data>
+  <data name="AuthenticationFeature" xml:space="preserve">
+    <value>User Authentication - Secure user registration and login system with ASP.NET Core Identity</value>
+  </data>
+  <data name="LocalizationFeature" xml:space="preserve">
+    <value>Multi-language Support - Full internationalization with English and Japanese language options</value>
+  </data>
+  <data name="TechnologyStackHeader" xml:space="preserve">
+    <value>Technology Stack</value>
+  </data>
+  <data name="TechnologyList" xml:space="preserve">
+    <value>.NET 9, ASP.NET Core Razor Pages, Entity Framework Core, SQLite Database, Bootstrap UI Framework, ASP.NET Core Identity</value>
+  </data>
+  <data name="PurposeHeader" xml:space="preserve">
+    <value>Demo Purpose</value>
+  </data>
+  <data name="PurposeDescription" xml:space="preserve">
+    <value>This application serves as a comprehensive demonstration of modern web development techniques, showcasing best practices in security, internationalization, data management, and user experience design.</value>
+  </data>
+</root>

@@ -1,10 +1,55 @@
 @page
 @model AboutModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = Localizer["PageTitle"];
 }
 
-<h1>@ViewData["Title"]</h1>
-<h2>@Model.Message</h2>
+<h1 class="page-title">
+    <i class="fas fa-info-circle me-2"></i>@Localizer["WelcomeHeader"]
+</h1>
 
-<p>Use this area to provide additional information.</p>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="lead">@Localizer["Description"]</p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-star me-2"></i>@Localizer["FeaturesHeader"]</h3>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-comment me-2 text-primary"></i>@Localizer["MessageSystemFeature"]</li>
+                    <li class="mb-2"><i class="fab fa-github me-2 text-primary"></i>@Localizer["GitHubProfileFeature"]</li>
+                    <li class="mb-2"><i class="fas fa-lock me-2 text-primary"></i>@Localizer["AuthenticationFeature"]</li>
+                    <li class="mb-2"><i class="fas fa-globe me-2 text-primary"></i>@Localizer["LocalizationFeature"]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-cogs me-2"></i>@Localizer["TechnologyStackHeader"]</h3>
+            </div>
+            <div class="card-body">
+                <p>@Localizer["TechnologyList"]</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fas fa-bullseye me-2"></i>@Localizer["PurposeHeader"]</h3>
+            </div>
+            <div class="card-body">
+                <p>@Localizer["PurposeDescription"]</p>
+            </div>
+        </div>
+    </div>
+</div>

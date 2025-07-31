@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PageTitle" xml:space="preserve">
+    <value>このアプリケーションについて</value>
+  </data>
+  <data name="WelcomeHeader" xml:space="preserve">
+    <value>デモアプリケーションについて</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>ASP.NET Core Razor Pages を使用したデモンストレーションアプリケーションへようこそ。このプロジェクトは、最新の .NET テクノロジーを使用したモダンなWeb開発手法を紹介しています。</value>
+  </data>
+  <data name="FeaturesHeader" xml:space="preserve">
+    <value>主な機能</value>
+  </data>
+  <data name="MessageSystemFeature" xml:space="preserve">
+    <value>インタラクティブメッセージシステム - リアルタイム機能でメッセージの追加、管理、分析が可能</value>
+  </data>
+  <data name="GitHubProfileFeature" xml:space="preserve">
+    <value>GitHub プロフィール検索 - GitHub ユーザーのプロフィールと情報を検索・表示</value>
+  </data>
+  <data name="AuthenticationFeature" xml:space="preserve">
+    <value>ユーザー認証 - ASP.NET Core Identity による安全なユーザー登録とログインシステム</value>
+  </data>
+  <data name="LocalizationFeature" xml:space="preserve">
+    <value>多言語サポート - 英語と日本語オプションによる完全な国際化対応</value>
+  </data>
+  <data name="TechnologyStackHeader" xml:space="preserve">
+    <value>技術スタック</value>
+  </data>
+  <data name="TechnologyList" xml:space="preserve">
+    <value>.NET 9、ASP.NET Core Razor Pages、Entity Framework Core、SQLite データベース、Bootstrap UI フレームワーク、ASP.NET Core Identity</value>
+  </data>
+  <data name="PurposeHeader" xml:space="preserve">
+    <value>デモの目的</value>
+  </data>
+  <data name="PurposeDescription" xml:space="preserve">
+    <value>このアプリケーションは、セキュリティ、国際化、データ管理、ユーザーエクスペリエンス設計におけるベストプラクティスを紹介する、モダンなWeb開発技術の包括的なデモンストレーションとして機能しています。</value>
+  </data>
+</root>
