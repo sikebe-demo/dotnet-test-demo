@@ -24,12 +24,40 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
     public IStringLocalizer<GitHubProfileModel> Localizer => _localizer;
 
     public GitHubUser? GitHubUser { get; private set; }
+    
+    public string? ErrorMessage { get; private set; }
 
     public async Task<IActionResult> OnGetAsync([FromRoute] string userName)
     {
         if (userName != null)
         {
-            GitHubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GitHubUser = await Client.GetUserAsync(userName);
+                
+                if (GitHubUser == null)
+                {
+                    ErrorMessage = $"User \"{userName}\" not found. Please check the username and try again.";
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                // Handle different types of HTTP errors
+                ErrorMessage = ex.StatusCode switch
+                {
+                    System.Net.HttpStatusCode.TooManyRequests => "GitHub API rate limit exceeded. Please try again later.",
+                    System.Net.HttpStatusCode.Forbidden => "Access to GitHub API is currently restricted.",
+                    _ => "Unable to connect to GitHub API. Please try again later."
+                };
+            }
+            catch (TaskCanceledException)
+            {
+                ErrorMessage = "Request timed out. Please try again.";
+            }
+            catch (Exception)
+            {
+                ErrorMessage = "An unexpected error occurred. Please try again.";
+            }
         }
 
         return Page();
