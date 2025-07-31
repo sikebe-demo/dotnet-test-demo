@@ -1,5 +1,45 @@
+/* Design System - Unified styling for consistent UI across all pages */
+
+/* CSS Custom Properties for Design System */
+:root {
+  /* Color Palette */
+  --primary-color: #2b5876;
+  --secondary-color: #4e4376;
+  --accent-color: #0077cc;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  
+  /* Gradients */
+  --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --primary-gradient-reverse: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  
+  /* Shadows */
+  --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  --button-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  --box-shadow-light: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  
+  /* Border Radius */
+  --border-radius-sm: 8px;
+  --border-radius-md: 15px;
+  --border-radius-lg: 30px;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}
+
+/* Base Typography and Layout */
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,15 +48,229 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
   margin-bottom: 60px;
+}
+
+/* Typography */
+.page-title {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Unified Card System */
+.unified-card {
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  background: white;
+}
+
+.unified-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.unified-card-header {
+  background: var(--primary-gradient);
+  color: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.unified-card-body {
+  padding: var(--spacing-lg);
+}
+
+/* Unified Button System */
+.btn-unified-primary {
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-gradient);
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-unified-primary:hover {
+  background: var(--primary-gradient-reverse);
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow);
+  color: white;
+  text-decoration: none;
+}
+
+.btn-unified-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgba(78, 67, 118, 0.25);
+  outline: none;
+}
+
+.btn-unified-secondary {
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-unified-secondary:hover {
+  background: var(--primary-gradient);
+  color: white;
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow);
+  text-decoration: none;
+}
+
+.btn-unified-danger {
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 1rem;
+  background: var(--danger-color);
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-unified-danger:hover {
+  background: #c82333;
+  transform: translateY(-1px);
+  box-shadow: var(--button-shadow);
+  color: white;
+}
+
+/* Form Controls */
+.form-control-unified {
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #ddd;
+  transition: all 0.3s ease;
+}
+
+.form-control-unified:focus {
+  box-shadow: 0 0 0 0.25rem rgba(78, 67, 118, 0.25);
+  border-color: var(--secondary-color);
+  outline: none;
+}
+
+/* Enhanced Bootstrap Overrides for Consistency */
+a {
+  color: var(--accent-color);
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(78, 67, 118, 0.25);
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--primary-gradient-reverse);
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow);
+}
+
+.btn-danger {
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--button-shadow);
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background: var(--primary-gradient);
+  border: none;
+}
+
+/* Enhanced Card Styling for Bootstrap Cards */
+.card {
+  border: none;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+.card-header {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+  font-weight: 500;
+}
+
+/* Animation Utilities */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease forwards;
+}
+
+/* Footer */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+}
+
+/* Responsive Design Helpers */
+@media (max-width: 768px) {
+  .unified-card-header {
+    padding: var(--spacing-md);
+  }
+  
+  .unified-card-body {
+    padding: var(--spacing-md);
+  }
+  
+  .btn-unified-primary,
+  .btn-unified-secondary {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
 }

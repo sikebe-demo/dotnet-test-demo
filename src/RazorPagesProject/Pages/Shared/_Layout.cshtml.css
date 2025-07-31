@@ -1,44 +1,78 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* Layout-specific styles using unified design system */
 
+/* Import CSS custom properties */
+:root {
+  --primary-color: #2b5876;
+  --secondary-color: #4e4376;
+  --accent-color: #0077cc;
+  --primary-gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  --primary-gradient-reverse: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+  --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  --button-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  --box-shadow-light: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  --border-radius-lg: 30px;
+}
+
+/* Navbar branding */
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
 
-a {
-  color: #0077cc;
+/* Enhanced navigation styling */
+.navbar {
+  box-shadow: var(--card-shadow);
 }
 
+/* Link styling */
+a {
+  color: var(--accent-color);
+}
+
+/* Button styling updates */
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background: var(--primary-gradient);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--primary-gradient-reverse);
+  transform: translateY(-2px);
+  box-shadow: var(--button-shadow);
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+  background: var(--primary-gradient);
+  border: none;
 }
 
+/* Border utilities */
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: var(--box-shadow-light);
 }
 
+/* Policy button */
 button.accept-policy {
   font-size: 1rem;
   line-height: inherit;
 }
 
+/* Footer */
 .footer {
   position: absolute;
   bottom: 0;

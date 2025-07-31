@@ -4,17 +4,167 @@
     ViewData["Title"] = "Contact";
 }
 
-<h1>@ViewData["Title"]</h1>
-<h2>@Model.Message</h2>
+<div class="fade-in">
+    <h1 class="page-title">
+        <i class="fas fa-envelope me-2"></i>@ViewData["Title"]
+    </h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-building me-2"></i>@Model.Message
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="contact-info">
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Address</h5>
+                                    <p class="mb-0 text-muted">
+                                        One Microsoft Way<br />
+                                        Redmond, WA 98052-6399
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Phone</h5>
+                                    <p class="mb-0 text-muted">425.555.0100</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-headset me-2"></i>Support Contacts
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="contact-info">
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-life-ring"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Technical Support</h5>
+                                    <a href="mailto:Support@example.com" class="text-decoration-none">
+                                        <i class="fas fa-envelope me-1"></i>Support@example.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item mb-4">
+                            <div class="d-flex align-items-center">
+                                <div class="contact-icon me-3">
+                                    <i class="fas fa-bullhorn"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Marketing & Sales</h5>
+                                    <a href="mailto:Marketing@example.com" class="text-decoration-none">
+                                        <i class="fas fa-envelope me-1"></i>Marketing@example.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">
+                        <i class="fas fa-clock me-2"></i>Business Hours
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Monday - Friday</strong><br>
+                            <small class="text-muted">9:00 AM - 6:00 PM PST</small>
+                        </div>
+                        <div class="col-6">
+                            <strong>Weekend</strong><br>
+                            <small class="text-muted">Limited Support</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">
+                        <i class="fas fa-question-circle me-2"></i>Quick Actions
+                    </h3>
+                </div>
+                <div class="card-body text-center">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <a href="/GitHubProfile" class="btn btn-primary w-100">
+                                <i class="fab fa-github me-2"></i>Try GitHub Profile
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="/About" class="btn btn-secondary w-100">
+                                <i class="fas fa-info-circle me-2"></i>Learn More
+                            </a>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <a href="/" class="btn btn-primary w-100">
+                                <i class="fas fa-home me-2"></i>Back to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<style>
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+.contact-item {
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-2px);
+}
+</style>
