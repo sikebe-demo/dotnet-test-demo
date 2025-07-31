@@ -4,6 +4,10 @@ using Xunit.Abstractions;
 
 namespace RazorPagesProject.E2ETests;
 
+/// <summary>
+/// 多言語対応機能が一時的に無効化されているため、これらのテストもスキップ
+/// 将来の多言語対応再開時に有効化
+/// </summary>
 public class LocalizationE2ETest : IClassFixture<EdgeFixture>
 {
     private readonly BrowserFixture _browser;
@@ -17,7 +21,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _githubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
     }
 
-    [Theory]
+    [Theory(Skip = "多言語対応機能が一時的に無効化されているため、このテストはスキップされます")]
     [InlineData("en", "GitHub Profile Explorer")]
     [InlineData("ja", "GitHub プロフィール エクスプローラー")]
     public void Should_Display_Correct_Page_Title_Based_On_Language(string culture, string expectedTitle)
@@ -32,7 +36,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine($"Language: {culture}, Expected: {expectedTitle}");
     }
 
-    [Theory]
+    [Theory(Skip = "多言語対応機能が一時的に無効化されているため、このテストはスキップされます")]
     [InlineData("en", "Search", "GitHub Username", "Show Profile")]
     [InlineData("ja", "検索", "GitHubユーザー名", "プロフィールを表示")]
     public void Should_Display_Correct_Labels_Based_On_Language(string culture, string expectedSearchHeader, string expectedUserNameLabel, string expectedSubmitButton)
@@ -47,7 +51,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine($"Language: {culture} - All labels found successfully");
     }
 
-    [Fact]
+    [Fact(Skip = "多言語対応機能が一時的に無効化されているため、このテストはスキップされます")]
     public async Task Should_Switch_Language_When_Language_Button_Clicked()
     {
         // Arrange
@@ -66,7 +70,7 @@ public class LocalizationE2ETest : IClassFixture<EdgeFixture>
         _helper.WriteLine("Language switching test completed successfully");
     }
 
-    [Theory]
+    [Theory(Skip = "多言語対応機能が一時的に無効化されているため、このテストはスキップされます")]
     [InlineData("en", "Not set")]
     [InlineData("ja", "未設定")]
     public async Task Should_Display_Profile_With_Correct_Language_After_Search(string culture, string expectedNotSetText)

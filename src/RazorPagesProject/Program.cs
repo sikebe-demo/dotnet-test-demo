@@ -23,7 +23,9 @@ builder.Services.AddRazorPages(options =>
 .AddViewLocalization()
 .AddDataAnnotationsLocalization();
 
+// 多言語対応機能は一時的に無効化 - 将来の再開に備えてコードは保持
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+/*
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
     var supportedCultures = new[]
@@ -39,6 +41,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
     options.RequestCultureProviders.Insert(1, new CookieRequestCultureProvider());
 });
+*/
 
 builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 {
@@ -67,7 +70,8 @@ else
 
 app.UseStaticFiles();
 
-app.UseRequestLocalization();
+// 多言語対応ミドルウェアは一時的に無効化
+// app.UseRequestLocalization();
 
 app.UseRouting();
 app.UseAuthorization();

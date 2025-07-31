@@ -1,7 +1,5 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
 <!DOCTYPE html>
-<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,26 +21,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@Localizer["Home"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">@Localizer["GitHubProfile"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">GitHub Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">@Localizer["About"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@Localizer["Privacy"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">@Localizer["SecurePage"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">Secure Page</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">@Localizer["Contact"]</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">Contact</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
-                        <partial name="_LanguageSwitcher" />
+                        @* 言語切り替え機能は一時的に無効化 - 将来の多言語対応再開時に有効化可能 *@
+                        @* <partial name="_LanguageSwitcher" /> *@
                         <partial name="_LoginPartial" />
                     </div>
                 </div>
