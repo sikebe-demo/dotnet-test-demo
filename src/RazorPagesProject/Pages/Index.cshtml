@@ -67,4 +67,24 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.getElementById('newMessage');
+            const addMessageBtn = document.getElementById('addMessageBtn');
+            
+            function updateButtonState() {
+                const isEmpty = !messageInput.value.trim();
+                addMessageBtn.disabled = isEmpty;
+                addMessageBtn.classList.toggle('btn-secondary', isEmpty);
+                addMessageBtn.classList.toggle('btn-primary', !isEmpty);
+            }
+            
+            // Initial state check
+            updateButtonState();
+            
+            // Listen for input changes
+            messageInput.addEventListener('input', updateButtonState);
+            messageInput.addEventListener('keyup', updateButtonState);
+        });
+    </script>
 }

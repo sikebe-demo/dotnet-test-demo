@@ -71,4 +71,10 @@ public class IndexPage(IWebDriver driver, ITestOutputHelper? helper) : PageObjec
         Driver.FindElement(By.Id("addMessageBtn")).Click();
         return new IndexPage(Driver, Helper);
     }
+
+    public bool IsAddMessageButtonEnabled()
+    {
+        var addButton = Driver.FindElement(By.Id("addMessageBtn"));
+        return addButton.Enabled;
+    }
 }

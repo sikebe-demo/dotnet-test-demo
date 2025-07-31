@@ -51,4 +51,29 @@ public class IndexPageTest : IClassFixture<EdgeFixture>
             title.Contains("GitHub") && title.Contains("RazorPagesProject"),
             $"Expected GitHub Profile page title containing 'GitHub' and 'RazorPagesProject' but got: {title}");
     }
+
+    [Fact]
+    public void Should_Disable_Add_Message_Button_When_Input_Is_Empty()
+    {
+        // Arrange - Clear any existing text in the input
+        _indexPage.NewMessage.Clear();
+
+        // Act & Assert - Button should be disabled when input is empty
+        Assert.False(_indexPage.IsAddMessageButtonEnabled(), 
+            "Add Message button should be disabled when input is empty");
+
+        // Act - Add some text
+        _indexPage.NewMessage.SendKeys("Test message");
+
+        // Assert - Button should be enabled when input has text
+        Assert.True(_indexPage.IsAddMessageButtonEnabled(), 
+            "Add Message button should be enabled when input has text");
+
+        // Act - Clear the text again
+        _indexPage.NewMessage.Clear();
+
+        // Assert - Button should be disabled again when input is cleared
+        Assert.False(_indexPage.IsAddMessageButtonEnabled(), 
+            "Add Message button should be disabled again when input is cleared");
+    }
 }
