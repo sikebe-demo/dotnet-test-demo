@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Main pages
+Allow: /
+Allow: /About
+Allow: /Contact
+Allow: /GitHubProfile
+Allow: /Privacy
+
+# CSS and JS assets
+Allow: /css/
+Allow: /js/
+Allow: /lib/
+
+# Images and icons
+Allow: /favicon.ico
+
+# Disallow admin/secure areas
+Disallow: /Identity/Account/
+Disallow: /SecurePage
+
+# Sitemap location
+Sitemap: /sitemap.xml
