@@ -8,6 +8,6 @@ public class AboutModel : PageModel
 
     public void OnGet()
     {
-        Message = "Your application description page.";
+        Message = ".NET Test Demo - Comprehensive Testing & Development Showcase";
     }
 }
