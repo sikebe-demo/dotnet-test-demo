@@ -1,4 +1,5 @@
 # .NET Test Demo
+clear
 
 A comprehensive demonstration project showcasing modern .NET development practices, testing strategies, and ASP.NET Core Razor Pages implementation with multiple layers of testing including Unit Tests, Integration Tests, and End-to-End (E2E) Tests.
 
