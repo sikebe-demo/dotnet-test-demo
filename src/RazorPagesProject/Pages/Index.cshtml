@@ -6,6 +6,14 @@
 
 <h1>@ViewData["Title"]</h1>
 
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @Model.SuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <input id="quote" type="hidden" value="@Model.Quote">
 
 <form id="addMessage" method="post">
@@ -27,9 +35,10 @@
 </form>
 
 <form id="messages" method="post">
+    <input type="hidden" name="handler" value="DeleteAllMessages" />
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="submit" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger">Clear All</button>
+            <button id="deleteAllBtn" type="button" onclick="confirmDeleteAll()" class="pull-right btn btn-danger">Clear All</button>
             <h3 class="card-title" style="line-height:2.1">Messages</h3>
         </div>
         <div class="card-body">
@@ -67,4 +76,21 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        function confirmDeleteAll() {
+            var messageCount = @(Model.Messages?.Count ?? 0);
+            if (messageCount === 0) {
+                alert('メッセージがありません。');
+                return;
+            }
+            
+            var confirmMessage = messageCount === 1 
+                ? 'メッセージを削除しますか？この操作は取り消せません。'
+                : messageCount + '件のメッセージをすべて削除しますか？この操作は取り消せません。';
+            
+            if (confirm(confirmMessage)) {
+                document.getElementById('messages').submit();
+            }
+        }
+    </script>
 }
