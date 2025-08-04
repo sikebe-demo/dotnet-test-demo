@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
+    <!-- Skip to main content link for screen readers -->
+    <a class="visually-hidden-focusable" href="#main-content">Skip to main content</a>
+    
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -23,22 +26,34 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">@Localizer["Home"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "active" : "")" 
+                               asp-area="" asp-page="/Index" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Index" ? "page" : null)">@Localizer["Home"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/GitHubProfile">@Localizer["GitHubProfile"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/GitHubProfile" ? "active" : "")" 
+                               asp-area="" asp-page="/GitHubProfile" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/GitHubProfile" ? "page" : null)">@Localizer["GitHubProfile"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/About">@Localizer["About"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/About" ? "active" : "")" 
+                               asp-area="" asp-page="/About" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/About" ? "page" : null)">@Localizer["About"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">@Localizer["Privacy"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/Privacy" ? "active" : "")" 
+                               asp-area="" asp-page="/Privacy" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Privacy" ? "page" : null)">@Localizer["Privacy"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/SecurePage">@Localizer["SecurePage"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/SecurePage" ? "active" : "")" 
+                               asp-area="" asp-page="/SecurePage" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/SecurePage" ? "page" : null)">@Localizer["SecurePage"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Contact">@Localizer["Contact"]</a>
+                            <a class="nav-link text-dark @(ViewContext.RouteData.Values["page"]?.ToString() == "/Contact" ? "active" : "")" 
+                               asp-area="" asp-page="/Contact" 
+                               aria-current="@(ViewContext.RouteData.Values["page"]?.ToString() == "/Contact" ? "page" : null)">@Localizer["Contact"]</a>
                         </li>
                     </ul>
                     <div class="d-flex align-items-center">
@@ -50,7 +65,7 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" id="main-content">
             @RenderBody()
         </main>
     </div>
