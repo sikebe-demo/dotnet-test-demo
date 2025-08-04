@@ -35,10 +35,9 @@
 </form>
 
 <form id="messages" method="post">
-    <input type="hidden" name="handler" value="DeleteAllMessages" />
     <div class="card mt-3">
         <div class="card-header">
-            <button id="deleteAllBtn" type="button" onclick="confirmDeleteAll()" class="pull-right btn btn-danger">Clear All</button>
+            <button id="deleteAllBtn" type="submit" onclick="return confirmDeleteAll()" asp-page-handler="DeleteAllMessages" class="pull-right btn btn-danger">Clear All</button>
             <h3 class="card-title" style="line-height:2.1">Messages</h3>
         </div>
         <div class="card-body">
@@ -81,16 +80,14 @@
             var messageCount = @(Model.Messages?.Count ?? 0);
             if (messageCount === 0) {
                 alert('メッセージがありません。');
-                return;
+                return false;
             }
             
             var confirmMessage = messageCount === 1 
                 ? 'メッセージを削除しますか？この操作は取り消せません。'
                 : messageCount + '件のメッセージをすべて削除しますか？この操作は取り消せません。';
             
-            if (confirm(confirmMessage)) {
-                document.getElementById('messages').submit();
-            }
+            return confirm(confirmMessage);
         }
     </script>
 }
