@@ -24,6 +24,9 @@ public class IndexModel : PageModel
     [TempData]
     public string? MessageAnalysisResult { get; set; }
 
+    [TempData]
+    public string? SuccessMessage { get; set; }
+
     public string? Quote { get; private set; }
 
     public async Task OnGetAsync()
@@ -46,7 +49,15 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostDeleteAllMessagesAsync()
     {
+        var messageCount = await _db.GetMessagesAsync();
+        var count = messageCount.Count;
+        
         await _db.DeleteAllMessagesAsync();
+        
+        SuccessMessage = count == 1 
+            ? "1件のメッセージを削除しました。"
+            : $"{count}件のメッセージを削除しました。";
+            
         return RedirectToPage();
     }
 
