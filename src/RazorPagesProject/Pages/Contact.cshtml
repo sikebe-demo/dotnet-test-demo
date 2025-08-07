@@ -7,14 +7,41 @@
 <h1>@ViewData["Title"]</h1>
 <h2>@Model.Message</h2>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="row">
+    <div class="col-md-6">
+        <h4>このプロジェクトについて</h4>
+        <p>
+            <strong>.NET Test Demo</strong> は、.NET 開発のベストプラクティスとテスト戦略を学習するための
+            オープンソースのデモンストレーションプロジェクトです。
+        </p>
+        
+        <h5>プロジェクトの詳細情報</h5>
+        <ul>
+            <li><strong>GitHub リポジトリ</strong>: <a href="https://github.com/sikebe-demo/dotnet-test-demo" target="_blank">sikebe-demo/dotnet-test-demo</a></li>
+            <li><strong>ライセンス</strong>: MIT License</li>
+            <li><strong>対象フレームワーク</strong>: .NET 9</li>
+        </ul>
+    </div>
+    
+    <div class="col-md-6">
+        <h4>技術的なご質問・フィードバック</h4>
+        <p>
+            このプロジェクトに関する技術的なご質問、バグ報告、機能提案などは、
+            GitHubリポジトリのIssuesセクションをご利用ください。
+        </p>
+        
+        <h5>貢献方法</h5>
+        <ol>
+            <li>リポジトリをフォーク</li>
+            <li>機能ブランチを作成 (<code>git checkout -b feature/amazing-feature</code>)</li>
+            <li>変更をコミット (<code>git commit -m 'Add some amazing feature'</code>)</li>
+            <li>ブランチにプッシュ (<code>git push origin feature/amazing-feature</code>)</li>
+            <li>プルリクエストを作成</li>
+        </ol>
+        
+        <p>
+            <strong>注意</strong>: このプロジェクトは学習・デモンストレーション目的のため、
+            商用サポートは提供していません。
+        </p>
+    </div>
+</div>
