@@ -34,6 +34,18 @@ public class IndexModel : PageModel
 
     public async Task<IActionResult> OnPostAddMessageAsync()
     {
+        // Trim whitespace from message text
+        if (!string.IsNullOrEmpty(Message.Text))
+        {
+            Message.Text = Message.Text.Trim();
+        }
+
+        // Check if message is empty or whitespace only
+        if (string.IsNullOrWhiteSpace(Message.Text))
+        {
+            ModelState.AddModelError(nameof(Message.Text), "Message cannot be empty or contain only whitespace.");
+        }
+
         if (!ModelState.IsValid)
         {
             Messages = await _db.GetMessagesAsync();
