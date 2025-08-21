@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using RazorPagesProject.Middleware;
+using RazorPagesProject.HostedServices;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +50,11 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 
+// Device tracking services
+builder.Services.AddSingleton<IUserAgentClassificationService, UserAgentClassificationService>();
+builder.Services.AddSingleton<IDeviceCountersService, DeviceCountersService>();
+builder.Services.AddHostedService<DeviceUsageLoggingService>();
+
 var app = builder.Build();
 
 SeedDatabase(app);
@@ -66,6 +73,8 @@ else
 }
 
 app.UseStaticFiles();
+
+app.UseMiddleware<UserAgentTrackingMiddleware>();
 
 app.UseRequestLocalization();
 
