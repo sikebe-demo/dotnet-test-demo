@@ -7,14 +7,14 @@
 }
 
 <h1 class="page-title">
-    <i class="fab fa-github me-2"></i>@Localizer["PageHeader"]
+    <i class="fab fa-github me-2" aria-hidden="true"></i>@Localizer["PageHeader"]
 </h1>
 
 <div class="row">
     <div class="col-md-6 mb-4">
         <div class="profile-card">
             <div class="github-header">
-                <h3><i class="fas fa-search me-2"></i>@Localizer["SearchHeader"]</h3>
+                <h2><i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchHeader"]</h2>
             </div>
             <div class="profile-info">
                 <form id="user-profile" method="post">
@@ -42,7 +42,7 @@
         <div class="col-md-6">
             <div class="profile-card profile-display">
                 <div class="github-header">
-                    <h3><i class="fas fa-user me-2"></i>@Localizer["ProfileHeader"]</h3>
+                    <h2><i class="fas fa-user me-2" aria-hidden="true"></i>@Localizer["ProfileHeader"]</h2>
                 </div>
                 <div class="avatar-container">
                     @if (!string.IsNullOrEmpty(Model.GitHubUser.AvatarUrl))
