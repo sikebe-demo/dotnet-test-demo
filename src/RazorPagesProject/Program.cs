@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using RazorPagesProject.Middleware;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,8 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 });
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
+builder.Services.AddScoped<IDeviceAnalyticsService, DeviceAnalyticsService>();
+builder.Services.AddScoped<INavigationConfigService, NavigationConfigService>();
 
 var app = builder.Build();
 
@@ -66,6 +69,9 @@ else
 }
 
 app.UseStaticFiles();
+
+// Add User-Agent logging middleware for device analytics
+app.UseMiddleware<UserAgentLoggingMiddleware>();
 
 app.UseRequestLocalization();
 

@@ -18,12 +18,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="UAParser" Version="3.1.47" />
   </ItemGroup>
 
   <!-- The following target is a workaround for https://github.com/dotnet/aspnetcore/issues/59625 -->
-  <Target
-    Name="Workaround_ResolveBuildCompressedStaticWebAssetsConfiguration"
-    BeforeTargets="ResolveBuildCompressedStaticWebAssetsConfiguration">
+  <Target Name="Workaround_ResolveBuildCompressedStaticWebAssetsConfiguration" BeforeTargets="ResolveBuildCompressedStaticWebAssetsConfiguration">
     <!-- Remove any duplicate items from StaticWebAssets -->
 
     <ItemGroup>

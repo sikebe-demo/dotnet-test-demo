@@ -20,3 +20,71 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Custom hamburger menu styles for 640px breakpoint */
+.navbar-hamburger-enabled {
+  /* Override Bootstrap's navbar-expand-md to use 640px instead of 768px */
+}
+
+@media (max-width: 639.98px) {
+  .navbar-hamburger-enabled .navbar-collapse {
+    display: none !important;
+  }
+  
+  .navbar-hamburger-enabled .navbar-toggler {
+    display: block !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .navbar-hamburger-enabled .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+  
+  .navbar-hamburger-enabled .navbar-toggler {
+    display: none !important;
+  }
+}
+
+/* Enhanced hamburger menu animations and accessibility */
+.navbar-collapse {
+  transition: height 0.3s ease-in-out;
+}
+
+.navbar-toggler {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  background-color: transparent;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 0.25rem rgba(37, 140, 251, 0.25);
+  outline: 0;
+}
+
+.navbar-toggler:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure proper touch targets on mobile */
+@media (max-width: 639.98px) {
+  .navbar-nav .nav-link {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar-nav .nav-link:last-child {
+    border-bottom: none;
+  }
+  
+  /* Improve tap targets */
+  .nav-link, .navbar-toggler {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
