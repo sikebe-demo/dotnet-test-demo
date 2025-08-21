@@ -27,7 +27,7 @@ body {
 }
 
 @media (max-width: 639.98px) {
-  .navbar-hamburger-enabled .navbar-collapse {
+  .navbar-hamburger-enabled .navbar-collapse:not(.show) {
     display: none !important;
   }
   
