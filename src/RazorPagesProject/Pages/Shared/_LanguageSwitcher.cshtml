@@ -4,7 +4,7 @@
 <div class="language-switcher">
     <div class="dropdown">
         <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-globe me-1"></i>
+            <i class="fas fa-globe me-1" aria-hidden="true"></i>
             @if (System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ja"))
             {
                 <span>日本語</span>
@@ -20,7 +20,7 @@
                     <input type="hidden" name="culture" value="en" />
                     <input type="hidden" name="returnUrl" value="@(ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString)" />
                     <button type="submit" class="dropdown-item @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("en") ? "active" : "")">
-                        <i class="fas fa-flag-usa me-2"></i>English
+                        <i class="fas fa-flag-usa me-2" aria-hidden="true"></i>English
                     </button>
                 </form>
             </li>
@@ -29,7 +29,7 @@
                     <input type="hidden" name="culture" value="ja" />
                     <input type="hidden" name="returnUrl" value="@(ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString)" />
                     <button type="submit" class="dropdown-item @(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("ja") ? "active" : "")">
-                        <i class="fas fa-flag me-2"></i>日本語
+                        <i class="fas fa-flag me-2" aria-hidden="true"></i>日本語
                     </button>
                 </form>
             </li>
