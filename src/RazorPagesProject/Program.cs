@@ -5,8 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
 using System.Globalization;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .Enrich.WithEnvironmentName()
+    .Enrich.WithProcessId()
+    .Enrich.WithThreadId());
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -50,7 +61,27 @@ builder.Services.AddScoped<IQuoteService, QuoteService>();
 
 var app = builder.Build();
 
+// Add Serilog request logging
+app.UseSerilogRequestLogging(options =>
+{
+    options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+    options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Information;
+    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+    {
+        diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+        diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+        diagnosticContext.Set("UserAgent", httpContext.Request.Headers.UserAgent.FirstOrDefault());
+        if (httpContext.TraceIdentifier is not null)
+        {
+            diagnosticContext.Set("TraceId", httpContext.TraceIdentifier);
+        }
+    };
+});
+
 SeedDatabase(app);
+
+// Log application startup
+Log.Information("Starting RazorPagesProject application");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -72,6 +103,8 @@ app.UseRequestLocalization();
 app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
+
+Log.Information("RazorPagesProject application started successfully");
 app.Run();
 
 static void SeedDatabase(WebApplication app)

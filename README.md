@@ -33,6 +33,7 @@ dotnet-test-demo/
 - **Entity Framework Core** - Object-relational mapping
 - **ASP.NET Core Identity** - Authentication and authorization
 - **SQLite** - Database for development and testing
+- **Serilog** - Structured logging framework with enrichers
 - **xUnit** - Testing framework
 - **Selenium WebDriver** - E2E testing automation
 
@@ -126,11 +127,21 @@ dotnet test --collect:"XPlat Code Coverage"
 
 ### RazorPagesProject Web Application
 - **Authentication & Authorization**: ASP.NET Core Identity integration
+- **Structured Logging**: Serilog with request correlation and enrichers
 - **Responsive Design**: Mobile-friendly UI
 - **Internationalization**: Multi-language support
 - **Database Integration**: Entity Framework Core with SQLite
 - **Security**: HTTPS, CSRF protection, XSS prevention
 - **GitHub Integration**: GitHub profile display functionality
+
+### Logging Features
+- **Structured Logging**: JSON-formatted logs with contextual information
+- **Request Correlation**: TraceId/RequestId for tracking requests across components
+- **Performance Monitoring**: Request timing and response status tracking
+- **Environment Enrichment**: Process ID, Thread ID, Environment Name automatically included
+- **Exception Tracking**: Detailed error logging with stack traces
+- **Configuration-Driven**: Log levels and output format configured in appsettings.json
+- **Development-Friendly**: Console output with readable formatting for local development
 
 ### Testing Architecture
 - **Page Object Pattern**: Maintainable E2E test structure
