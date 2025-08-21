@@ -100,7 +100,7 @@ public class IndexPageTests :
         // Arrange
         var defaultPage = await _client.GetAsync("/");
         var content = await HtmlHelpers.GetDocumentAsync(defaultPage);
-        var messageText = new string('X', 201);
+        var messageText = new string('X', 513);
 
         // Act
         var response = await _client.SendAsync(
@@ -116,6 +116,29 @@ public class IndexPageTests :
         // A ModelState failure returns to Page (200-OK) and doesn't redirect.
         response.EnsureSuccessStatusCode();
         Assert.Null(response.Headers.Location?.OriginalString);
+    }
+    [Fact]
+    public async Task Post_AddMessageHandler_ReturnsRedirectToRoot_WhenMessageTextIs512Characters()
+    {
+        // Arrange
+        var defaultPage = await _client.GetAsync("/");
+        var content = await HtmlHelpers.GetDocumentAsync(defaultPage);
+        var messageText = new string('X', 512);
+
+        // Act
+        var response = await _client.SendAsync(
+            (IHtmlFormElement)content.QuerySelector("form[id='addMessage']")!,
+            (IHtmlButtonElement)content.QuerySelector("button[id='addMessageBtn']")!,
+            new Dictionary<string, string>
+            {
+                ["Message.Text"] = messageText
+            });
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, defaultPage.StatusCode);
+        // A successful submission redirects to the same page.
+        Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+        Assert.Equal("/", response?.Headers?.Location?.OriginalString);
     }
 
     [Fact]
