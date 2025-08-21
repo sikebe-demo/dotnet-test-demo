@@ -9,6 +9,7 @@ coverage/report
 app.db
 app.db-shm
 app.db-wal
+demo_logs.txt
 .mono
 
 # Node.js dependencies
