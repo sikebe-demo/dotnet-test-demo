@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
 using System.Globalization;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizePage("/SecurePage");
+    
+    // Add filter to set no-cache headers for all Razor Pages
+    options.Conventions.ConfigureFilter(new ResponseCacheAttribute
+    {
+        NoStore = true,
+        Location = ResponseCacheLocation.None,
+        Duration = 0
+    });
 })
 .AddViewLocalization()
 .AddDataAnnotationsLocalization();
@@ -48,6 +59,22 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 
+// Add response compression (Production only for security)
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddResponseCompression(options =>
+    {
+        options.EnableForHttps = true;
+        options.Providers.Add<BrotliCompressionProvider>();
+        options.Providers.Add<GzipCompressionProvider>();
+    });
+
+    builder.Services.Configure<BrotliCompressionProviderOptions>(options =>
+    {
+        options.Level = CompressionLevel.Optimal;
+    });
+}
+
 var app = builder.Build();
 
 SeedDatabase(app);
@@ -63,9 +90,42 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
     app.UseHttpsRedirection();
+    
+    // Enable response compression in production
+    app.UseResponseCompression();
 }
 
-app.UseStaticFiles();
+// Configure static files with cache headers
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        // Set cache headers for versioned assets (files with asp-append-version or fingerprinting)
+        var headers = ctx.Context.Response.Headers;
+        var path = ctx.Context.Request.Path.Value;
+        
+        if (path != null)
+        {
+            // Check if file is versioned (contains query string like ?v=xxxxx)
+            if (ctx.Context.Request.Query.ContainsKey("v") || path.Contains("_content/"))
+            {
+                // Long-lived caching for versioned assets (1 day with immutable)
+                headers["Cache-Control"] = "public, max-age=86400, immutable";
+            }
+            else if (path.EndsWith(".css") || path.EndsWith(".js") || path.EndsWith(".woff") || 
+                     path.EndsWith(".woff2") || path.EndsWith(".ttf") || path.EndsWith(".eot"))
+            {
+                // Short-lived caching for non-versioned static assets
+                headers["Cache-Control"] = "public, max-age=3600";
+            }
+            else
+            {
+                // Default cache for other static files
+                headers["Cache-Control"] = "public, max-age=86400";
+            }
+        }
+    }
+});
 
 app.UseRequestLocalization();
 
