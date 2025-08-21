@@ -22,3 +22,7 @@ src/RazorPagesProject/wwwroot/lib/bootstrap/
 src/RazorPagesProject/wwwroot/lib/jquery/
 src/RazorPagesProject/wwwroot/lib/jquery-validation/
 src/RazorPagesProject/wwwroot/lib/jquery-validation-unobtrusive/
+
+# Screenshots - ignore temp directories
+tmp/
+/tmp/
