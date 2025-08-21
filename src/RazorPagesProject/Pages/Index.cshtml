@@ -1,7 +1,13 @@
 @page
 @model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Message System";
+}
+
+@section MetaDescription {
+    <meta name="description" content="@Localizer["Meta_Description_Index"]" />
 }
 
 <h1>@ViewData["Title"]</h1>

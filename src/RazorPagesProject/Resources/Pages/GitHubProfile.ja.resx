@@ -106,4 +106,7 @@
   <data name="Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="Meta_Description_GitHubProfile" xml:space="preserve">
+    <value>GitHubプロフィールエクスプローラーでGitHubプロフィールを探索しましょう。ユーザーを検索して詳細なプロフィール情報を表示できます。</value>
+  </data>
 </root>

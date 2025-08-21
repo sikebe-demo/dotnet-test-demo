@@ -76,4 +76,19 @@
   <data name="Contact" xml:space="preserve">
     <value>お問い合わせ</value>
   </data>
+  <data name="Meta_Description_Index" xml:space="preserve">
+    <value>インタラクティブなメッセージシステムでメッセージの管理と分析を行います。メッセージの追加、削除、内容の探索が簡単にできます。</value>
+  </data>
+  <data name="Meta_Description_About" xml:space="preserve">
+    <value>私たちのアプリケーションについて詳しく学び、メッセージ管理をシンプルで効果的にする機能をご紹介します。</value>
+  </data>
+  <data name="Meta_Description_Contact" xml:space="preserve">
+    <value>私たちのチームにお気軽にお問い合わせください。サポートとお問い合わせのための連絡先情報をご確認いただけます。</value>
+  </data>
+  <data name="Meta_Description_GitHubProfile" xml:space="preserve">
+    <value>GitHubプロフィールエクスプローラーでGitHubプロフィールを探索しましょう。ユーザーを検索して詳細なプロフィール情報を表示できます。</value>
+  </data>
+  <data name="Meta_Description_Privacy" xml:space="preserve">
+    <value>個人情報とデータの収集、使用、保護方法について説明したプライバシーポリシーをお読みください。</value>
+  </data>
 </root>

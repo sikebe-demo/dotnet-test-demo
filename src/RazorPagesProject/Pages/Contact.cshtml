@@ -1,7 +1,13 @@
 @page
 @model ContactModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Contact";
+}
+
+@section MetaDescription {
+    <meta name="description" content="@Localizer["Meta_Description_Contact"]" />
 }
 
 <h1>@ViewData["Title"]</h1>

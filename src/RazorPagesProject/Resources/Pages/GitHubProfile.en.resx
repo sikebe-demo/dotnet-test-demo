@@ -106,4 +106,7 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Meta_Description_GitHubProfile" xml:space="preserve">
+    <value>Explore GitHub profiles with our GitHub Profile Explorer. Search for users and view detailed profile information.</value>
+  </data>
 </root>

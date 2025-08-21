@@ -30,7 +30,6 @@
               </xsd:sequence>
               <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
               <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
@@ -58,36 +57,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="GitHubProfile" xml:space="preserve">
-    <value>GitHub Profile</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>Privacy</value>
-  </data>
-  <data name="SecurePage" xml:space="preserve">
-    <value>Secure Page</value>
-  </data>
-  <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
-  </data>
-  <data name="Meta_Description_Index" xml:space="preserve">
-    <value>Manage and analyze messages with our interactive message system. Add, delete, and explore message content easily.</value>
-  </data>
-  <data name="Meta_Description_About" xml:space="preserve">
-    <value>Learn more about our application and discover the features that make message management simple and effective.</value>
-  </data>
-  <data name="Meta_Description_Contact" xml:space="preserve">
-    <value>Get in touch with our team. Find our contact information and support channels for assistance and inquiries.</value>
-  </data>
-  <data name="Meta_Description_GitHubProfile" xml:space="preserve">
-    <value>Explore GitHub profiles with our GitHub Profile Explorer. Search for users and view detailed profile information.</value>
-  </data>
   <data name="Meta_Description_Privacy" xml:space="preserve">
     <value>Read our privacy policy to understand how we collect, use, and protect your personal information and data.</value>
   </data>
