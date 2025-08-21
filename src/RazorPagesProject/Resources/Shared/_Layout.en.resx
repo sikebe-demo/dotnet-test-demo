@@ -76,4 +76,7 @@
   <data name="Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
+  <data name="Badge_Beta_Label" xml:space="preserve">
+    <value>Beta</value>
+  </data>
 </root>

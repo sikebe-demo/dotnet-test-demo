@@ -1,5 +1,7 @@
 @page
 @model IndexModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
     ViewData["Title"] = "Message System";
 }
@@ -56,7 +58,9 @@
         </div>
         <div class="card-body">
             <div class="form-group">
-                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary">Analyze</button>
+                <button id="analyzeBtn" type="submit" asp-page-handler="AnalyzeMessages" class="btn btn-primary" aria-label="Analyze (Beta)">
+                    Analyze <span class="beta-badge" aria-hidden="true">@Localizer["Badge_Beta_Label"]</span>
+                </button>
             </div>
             <div class="form-group">
                 @Model.MessageAnalysisResult

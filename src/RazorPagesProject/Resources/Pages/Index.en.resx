@@ -58,25 +58,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Home" xml:space="preserve">
-    <value>ホーム</value>
-  </data>
-  <data name="GitHubProfile" xml:space="preserve">
-    <value>GitHub プロフィール</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>このサイトについて</value>
-  </data>
-  <data name="Privacy" xml:space="preserve">
-    <value>プライバシー</value>
-  </data>
-  <data name="SecurePage" xml:space="preserve">
-    <value>セキュアページ</value>
-  </data>
-  <data name="Contact" xml:space="preserve">
-    <value>お問い合わせ</value>
-  </data>
   <data name="Badge_Beta_Label" xml:space="preserve">
-    <value>ベータ</value>
+    <value>Beta</value>
   </data>
 </root>
