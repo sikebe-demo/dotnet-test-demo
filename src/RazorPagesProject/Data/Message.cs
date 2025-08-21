@@ -8,6 +8,6 @@ public class Message
 
     [Required]
     [DataType(DataType.Text)]
-    [StringLength(200, ErrorMessage = "There's a 200 character limit on messages. Please shorten your message.")]
+    [MaxLength(512, ErrorMessage = "There's a 512 character limit on messages. Please shorten your message.")]
     public required string Text { get; set; }
 }
