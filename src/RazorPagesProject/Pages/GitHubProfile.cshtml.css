@@ -7,9 +7,9 @@
 }
 
 .github-header {
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
-    color: white;
-    padding: 2rem;
+    background: linear-gradient(135deg, #2b5876 0%, var(--color-accent) 100%);
+    color: var(--color-bg);
+    padding: var(--space-xl);
     border-radius: 15px 15px 0 0;
     position: relative;
     height: 80px;
@@ -34,70 +34,69 @@
 
 .form-control {
     border-radius: 30px;
-    padding: 0.75rem 1.5rem;
-    border: 1px solid #ddd;
+    padding: var(--space-l);
+    border: 1px solid var(--color-border);
     transition: all 0.3s ease;
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgba(78, 67, 118, 0.25);
-    border-color: #4e4376;
+    border-color: var(--color-accent);
 }
 
 .search-btn {
     border-radius: 30px;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
+    padding: var(--space-l);
+    background: linear-gradient(135deg, #2b5876 0%, var(--color-accent) 100%);
     border: none;
     transition: all 0.3s ease;
 }
 
 .search-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    background: linear-gradient(135deg, #4e4376 0%, #2b5876 100%);
+    box-shadow: var(--shadow-lg);
+    background: linear-gradient(135deg, var(--color-accent) 0%, #2b5876 100%);
 }
 
 .profile-info {
-    padding: 2rem;
+    padding: var(--space-xl);
 }
 
 .profile-item {
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-m);
     align-items: center;
 }
 
 .profile-item i {
-    font-size: 1.5rem;
-    margin-right: 1rem;
-    color: #4e4376;
+    font-size: var(--font-xxl);
+    margin-right: var(--space-m);
+    color: var(--color-accent);
     width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: rgba(78, 67, 118, 0.1);
-    border-radius: 50%;
+    border-radius: var(--radius-round);
 }
 
 .profile-label {
     font-weight: bold;
-    margin-bottom: 0.25rem;
-    color: #555;
+    margin-bottom: var(--space-xs);
+    color: var(--color-secondary);
 }
 
 .profile-value {
-    font-size: 1.1rem;
+    font-size: var(--font-lg);
 }
 
 .page-title {
-    background: -webkit-linear-gradient(45deg, #2b5876, #4e4376);
+    background: -webkit-linear-gradient(45deg, #2b5876, var(--color-accent));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: bold;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
 }
 
 @keyframes fadeIn {
@@ -112,30 +111,30 @@
 /* 言語切り替えボタンのスタイル */
 .language-selector {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-m);
 }
 
 .language-selector .btn-group .btn {
     border-radius: 20px;
-    padding: 0.5rem 1rem;
+    padding: var(--space-s) var(--space-m);
     margin: 0 2px;
     transition: all 0.3s ease;
-    border: 2px solid #4e4376;
-    color: #4e4376;
-    background-color: white;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+    background-color: var(--color-bg);
 }
 
 .language-selector .btn-group .btn:hover {
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
-    color: white;
+    background: linear-gradient(135deg, #2b5876 0%, var(--color-accent) 100%);
+    color: var(--color-bg);
     transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-base);
 }
 
 .language-selector .btn-group .btn.active {
-    background: linear-gradient(135deg, #2b5876 0%, #4e4376 100%);
-    color: white;
-    border-color: #4e4376;
+    background: linear-gradient(135deg, #2b5876 0%, var(--color-accent) 100%);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
 }
 
 .language-selector .btn-group .btn:first-child {
