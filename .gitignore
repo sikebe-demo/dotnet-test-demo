@@ -11,6 +11,9 @@ app.db-shm
 app.db-wal
 .mono
 
+# Serilog log files
+logs/
+
 # Node.js dependencies
 node_modules/
 npm-debug.log*

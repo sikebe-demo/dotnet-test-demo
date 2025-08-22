@@ -5,8 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
 using System.Globalization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -50,6 +55,9 @@ builder.Services.AddScoped<IQuoteService, QuoteService>();
 
 var app = builder.Build();
 
+// Add Serilog request logging middleware
+app.UseSerilogRequestLogging();
+
 SeedDatabase(app);
 
 // Configure the HTTP request pipeline.
@@ -89,8 +97,7 @@ static void SeedDatabase(WebApplication app)
         }
         catch (Exception ex)
         {
-            var logger = container.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred seeding the database. Error: {Message}", ex.Message);
+            Log.Error(ex, "An error occurred seeding the database. Error: {Message}", ex.Message);
         }
     }
 }
