@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using RazorPagesProject.Middleware;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -66,6 +67,9 @@ else
 }
 
 app.UseStaticFiles();
+
+// Add access analytics middleware for device type tracking
+app.UseMiddleware<AccessAnalyticsMiddleware>();
 
 app.UseRequestLocalization();
 

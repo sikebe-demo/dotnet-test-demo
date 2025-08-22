@@ -1,0 +1,103 @@
+@page
+@model RazorPagesProject.Pages.AnalyticsModel
+@{
+    ViewData["Title"] = "Device Analytics";
+}
+
+<h1>Device Analytics</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3>Current Device Usage Summary</h3>
+        <div class="alert alert-info">
+            <strong>Mobile Usage:</strong> @Model.MobilePercentage.ToString("F1")%
+            @if (Model.MobilePercentage >= 30)
+            {
+                <span class="badge bg-warning">Consider Hamburger Menu Implementation</span>
+            }
+            else
+            {
+                <span class="badge bg-success">Current Navigation Sufficient</span>
+            }
+        </div>
+        
+        @if (Model.Analytics.Any())
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Device Type</th>
+                        <th>Access Count</th>
+                        <th>First Access</th>
+                        <th>Last Access</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var metric in Model.Analytics.Values.OrderByDescending(m => m.Date).ThenBy(m => m.DeviceType))
+                    {
+                        <tr>
+                            <td>@metric.Date.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <span class="badge @GetDeviceTypeBadgeClass(metric.DeviceType)">
+                                    @metric.DeviceType
+                                </span>
+                            </td>
+                            <td>@metric.Count</td>
+                            <td>@metric.FirstAccess.ToString("HH:mm:ss")</td>
+                            <td>@metric.LastAccess.ToString("HH:mm:ss")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning">
+                <strong>No analytics data available yet.</strong><br>
+                Visit some pages to start collecting device usage data.
+            </div>
+        }
+    </div>
+    
+    <div class="col-md-4">
+        <h3>About This Analytics</h3>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Privacy-Focused Analytics</h5>
+                <p class="card-text">
+                    This system collects anonymized device type information to make data-driven decisions about responsive design improvements.
+                </p>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success"></i> No personal information stored</li>
+                    <li><i class="fas fa-check text-success"></i> Device type only (Mobile/Tablet/Desktop)</li>
+                    <li><i class="fas fa-check text-success"></i> Daily aggregated counts</li>
+                    <li><i class="fas fa-check text-success"></i> Used for navigation optimization decisions</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-body">
+                <h5 class="card-title">Decision Criteria</h5>
+                <p class="card-text">
+                    <strong>Mobile usage ≥ 30%:</strong> Implement hamburger menu for better mobile experience<br>
+                    <strong>Mobile usage < 30%:</strong> Focus on other improvements first
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetDeviceTypeBadgeClass(string deviceType)
+    {
+        return deviceType switch
+        {
+            "Mobile" => "bg-primary",
+            "Tablet" => "bg-info",
+            "Desktop" => "bg-secondary",
+            _ => "bg-dark"
+        };
+    }
+}
