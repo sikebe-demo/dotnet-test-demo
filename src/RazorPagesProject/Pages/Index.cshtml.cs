@@ -30,6 +30,9 @@ public class IndexModel : PageModel
     {
         Messages = await _db.GetMessagesAsync();
         Quote = await _quoteService.GenerateQuote();
+        
+        // Set meta description for SEO
+        ViewData["MetaDescription"] = "Message system homepage - Add, manage, and analyze your messages. Features message analytics and inspirational quotes.";
     }
 
     public async Task<IActionResult> OnPostAddMessageAsync()

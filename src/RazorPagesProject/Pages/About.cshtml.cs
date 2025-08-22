@@ -9,5 +9,8 @@ public class AboutModel : PageModel
     public void OnGet()
     {
         Message = "Your application description page.";
+        
+        // Set meta description for SEO
+        ViewData["MetaDescription"] = "About RazorPagesProject - Learn about our ASP.NET Core web application with localization, GitHub integration, and modern features.";
     }
 }

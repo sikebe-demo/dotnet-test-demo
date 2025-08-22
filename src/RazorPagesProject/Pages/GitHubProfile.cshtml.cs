@@ -30,6 +30,13 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
         if (userName != null)
         {
             GitHubUser = await Client.GetUserAsync(userName);
+            // Set dynamic meta description for user profiles
+            ViewData["MetaDescription"] = $"GitHub profile for {userName} - View repositories, followers, and contributions on RazorPagesProject.";
+        }
+        else
+        {
+            // Set meta description for the search page
+            ViewData["MetaDescription"] = "Search GitHub profiles - Enter a username to view detailed GitHub profile information including repositories and followers.";
         }
 
         return Page();

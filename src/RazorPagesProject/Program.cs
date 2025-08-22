@@ -16,6 +16,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Add response compression for production performance
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizePage("/SecurePage");
@@ -62,16 +68,20 @@ else
     app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.UseHttpsRedirection();
+    // Enable response compression for production
+    app.UseResponseCompression();
 }
 
-app.UseStaticFiles();
+app.UseHttpsRedirection();
+
+// Use optimized static assets with automatic compression and fingerprinting in .NET 9
+app.MapStaticAssets();
 
 app.UseRequestLocalization();
 
 app.UseRouting();
 app.UseAuthorization();
-app.MapRazorPages();
+app.MapRazorPages().WithStaticAssets();
 app.Run();
 
 static void SeedDatabase(WebApplication app)
