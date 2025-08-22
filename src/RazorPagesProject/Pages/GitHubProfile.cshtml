@@ -7,14 +7,16 @@
 }
 
 <h1 class="page-title">
-    <i class="fab fa-github me-2"></i>@Localizer["PageHeader"]
+    <i class="fab fa-github me-2" aria-hidden="true"></i>@Localizer["PageHeader"]
 </h1>
+
+<h2 class="visually-hidden">GitHub Profile Management</h2>
 
 <div class="row">
     <div class="col-md-6 mb-4">
         <div class="profile-card">
             <div class="github-header">
-                <h3><i class="fas fa-search me-2"></i>@Localizer["SearchHeader"]</h3>
+                <h3><i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchHeader"]</h3>
             </div>
             <div class="profile-info">
                 <form id="user-profile" method="post">
@@ -22,14 +24,14 @@
                     <div class="form-group mb-3">
                         <label asp-for="Input.UserName" class="profile-label mb-1">@Localizer["UserNameLabel"]</label>
                         <div class="input-group">
-                            <span class="input-group-text"><i class="fab fa-github"></i></span>
+                            <span class="input-group-text"><i class="fab fa-github" aria-hidden="true"></i></span>
                             <input asp-for="Input.UserName" class="form-control" placeholder="@Localizer["UserNamePlaceholder"]" />
                         </div>
                         <span asp-validation-for="Input.UserName" class="text-danger"></span>
                     </div>
                     <div class="form-group text-center">
                         <button type="submit" class="btn btn-primary search-btn mt-3">
-                            <i class="fas fa-search me-2"></i>@Localizer["SearchButton"]
+                            <i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchButton"]
                         </button>
                     </div>
                 </form>
@@ -42,7 +44,7 @@
         <div class="col-md-6">
             <div class="profile-card profile-display">
                 <div class="github-header">
-                    <h3><i class="fas fa-user me-2"></i>@Localizer["ProfileHeader"]</h3>
+                    <h3><i class="fas fa-user me-2" aria-hidden="true"></i>@Localizer["ProfileHeader"]</h3>
                 </div>
                 <div class="avatar-container">
                     @if (!string.IsNullOrEmpty(Model.GitHubUser.AvatarUrl))
@@ -52,27 +54,27 @@
                     else
                     {
                         <div class="avatar d-flex align-items-center justify-content-center bg-light">
-                            <i class="fas fa-user fa-3x text-secondary"></i>
+                            <i class="fas fa-user fa-3x text-secondary" aria-hidden="true"></i>
                         </div>
                     }
                 </div>
                 <div class="profile-info">
                     <div class="profile-item">
-                        <i class="fas fa-at"></i>
+                        <i class="fas fa-at" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["LoginLabel"]</div>
                             <div id="user-login" class="profile-value">@Model.GitHubUser.Login</div>
                         </div>
                     </div>
                     <div class="profile-item">
-                        <i class="fas fa-id-card"></i>
+                        <i class="fas fa-id-card" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["NameLabel"]</div>
                             <div id="name" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Name) ? Localizer["NotSet"] : Model.GitHubUser.Name)</div>
                         </div>
                     </div>
                     <div class="profile-item">
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-building" aria-hidden="true"></i>
                         <div>
                             <div class="profile-label">@Localizer["CompanyLabel"]</div>
                             <div id="company" class="profile-value">@(string.IsNullOrEmpty(Model.GitHubUser.Company) ? Localizer["NotSet"] : Model.GitHubUser.Company)</div>
@@ -80,7 +82,7 @@
                     </div>
                     <div class="text-center mt-4">
                         <a href="https://github.com/@Model.GitHubUser.Login" target="_blank" class="btn btn-outline-dark">
-                            <i class="fab fa-github me-2"></i>@Localizer["ViewOnGitHub"]
+                            <i class="fab fa-github me-2" aria-hidden="true"></i>@Localizer["ViewOnGitHub"]
                         </a>
                     </div>
                 </div>
@@ -95,8 +97,8 @@
         (function() {
             const form = document.getElementById('user-profile');
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalBtnText = '<i class="fas fa-search me-2"></i>@Localizer["SearchButton"]';
-            const loadingBtnText = '<i class="fas fa-spinner fa-spin me-2"></i>@Localizer["LoadingText"]';
+            const originalBtnText = '<i class="fas fa-search me-2" aria-hidden="true"></i>@Localizer["SearchButton"]';
+            const loadingBtnText = '<i class="fas fa-spinner fa-spin me-2" aria-hidden="true"></i>@Localizer["LoadingText"]';
 
             // ボタンを元の状態にリセットする関数
             function resetButton() {
