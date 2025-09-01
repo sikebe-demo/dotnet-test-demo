@@ -9,7 +9,23 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #0d6efd;
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* Enhanced focus ring for better accessibility (WCAG AA compliance) */
+.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+  outline: 2px solid #0d6efd;
+  outline-offset: 1px;
+}
+
+.btn:focus, .btn:active:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem rgba(13, 110, 253, 0.5);
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
 }
 
 html {
