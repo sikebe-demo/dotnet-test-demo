@@ -4,15 +4,63 @@ updates:
   directory: "/"
   schedule:
     interval: daily
+  groups:
+    dotnet-dependencies:
+      patterns:
+        - "*"
+      update-types:
+        - "minor"
+        - "patch"
+  labels:
+    - "dependencies"
+    - "dotnet"
 - package-ecosystem: devcontainers
   directory: "/"
   schedule:
     interval: daily
+  groups:
+    infrastructure:
+      patterns:
+        - "*"
+  labels:
+    - "dependencies"
+    - "infrastructure"
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
+  groups:
+    infrastructure:
+      patterns:
+        - "*"
+  labels:
+    - "dependencies"
+    - "infrastructure"
 - package-ecosystem: nuget
   directory: "/"
   schedule:
     interval: daily
+  groups:
+    dotnet-dependencies:
+      patterns:
+        - "*"
+      update-types:
+        - "minor"
+        - "patch"
+  labels:
+    - "dependencies"
+    - "dotnet"
+- package-ecosystem: npm
+  directory: "/src/RazorPagesProject"
+  schedule:
+    interval: daily
+  groups:
+    frontend-dependencies:
+      patterns:
+        - "*"
+      update-types:
+        - "minor"
+        - "patch"
+  labels:
+    - "dependencies"
+    - "frontend"
