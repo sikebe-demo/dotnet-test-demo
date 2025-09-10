@@ -8,9 +8,6 @@ updates:
     dependencies:
       patterns:
         - "*"
-  labels:
-    - dependencies
-    - dotnet
 - package-ecosystem: devcontainers
   directory: "/"
   schedule:
@@ -19,9 +16,6 @@ updates:
     dependencies:
       patterns:
         - "*"
-  labels:
-    - dependencies
-    - infrastructure
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
@@ -30,9 +24,6 @@ updates:
     dependencies:
       patterns:
         - "*"
-  labels:
-    - dependencies
-    - infrastructure
 - package-ecosystem: nuget
   directory: "/"
   schedule:
@@ -41,9 +32,6 @@ updates:
     dependencies:
       patterns:
         - "*"
-  labels:
-    - dependencies
-    - dotnet
 - package-ecosystem: npm
   directory: "/src/RazorPagesProject"
   schedule:
@@ -52,6 +40,3 @@ updates:
     dependencies:
       patterns:
         - "*"
-  labels:
-    - dependencies
-    - frontend
