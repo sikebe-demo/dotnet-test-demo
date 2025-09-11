@@ -4,10 +4,6 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-  groups:
-    dependencies:
-      patterns:
-        - "*"
 - package-ecosystem: devcontainers
   directory: "/"
   schedule:
