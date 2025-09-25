@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -47,6 +48,7 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 });
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
+builder.Services.AddScoped<IMessageSearchService, MessageSearchService>();
 
 var app = builder.Build();
 
@@ -72,6 +74,16 @@ app.UseRequestLocalization();
 app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
+app.MapGet("/messages/filter", async (string? term, IMessageSearchService searchService) =>
+{
+    if (string.IsNullOrWhiteSpace(term))
+    {
+        return Results.Json(Array.Empty<Message>());
+    }
+
+    var results = await searchService.SearchAsync(term);
+    return Results.Json(results);
+});
 app.Run();
 
 static void SeedDatabase(WebApplication app)
