@@ -49,6 +49,7 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 builder.Services.AddScoped<IMessageSearchService, MessageSearchService>();
+builder.Services.AddScoped<MessageDeleteService>();
 
 var app = builder.Build();
 
@@ -83,6 +84,17 @@ app.MapGet("/messages/filter", async (string? term, IMessageSearchService search
 
     var results = await searchService.SearchAsync(term);
     return Results.Json(results);
+});
+app.MapPost("/messages/delete-by-text", async (HttpContext context, MessageDeleteService deleteService) =>
+{
+    var form = await context.Request.ReadFormAsync();
+    var text = form["text"].ToString();
+    if (string.IsNullOrWhiteSpace(text))
+    {
+        return Results.BadRequest();
+    }
+    var count = await deleteService.DeleteByTextAsync(text);
+    return Results.Json(new { deleted = count });
 });
 app.Run();
 
