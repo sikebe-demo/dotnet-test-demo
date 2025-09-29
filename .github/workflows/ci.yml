@@ -61,12 +61,29 @@ jobs:
         dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
         dotnet test ./src/RazorPagesProject.E2ETests
 
+    - name: Upload logs
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: logs
+        path: src/RazorPagesProject.E2ETests/bin/Debug/net9.0/logs
+
+  copilot-review:
+    needs: ci
+    if: ${{ github.event_name == 'pull_request' && needs.ci.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version-file: '.node-version'
+
     - name: Install GitHub Copilot CLI
-      if: ${{ github.event_name == 'pull_request' }}
       run: npm install -g @github/copilot
 
     - name: Configure Copilot CLI trusted folder
-      if: ${{ github.event_name == 'pull_request' }}
       run: |
         CONFIG_DIR="$HOME/.copilot"
         CONFIG_FILE="$CONFIG_DIR/config.json"
@@ -89,12 +106,16 @@ jobs:
           printf '{\n  "trusted_folders": [\n    "%s"\n  ]\n}\n' "$WORKSPACE_PATH" > "$CONFIG_FILE"
         fi
 
+    - name: Authenticate GitHub CLI
+      # env:
+      #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "$GH_TOKEN" | gh auth login --with-token
+
     - name: Run GitHub Copilot CLI review
-      if: ${{ github.event_name == 'pull_request' }}
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "your_personal_access_token" | gh auth login --with-token
         REVIEW_URL="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
         copilot -p "Check the changes made in PR ${REVIEW_URL}. Identify critical bugs, test gaps, and security concerns. Summarize your findings with sections for Summary, Risks, and Suggested Actions. Always Respond in Japanese." > copilot-review.md
 
@@ -104,10 +125,3 @@ jobs:
         else
           echo "No review output was produced." >> "$GITHUB_STEP_SUMMARY"
         fi
-
-    - name: Upload logs
-      uses: actions/upload-artifact@v4
-      if: failure()
-      with:
-        name: logs
-        path: src/RazorPagesProject.E2ETests/bin/Debug/net9.0/logs
