@@ -71,6 +71,8 @@ jobs:
   copilot-review:
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.COPILOT_PAT }}
     steps:
     - uses: actions/checkout@v5
 
@@ -105,15 +107,7 @@ jobs:
           printf '{\n  "trusted_folders": [\n    "%s"\n  ]\n}\n' "$WORKSPACE_PATH" > "$CONFIG_FILE"
         fi
 
-    - name: Authenticate GitHub CLI
-      # env:
-      #   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        echo "$GH_TOKEN" | gh auth login --with-token
-
     - name: Run GitHub Copilot CLI review
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         REVIEW_URL="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
         copilot -p "Check the changes made in PR ${REVIEW_URL}. Identify critical bugs, test gaps, and security concerns. Summarize your findings with sections for Summary, Risks, and Suggested Actions. Always Respond in Japanese." > copilot-review.md
