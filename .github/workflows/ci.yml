@@ -69,8 +69,7 @@ jobs:
         path: src/RazorPagesProject.E2ETests/bin/Debug/net9.0/logs
 
   copilot-review:
-    needs: ci
-    if: ${{ github.event_name == 'pull_request' && needs.ci.result == 'success' }}
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
