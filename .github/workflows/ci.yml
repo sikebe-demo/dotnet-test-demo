@@ -94,6 +94,7 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        echo "your_personal_access_token" | gh auth login --with-token
         REVIEW_URL="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
         copilot -p "Check the changes made in PR ${REVIEW_URL}. Identify critical bugs, test gaps, and security concerns. Summarize your findings with sections for Summary, Risks, and Suggested Actions. Always Respond in Japanese." > copilot-review.md
 
