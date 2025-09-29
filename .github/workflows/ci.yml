@@ -2,6 +2,7 @@ name: CI
 
 permissions:
   contents: read
+  pull-requests: read
 
 on:
   pull_request:
@@ -59,6 +60,49 @@ jobs:
       run: |
         dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
         dotnet test ./src/RazorPagesProject.E2ETests
+
+    - name: Install GitHub Copilot CLI
+      if: ${{ github.event_name == 'pull_request' }}
+      run: npm install -g @github/copilot
+
+    - name: Configure Copilot CLI trusted folder
+      if: ${{ github.event_name == 'pull_request' }}
+      run: |
+        CONFIG_DIR="$HOME/.copilot"
+        CONFIG_FILE="$CONFIG_DIR/config.json"
+        WORKSPACE_PATH="${{ github.workspace }}"
+
+        mkdir -p "$CONFIG_DIR"
+
+        if [ -f "$CONFIG_FILE" ]; then
+          tmp_file="$(mktemp)"
+          jq --arg dir "$WORKSPACE_PATH" '
+            .trusted_folders = (.trusted_folders // []) |
+            if (.trusted_folders | index($dir)) == null then
+              .trusted_folders += [$dir]
+            else
+              .
+            end
+          ' "$CONFIG_FILE" > "$tmp_file"
+          mv "$tmp_file" "$CONFIG_FILE"
+        else
+          printf '{\n  "trusted_folders": [\n    "%s"\n  ]\n}\n' "$WORKSPACE_PATH" > "$CONFIG_FILE"
+        fi
+
+    - name: Run GitHub Copilot CLI review
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        REVIEW_URL="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+        copilot -p "Check the changes made in PR ${REVIEW_URL}. Identify critical bugs, test gaps, and security concerns. Summarize your findings with sections for Summary, Risks, and Suggested Actions. Always Respond in Japanese." > copilot-review.md
+
+        echo "### GitHub Copilot CLI Review" >> "$GITHUB_STEP_SUMMARY"
+        if [ -s copilot-review.md ]; then
+          cat copilot-review.md >> "$GITHUB_STEP_SUMMARY"
+        else
+          echo "No review output was produced." >> "$GITHUB_STEP_SUMMARY"
+        fi
 
     - name: Upload logs
       uses: actions/upload-artifact@v4
