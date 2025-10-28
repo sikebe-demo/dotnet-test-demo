@@ -1,8 +1,12 @@
+using System;
+using System.IO;
 using System.Net.Http.Headers;
+using System.Threading;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
+using RazorPagesProject.Options;
 using RazorPagesProject.Services;
 using System.Globalization;
 
@@ -47,6 +51,13 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 });
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
+builder.Services.AddScoped<IMessageSearchService, MessageSearchService>();
+builder.Services.AddScoped<MessageDeleteService>();
+builder.Services.Configure<LogReaderOptions>(options =>
+{
+    options.BaseDirectory = Path.Combine(builder.Environment.ContentRootPath, "AppLogs");
+});
+builder.Services.AddSingleton<ILogFileReader, LogFileReader>();
 
 var app = builder.Build();
 
@@ -72,6 +83,43 @@ app.UseRequestLocalization();
 app.UseRouting();
 app.UseAuthorization();
 app.MapRazorPages();
+app.MapGet("/messages/filter", async (string? term, IMessageSearchService searchService) =>
+{
+    if (string.IsNullOrWhiteSpace(term))
+    {
+        return Results.Json(Array.Empty<Message>());
+    }
+
+    var results = await searchService.SearchAsync(term);
+    return Results.Json(results);
+});
+app.MapPost("/messages/delete-by-text", async (HttpContext context, MessageDeleteService deleteService) =>
+{
+    var form = await context.Request.ReadFormAsync();
+    var text = form["text"].ToString();
+    if (string.IsNullOrWhiteSpace(text))
+    {
+        return Results.BadRequest();
+    }
+    var count = await deleteService.DeleteByTextAsync(text);
+    return Results.Json(new { deleted = count });
+});
+app.MapGet("/logs/view", async (string? name, ILogFileReader logFileReader, CancellationToken cancellationToken) =>
+{
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        return Results.BadRequest();
+    }
+
+    var content = await logFileReader.ReadAsync(name, cancellationToken);
+
+    if (string.IsNullOrEmpty(content))
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Text(content, "text/plain");
+});
 app.Run();
 
 static void SeedDatabase(WebApplication app)
