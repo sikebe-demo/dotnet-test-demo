@@ -29,7 +29,20 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
     {
         if (userName != null)
         {
-            GitHubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GitHubUser = await Client.GetUserAsync(userName);
+            }
+            catch (HttpRequestException)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["ErrorFetchingProfile"]);
+                return Page();
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError(string.Empty, _localizer["UnexpectedError"]);
+                return Page();
+            }
         }
 
         return Page();

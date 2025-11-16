@@ -5,8 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
 using System.Globalization;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("logs/app-.txt", rollingInterval: RollingInterval.Day));
+
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -44,7 +53,8 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 {
     client.BaseAddress = new Uri("https://api.github.com");
     client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("Yolo", "0.1.0"));
-});
+})
+.AddStandardResilienceHandler();
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
 
@@ -60,10 +70,10 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
-    app.UseHttpsRedirection();
 }
+
+app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
