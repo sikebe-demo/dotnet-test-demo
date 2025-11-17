@@ -4,11 +4,11 @@ using Xunit;
 namespace RazorPagesProject.IntegrationTests.IntegrationTests;
 
 public class DeviceAnalyticsPageTests
-    : IClassFixture<WebApplicationFactory<Program>>
+    : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly CustomWebApplicationFactory<Program> _factory;
 
-    public DeviceAnalyticsPageTests(WebApplicationFactory<Program> factory)
+    public DeviceAnalyticsPageTests(CustomWebApplicationFactory<Program> factory)
     {
         _factory = factory;
     }
