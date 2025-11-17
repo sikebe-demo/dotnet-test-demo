@@ -14,7 +14,7 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Services(services)
     .Enrich.FromLogContext()
     .WriteTo.Console()
-    .WriteTo.File("logs/app-.txt", rollingInterval: RollingInterval.Day));
+    .WriteTo.File("logs/app-{Date}.txt", rollingInterval: RollingInterval.Day));
 
 
 // Add services to the container.
