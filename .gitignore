@@ -10,6 +10,7 @@ app.db
 app.db-shm
 app.db-wal
 .mono
+logs/
 
 # Node.js dependencies
 node_modules/
