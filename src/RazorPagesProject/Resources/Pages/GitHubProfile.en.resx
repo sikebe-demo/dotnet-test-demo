@@ -106,4 +106,10 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="ErrorFetchingProfile" xml:space="preserve">
+    <value>Unable to fetch the GitHub profile. Please check the username and try again.</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred. Please try again later.</value>
+  </data>
 </root>
