@@ -5,6 +5,8 @@ namespace RazorPagesProject.Services;
 
 public class DeviceAnalyticsService : IDeviceAnalyticsService
 {
+    private const int MaxUserAgentLength = 200;
+    
     private readonly ConcurrentBag<DeviceAnalytics> _analytics = new();
     private readonly ILogger<DeviceAnalyticsService> _logger;
 
@@ -35,15 +37,18 @@ public class DeviceAnalyticsService : IDeviceAnalyticsService
         {
             return new DeviceAnalyticsSummary
             {
-                FirstRequest = DateTime.MinValue,
-                LastRequest = DateTime.MinValue
+                FirstRequest = DateTime.UtcNow,
+                LastRequest = DateTime.UtcNow
             };
         }
 
-        var mobileCount = records.Count(r => r.DeviceType == DeviceType.Mobile);
-        var tabletCount = records.Count(r => r.DeviceType == DeviceType.Tablet);
-        var desktopCount = records.Count(r => r.DeviceType == DeviceType.Desktop);
-        var unknownCount = records.Count(r => r.DeviceType == DeviceType.Unknown);
+        var deviceCounts = records.GroupBy(r => r.DeviceType)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var mobileCount = deviceCounts.GetValueOrDefault(DeviceType.Mobile, 0);
+        var tabletCount = deviceCounts.GetValueOrDefault(DeviceType.Tablet, 0);
+        var desktopCount = deviceCounts.GetValueOrDefault(DeviceType.Desktop, 0);
+        var unknownCount = deviceCounts.GetValueOrDefault(DeviceType.Unknown, 0);
         var total = records.Length;
 
         return new DeviceAnalyticsSummary
@@ -125,6 +130,6 @@ public class DeviceAnalyticsService : IDeviceAnalyticsService
 
     private static string SanitizeUserAgent(string userAgent)
     {
-        return string.IsNullOrEmpty(userAgent) ? "Unknown" : userAgent[..Math.Min(200, userAgent.Length)];
+        return string.IsNullOrEmpty(userAgent) ? "Unknown" : userAgent[..Math.Min(MaxUserAgentLength, userAgent.Length)];
     }
 }
