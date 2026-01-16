@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
 using RazorPagesProject.Services;
+using RazorPagesProject.Middleware;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,6 +69,8 @@ else
 app.UseStaticFiles();
 
 app.UseRequestLocalization();
+
+app.UseMiddleware<DeviceAnalyticsMiddleware>();
 
 app.UseRouting();
 app.UseAuthorization();
