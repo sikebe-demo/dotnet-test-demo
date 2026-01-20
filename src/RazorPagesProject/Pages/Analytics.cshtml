@@ -1,0 +1,156 @@
+@page
+@model RazorPagesProject.Pages.AnalyticsModel
+@{
+    ViewData["Title"] = "Device Analytics";
+}
+
+<div class="container mt-4">
+    <h1 class="display-4">Device Access Analytics</h1>
+    <p class="lead">モバイル・タブレット・デスクトップのアクセス分析</p>
+    
+    @if (Model.Summary.TotalRequests == 0)
+    {
+        <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">データ収集中...</h4>
+            <p>まだアクセスデータが収集されていません。しばらく待ってから再度確認してください。</p>
+            <hr>
+            <p class="mb-0">このページはアクセスデータを収集・表示し、レスポンシブ対応の実装判断に使用されます。</p>
+        </div>
+    }
+    else
+    {
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">概要統計</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">総リクエスト数</th>
+                                    <td>@Model.Summary.TotalRequests</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">初回アクセス</th>
+                                    <td>@Model.Summary.FirstRequest.ToLocalTime().ToString("yyyy/MM/dd HH:mm:ss")</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">最終アクセス</th>
+                                    <td>@Model.Summary.LastRequest.ToLocalTime().ToString("yyyy/MM/dd HH:mm:ss")</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">データ収集期間</th>
+                                    <td>@((Model.Summary.LastRequest - Model.Summary.FirstRequest).Days) 日</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">デバイス種別</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>デバイス</th>
+                                    <th>件数</th>
+                                    <th>割合</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="@(Model.Summary.MobilePercentage >= 30 ? "table-warning" : "")">
+                                    <td><i class="fas fa-mobile-alt"></i> モバイル</td>
+                                    <td>@Model.Summary.MobileRequests</td>
+                                    <td><strong>@Model.Summary.MobilePercentage.ToString("F1")%</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-tablet-alt"></i> タブレット</td>
+                                    <td>@Model.Summary.TabletRequests</td>
+                                    <td>@Model.Summary.TabletPercentage.ToString("F1")%</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-desktop"></i> デスクトップ</td>
+                                    <td>@Model.Summary.DesktopRequests</td>
+                                    <td>@Model.Summary.DesktopPercentage.ToString("F1")%</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-question-circle"></i> 不明</td>
+                                    <td>@Model.Summary.UnknownRequests</td>
+                                    <td>@(Model.Summary.TotalRequests > 0 ? ((double)Model.Summary.UnknownRequests / Model.Summary.TotalRequests * 100).ToString("F1") : "0.0")%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header @(Model.Summary.MobilePercentage >= 30 ? "bg-warning" : "bg-info") text-white">
+                        <h5 class="mb-0">実装判断基準</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.Summary.MobilePercentage >= 30)
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> レスポンシブ対応推奨</h4>
+                                <p>モバイルアクセスが <strong>@Model.Summary.MobilePercentage.ToString("F1")%</strong> (閾値: 30%)に達しました。</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <strong>推奨アクション:</strong> ハンバーガーメニューの実装を検討してください。<br>
+                                    実装予定工数: 約2時間<br>
+                                    対象画面幅: 375px以下
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info" role="alert">
+                                <h4 class="alert-heading"><i class="fas fa-info-circle"></i> 現状維持</h4>
+                                <p>モバイルアクセスは <strong>@Model.Summary.MobilePercentage.ToString("F1")%</strong> (閾値: 30%未満)です。</p>
+                                <hr>
+                                <p class="mb-0">
+                                    <strong>推奨アクション:</strong> 現状のレイアウトを維持し、他のタスクを優先してください。<br>
+                                    必要に応じて、CSS Grid/Flexboxによる軽量な改善を検討できます。
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0">データ収集について</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>プライバシー配慮:</strong></p>
+                        <ul>
+                            <li>UserAgent情報のみを収集（個人を特定する情報は含まれません）</li>
+                            <li>匿名集計による統計データ</li>
+                            <li>メモリ内での一時保存（アプリケーション再起動時にリセット）</li>
+                            <li>IPアドレスやCookieは収集していません</li>
+                        </ul>
+                        <p><strong>推奨データ収集期間:</strong> 最低1週間</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div class="mt-4">
+        <a asp-page="/Index" class="btn btn-primary">ホームに戻る</a>
+    </div>
+</div>
