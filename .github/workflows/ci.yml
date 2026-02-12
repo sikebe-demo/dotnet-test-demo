@@ -58,7 +58,36 @@ jobs:
         CI: true
       run: |
         dotnet run --project ./src/RazorPagesProject/RazorPagesProject.csproj --no-build &
+        APP_PID=$!
+        
+        # Wait for application to be ready (max 60 seconds)
+        echo "Waiting for application to start on https://localhost:7072..."
+        timeout=60
+        elapsed=0
+        while [ $elapsed -lt $timeout ]; do
+          if curl -k -s https://localhost:7072 > /dev/null 2>&1; then
+            echo "Application is ready!"
+            break
+          fi
+          echo "Waiting... ($elapsed seconds elapsed)"
+          sleep 2
+          elapsed=$((elapsed + 2))
+        done
+        
+        if [ $elapsed -ge $timeout ]; then
+          echo "Timeout waiting for application to start"
+          kill $APP_PID 2>/dev/null || true
+          exit 1
+        fi
+        
+        # Run E2E tests
         dotnet test ./src/RazorPagesProject.E2ETests
+        TEST_EXIT_CODE=$?
+        
+        # Cleanup: Stop the application
+        kill $APP_PID 2>/dev/null || true
+        
+        exit $TEST_EXIT_CODE
 
     - name: Upload logs
       uses: actions/upload-artifact@v6
