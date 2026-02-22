@@ -1,0 +1,65 @@
+@page
+@model RazorPagesProject.Pages.DeviceAnalyticsModel
+@{
+    ViewData["Title"] = "Device Analytics";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>Access Statistics</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Device Type</th>
+                            <th>Requests</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><i class="fas fa-mobile-alt"></i> Mobile</td>
+                            <td>@Model.Statistics.MobileRequests</td>
+                            <td>@Model.Statistics.MobilePercentage.ToString("F2")%</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-tablet-alt"></i> Tablet</td>
+                            <td>@Model.Statistics.TabletRequests</td>
+                            <td>@Model.Statistics.TabletPercentage.ToString("F2")%</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-desktop"></i> Desktop</td>
+                            <td>@Model.Statistics.DesktopRequests</td>
+                            <td>@Model.Statistics.DesktopPercentage.ToString("F2")%</td>
+                        </tr>
+                        <tr class="table-primary">
+                            <td><strong>Total</strong></td>
+                            <td><strong>@Model.Statistics.TotalRequests</strong></td>
+                            <td><strong>100.00%</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="alert alert-info mt-4" role="alert">
+            <h4 class="alert-heading"><i class="fas fa-info-circle"></i> Decision Criteria</h4>
+            <p>Based on the collected data, the implementation decision will be made as follows:</p>
+            <ul>
+                <li><strong>Mobile percentage ≥ 30%</strong>: Implement responsive hamburger menu</li>
+                <li><strong>Mobile percentage &lt; 30%</strong>: Defer implementation and prioritize other tasks</li>
+            </ul>
+            <p class="mb-0"><small>Current mobile percentage: <strong>@Model.Statistics.MobilePercentage.ToString("F2")%</strong></small></p>
+        </div>
+
+        <div class="alert alert-warning mt-3" role="alert">
+            <h5><i class="fas fa-user-shield"></i> Privacy Notice</h5>
+            <p class="mb-0">This analytics system collects only device type information from UserAgent headers. No personally identifiable information (PII) is collected or stored. All data is aggregated anonymously.</p>
+        </div>
+    </div>
+</div>
