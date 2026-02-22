@@ -76,4 +76,7 @@
   <data name="Contact" xml:space="preserve">
     <value>お問い合わせ</value>
   </data>
+  <data name="Analytics" xml:space="preserve">
+    <value>アクセス解析</value>
+  </data>
 </root>

@@ -18,6 +18,7 @@ public class BasicTests
     [InlineData("/About")]
     [InlineData("/Privacy")]
     [InlineData("/Contact")]
+    [InlineData("/Analytics")]
     public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
     {
         // Arrange
