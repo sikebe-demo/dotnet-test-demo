@@ -6,9 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RazorPagesProject.Pages;
 
-public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubProfileModel> localizer) : PageModel
+public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubProfileModel> localizer, ILogger<GitHubProfileModel> logger) : PageModel
 {
     private readonly IStringLocalizer<GitHubProfileModel> _localizer = localizer;
+    private readonly ILogger<GitHubProfileModel> _logger = logger;
 
     public class InputModel
     {
@@ -29,7 +30,24 @@ public class GitHubProfileModel(IGitHubClient client, IStringLocalizer<GitHubPro
     {
         if (userName != null)
         {
-            GitHubUser = await Client.GetUserAsync(userName);
+            try
+            {
+                GitHubUser = await Client.GetUserAsync(userName);
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "Failed to fetch GitHub profile for user '{UserName}'. Status: {StatusCode}", 
+                    userName, ex.StatusCode);
+                ModelState.AddModelError(string.Empty, _localizer["ErrorFetchingProfile"]);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unexpected error occurred while fetching GitHub profile for user '{UserName}'", 
+                    userName);
+                ModelState.AddModelError(string.Empty, _localizer["UnexpectedError"]);
+                return Page();
+            }
         }
 
         return Page();
