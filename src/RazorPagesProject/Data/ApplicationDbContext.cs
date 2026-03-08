@@ -28,12 +28,7 @@ public class ApplicationDbContext : IdentityDbContext
 
     public async virtual Task DeleteAllMessagesAsync()
     {
-        foreach (var message in Messages)
-        {
-            Messages.Remove(message);
-        }
-
-        await SaveChangesAsync();
+        await Messages.ExecuteDeleteAsync();
     }
 
     public async virtual Task DeleteMessageAsync(int id)
