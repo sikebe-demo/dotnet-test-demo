@@ -2,6 +2,7 @@ name: CI
 
 permissions:
   contents: read
+  pull-requests: read
 
 on:
   pull_request:
@@ -95,3 +96,54 @@ jobs:
       with:
         name: logs
         path: src/RazorPagesProject.E2ETests/bin/Debug/net9.0/logs
+
+  copilot-review:
+    if: ${{ github.event_name == 'pull_request' }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.COPILOT_PAT }}
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version-file: '.node-version'
+
+    - name: Install GitHub Copilot CLI
+      run: npm install -g @github/copilot
+
+    - name: Configure Copilot CLI trusted folder
+      run: |
+        CONFIG_DIR="$HOME/.copilot"
+        CONFIG_FILE="$CONFIG_DIR/config.json"
+        WORKSPACE_PATH="${{ github.workspace }}"
+
+        mkdir -p "$CONFIG_DIR"
+
+        if [ -f "$CONFIG_FILE" ]; then
+          tmp_file="$(mktemp)"
+          jq --arg dir "$WORKSPACE_PATH" '
+            .trusted_folders = (.trusted_folders // []) |
+            if (.trusted_folders | index($dir)) == null then
+              .trusted_folders += [$dir]
+            else
+              .
+            end
+          ' "$CONFIG_FILE" > "$tmp_file"
+          mv "$tmp_file" "$CONFIG_FILE"
+        else
+          printf '{\n  "trusted_folders": [\n    "%s"\n  ]\n}\n' "$WORKSPACE_PATH" > "$CONFIG_FILE"
+        fi
+
+    - name: Run GitHub Copilot CLI review
+      run: |
+        REVIEW_URL="https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}"
+        copilot -p "Check the changes made in PR ${REVIEW_URL}. Identify critical bugs, test gaps, and security concerns. Summarize your findings with sections for Summary, Risks, and Suggested Actions. Always Respond in Japanese." > copilot-review.md
+
+        echo "### GitHub Copilot CLI Review" >> "$GITHUB_STEP_SUMMARY"
+        if [ -s copilot-review.md ]; then
+          cat copilot-review.md >> "$GITHUB_STEP_SUMMARY"
+        else
+          echo "No review output was produced." >> "$GITHUB_STEP_SUMMARY"
+        fi
