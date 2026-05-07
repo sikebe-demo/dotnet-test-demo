@@ -22,7 +22,7 @@
       "version": "9.0",
       "additionalVersions": "8.0"
     },
-    "ghcr.io/devcontainers/features/node:1": {
+    "ghcr.io/devcontainers/features/node:2": {
       "nodeVersionFile": ".node-version"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {
