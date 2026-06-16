@@ -24,10 +24,17 @@ public class EdgeFixture : BrowserFixture
             opts.AddArgument("--edge-skip-compat-layer-relaunch");
         }
 
+        // Required for running in Linux CI containers (e.g. GitHub Actions)
+        if (Environment.GetEnvironmentVariable("CI") == "true")
+        {
+            opts.AddArgument("--no-sandbox");
+            opts.AddArgument("--disable-dev-shm-usage");
+        }
+
         // Comment this out if you want to watch or interact with the browser (e.g. for debugging)
         if (!Debugger.IsAttached)
         {
-            opts.AddArgument("headless");
+            opts.AddArgument("--headless");
         }
 
         var driver = new EdgeDriver(EdgeDriverService.CreateDefaultService(), opts, TimeSpan.FromSeconds(60));
