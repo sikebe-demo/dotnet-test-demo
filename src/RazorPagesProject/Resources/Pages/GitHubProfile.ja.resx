@@ -106,4 +106,10 @@
   <data name="Language" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="ErrorFetchingProfile" xml:space="preserve">
+    <value>GitHubプロフィールを取得できませんでした。ユーザー名を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>予期しないエラーが発生しました。後でもう一度お試しください。</value>
+  </data>
 </root>
