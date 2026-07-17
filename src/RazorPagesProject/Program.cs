@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using RazorPagesProject.Data;
+using RazorPagesProject.Middleware;
 using RazorPagesProject.Services;
 using System.Globalization;
 
@@ -47,6 +48,7 @@ builder.Services.AddHttpClient<IGitHubClient, GitHubClient>(client =>
 });
 
 builder.Services.AddScoped<IQuoteService, QuoteService>();
+builder.Services.AddSingleton<IDeviceAnalyticsService, DeviceAnalyticsService>();
 
 var app = builder.Build();
 
@@ -68,6 +70,8 @@ else
 app.UseStaticFiles();
 
 app.UseRequestLocalization();
+
+app.UseMiddleware<DeviceAnalyticsMiddleware>();
 
 app.UseRouting();
 app.UseAuthorization();
