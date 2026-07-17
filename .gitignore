@@ -19,6 +19,7 @@ yarn-error.log*
 
 # npm generated files - these should be built from npm packages
 src/RazorPagesProject/wwwroot/lib/bootstrap/
+src/RazorPagesProject/wwwroot/lib/font-awesome/
 src/RazorPagesProject/wwwroot/lib/jquery/
 src/RazorPagesProject/wwwroot/lib/jquery-validation/
 src/RazorPagesProject/wwwroot/lib/jquery-validation-unobtrusive/

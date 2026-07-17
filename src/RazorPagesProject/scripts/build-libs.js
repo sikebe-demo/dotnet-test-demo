@@ -15,12 +15,30 @@ function copyFile(src, dest) {
     fs.copyFileSync(src, dest);
 }
 
+function copyDirectory(src, dest) {
+    ensureDirectoryExists(dest);
+
+    for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+        const srcPath = path.join(src, entry.name);
+        const destPath = path.join(dest, entry.name);
+
+        if (entry.isDirectory()) {
+            copyDirectory(srcPath, destPath);
+            continue;
+        }
+
+        copyFile(srcPath, destPath);
+    }
+}
+
 console.log('📁 Creating output directories...');
 
 // Create output directories
 const directories = [
     'wwwroot/lib/bootstrap/dist/css',
     'wwwroot/lib/bootstrap/dist/js',
+    'wwwroot/lib/font-awesome/css',
+    'wwwroot/lib/font-awesome/webfonts',
     'wwwroot/lib/jquery/dist',
     'wwwroot/lib/jquery-validation/dist',
     'wwwroot/lib/jquery-validation-unobtrusive'
@@ -38,6 +56,17 @@ try {
     copyFile(
         'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
         'wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+    );
+
+    // Font Awesome
+    console.log('⭐ Copying Font Awesome files...');
+    copyFile(
+        'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+        'wwwroot/lib/font-awesome/css/all.min.css'
+    );
+    copyDirectory(
+        'node_modules/@fortawesome/fontawesome-free/webfonts',
+        'wwwroot/lib/font-awesome/webfonts'
     );
 
     // jQuery
