@@ -1,7 +1,7 @@
 # Custom Coding Instructions
 
 ## プロジェクト概要
-このプロジェクトは .NET 9 を使用した C# プロジェクトで、以下のコンポーネントを含みます：
+このプロジェクトは .NET 10 を使用した C# プロジェクトで、以下のコンポーネントを含みます：
 * PrimeService: 素数判定ライブラリ
 * RazorPagesProject: ASP.NET Core Razor Pages Webアプリケーション
 * 各種テストプロジェクト（Unit Tests, Integration Tests, E2E Tests, Playwright Tests）
@@ -9,7 +9,7 @@
 ## コーディング規約
 
 ### 1. 全般的な規約
-* **言語バージョン**: C# 最新機能を活用（.NET 9 対応）
+* **言語バージョン**: C# 14 の最新機能を活用（.NET 10 対応）
 * **命名規則**: PascalCase（クラス、メソッド、プロパティ）、camelCase（ローカル変数、フィールド）
 * **ファイル構成**: 1クラス1ファイルの原則
 * **using文**: ファイルスコープのusingディレクティブを優先使用

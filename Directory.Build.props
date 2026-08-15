@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <VersionPrefix>0.0.1</VersionPrefix>
     <DebugType>embedded</DebugType>

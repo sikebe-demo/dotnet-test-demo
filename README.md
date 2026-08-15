@@ -27,7 +27,7 @@ dotnet-test-demo/
 
 ## 🛠️ Technologies & Frameworks
 
-- **.NET 9** - Latest .NET framework
+- **.NET 10 LTS** - Current long-term support .NET release
 - **ASP.NET Core** - Web framework
 - **Razor Pages** - Page-based web UI framework
 - **Entity Framework Core** - Object-relational mapping
@@ -40,7 +40,7 @@ dotnet-test-demo/
 
 ### Prerequisites
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (version 9.0.301 or later)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (version 10.0.400 or later)
 - A code editor ([Visual Studio](https://visualstudio.microsoft.com/), [Visual Studio Code](https://code.visualstudio.com/), or [JetBrains Rider](https://www.jetbrains.com/rider/))
 
 ### Installation & Setup
@@ -141,7 +141,7 @@ dotnet test --collect:"XPlat Code Coverage"
 ## 🔧 Development Guidelines
 
 ### Code Quality Standards
-- **C# Latest Features**: Utilizes .NET 9 and C# preview features
+- **C# Latest Features**: Uses .NET 10 and stable C# 14 features
 - **SOLID Principles**: Clean architecture implementation
 - **Async/Await**: Proper asynchronous programming patterns
 - **Dependency Injection**: Constructor injection throughout
