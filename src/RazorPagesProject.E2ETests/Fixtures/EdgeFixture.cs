@@ -8,7 +8,10 @@ public class EdgeFixture : BrowserFixture
 {
     protected override IWebDriver CreateDriver()
     {
-        var opts = new EdgeOptions();
+        var opts = new EdgeOptions
+        {
+            PageLoadStrategy = PageLoadStrategy.Eager
+        };
 
         // Ignore self-signed certificate warnings
         opts.AddArgument("--ignore-certificate-errors");
