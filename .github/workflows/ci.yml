@@ -94,4 +94,4 @@ jobs:
       if: failure()
       with:
         name: logs
-        path: src/RazorPagesProject.E2ETests/bin/Debug/net9.0/logs
+        path: src/RazorPagesProject.E2ETests/bin/Debug/net10.0/logs

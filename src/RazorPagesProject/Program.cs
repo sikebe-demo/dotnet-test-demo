@@ -65,13 +65,13 @@ else
     app.UseHttpsRedirection();
 }
 
-app.UseStaticFiles();
-
 app.UseRequestLocalization();
 
 app.UseRouting();
 app.UseAuthorization();
-app.MapRazorPages();
+app.MapStaticAssets();
+app.MapRazorPages()
+    .WithStaticAssets();
 app.Run();
 
 static void SeedDatabase(WebApplication app)

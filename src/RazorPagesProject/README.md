@@ -4,7 +4,7 @@ ASP.NET Core Razor Pages application demonstrating modern web development practi
 
 ## Features
 
-* ASP.NET Core 9.0 Razor Pages
+* ASP.NET Core 10.0 Razor Pages
 * Entity Framework Core with SQLite
 * ASP.NET Core Identity for authentication
 * Internationalization (i18n) support
@@ -15,7 +15,7 @@ ASP.NET Core Razor Pages application demonstrating modern web development practi
 
 ### Prerequisites
 
-- .NET 9.0 SDK
+- .NET 10.0 SDK
 - Node.js and npm (for client-side dependencies)
 
 ### Setup
