@@ -61,7 +61,6 @@ public abstract class BrowserFixture : IDisposable
             }
 
             Driver?.Quit();
-            Driver?.Dispose();
             _disposedValue = true;
         }
     }

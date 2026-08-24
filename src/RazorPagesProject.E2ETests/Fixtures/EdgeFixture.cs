@@ -40,7 +40,7 @@ public class EdgeFixture : BrowserFixture
             opts.AddArgument("--headless");
         }
 
-        var driver = new EdgeDriver(EdgeDriverService.CreateDefaultService(), opts, TimeSpan.FromSeconds(60));
+        var driver = new EdgeDriver(EdgeDriverService.CreateDefaultService(), opts, TimeSpan.FromSeconds(120));
         driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         return driver;
     }
