@@ -3,11 +3,11 @@ updates:
 - package-ecosystem: dotnet-sdk
   directory: "/"
   schedule:
-    interval: daily
+    interval: monthly
 - package-ecosystem: devcontainers
   directory: "/"
   schedule:
-    interval: daily
+    interval: monthly
   groups:
     dependencies:
       patterns:
@@ -15,7 +15,7 @@ updates:
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
-    interval: daily
+    interval: monthly
   groups:
     dependencies:
       patterns:
@@ -23,7 +23,7 @@ updates:
 - package-ecosystem: nuget
   directory: "/"
   schedule:
-    interval: daily
+    interval: monthly
   groups:
     dependencies:
       patterns:
@@ -31,7 +31,7 @@ updates:
 - package-ecosystem: npm
   directory: "/src/RazorPagesProject"
   schedule:
-    interval: daily
+    interval: monthly
   groups:
     dependencies:
       patterns:
