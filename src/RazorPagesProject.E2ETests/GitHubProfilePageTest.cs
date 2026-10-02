@@ -1,6 +1,7 @@
 using RazorPagesProject.E2ETests.Fixtures;
 using RazorPagesProject.E2ETests.PageObjects;
 using Xunit.Abstractions;
+using OpenQA.Selenium;
 
 namespace RazorPagesProject.E2ETests;
 
@@ -15,7 +16,14 @@ public class GitHubProfilePageTest : IClassFixture<EdgeFixture>
         _browser = edgeFixture;
         _helper = helper;
 
-        _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GitHubProfile");
+        try
+        {
+            _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GitHubProfile");
+        }
+        catch (WebDriverTimeoutException)
+        {
+            _browser.Driver.Navigate().GoToUrl(Constants.BaseUrl + "/GitHubProfile");
+        }
         _githubProfilePage = new GitHubProfilePage(_browser.Driver, _helper);
     }
 
