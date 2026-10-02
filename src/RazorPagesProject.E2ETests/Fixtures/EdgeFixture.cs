@@ -41,6 +41,7 @@ public class EdgeFixture : BrowserFixture
         }
 
         var driver = new EdgeDriver(EdgeDriverService.CreateDefaultService(), opts, TimeSpan.FromSeconds(60));
+        driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(20);
         driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         return driver;
     }
