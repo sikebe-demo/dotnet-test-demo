@@ -35,10 +35,8 @@ public class GitHubProfilePage(IWebDriver driver, ITestOutputHelper? helper) : P
         {
             try
             {
-                // Check if any profile elements are present
-                return driver.FindElements(By.Id("user-login")).Count != 0 ||
-                       driver.FindElements(By.Id("name")).Count != 0 ||
-                       driver.FindElements(By.Id("company")).Count != 0;
+                return driver.FindElements(By.Id("user-login"))
+                    .Any(element => !string.IsNullOrWhiteSpace(element.Text));
             }
             catch
             {
@@ -52,7 +50,7 @@ public class GitHubProfilePage(IWebDriver driver, ITestOutputHelper? helper) : P
     public void NavigateWithCulture(string culture)
     {
         var url = $"{Constants.BaseUrl}/GitHubProfile?culture={culture}";
-        Driver.Navigate().GoToUrl(url);
+        NavigateTo(url);
     }
 
     public bool HasPageTitle(string expectedTitle)

@@ -9,6 +9,18 @@ public class PageObjectBase(IWebDriver driver, ITestOutputHelper? helper = defau
     public IWebDriver Driver { get; } = driver;
     public ITestOutputHelper? Helper { get; set; } = helper;
 
+    public void NavigateTo(string url)
+    {
+        try
+        {
+            Driver.Navigate().GoToUrl(url);
+        }
+        catch (WebDriverTimeoutException)
+        {
+            Driver.Navigate().GoToUrl(url);
+        }
+    }
+
     protected WebDriverWait CreateWait(TimeSpan? timeout = null)
     {
         return new WebDriverWait(Driver, timeout ?? TimeSpan.FromSeconds(10));

@@ -16,9 +16,10 @@ public class IndexPageTest : IClassFixture<EdgeFixture>
         _browserFixture = browserFixture;
         _helper = helper;
 
-        // Navigate to English version to ensure consistent test behavior
-        _browserFixture.Driver.Navigate().GoToUrl($"{Constants.BaseUrl}?culture=en");
         _indexPage = new IndexPage(_browserFixture.Driver, _helper);
+
+        // Navigate to English version to ensure consistent test behavior
+        _indexPage.NavigateTo($"{Constants.BaseUrl}?culture=en");
     }
 
     [Fact]

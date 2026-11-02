@@ -40,7 +40,7 @@ dotnet-test-demo/
 
 ### Prerequisites
 
-- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (version 10.0.400 or later)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) (version 10.0.403 or later)
 - A code editor ([Visual Studio](https://visualstudio.microsoft.com/), [Visual Studio Code](https://code.visualstudio.com/), or [JetBrains Rider](https://www.jetbrains.com/rider/))
 
 ### Installation & Setup
